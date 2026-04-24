@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MAG · Instagram Preview · @mag.oficial</title>
+<meta name="theme-color" content="#0B0B0F"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0B0F;
+    --bg-card:#16161F;
+    --line:rgba(255,255,255,.08);
+    --text:#F4F4F7;
+    --text-dim:#A8A8B3;
+    --gold:#D4A85A;
+    --gold-soft:#E6C27A;
+    --gradient-gold:linear-gradient(135deg,#E6C27A 0%,#D4A85A 40%,#B3873F 100%);
+    --gradient-ig:linear-gradient(135deg,#FEDA77 0%,#F58529 25%,#DD2A7B 50%,#8134AF 75%,#515BD4 100%);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+
+  /* ===== BG ===== */
+  .bg-orbs{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+  .orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.2;animation:float 20s ease-in-out infinite}
+  .orb-1{width:450px;height:450px;background:#DD2A7B;top:-10%;left:-5%}
+  .orb-2{width:500px;height:500px;background:#D4A85A;bottom:-10%;right:-10%;animation-delay:-7s}
+  @keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,-40px)}}
+
+  /* ===== NAV ===== */
+  nav{
+    position:sticky;top:0;z-index:50;
+    padding:16px 5%;
+    backdrop-filter:blur(20px);
+    background:rgba(11,11,15,.85);
+    border-bottom:1px solid var(--line);
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo{
+    font-family:'Playfair Display',serif;font-size:26px;font-weight:800;letter-spacing:2px;
+    background:var(--gradient-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  }
+  .nav-back{
+    display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:100px;
+    background:rgba(255,255,255,.06);border:1px solid var(--line);font-size:13px;font-weight:500;
+    transition:all .3s;
+  }
+  .nav-back:hover{background:var(--gradient-gold);color:#0B0B0F;border-color:transparent}
+
+  /* ===== HEADER ===== */
+  .ig-header{
+    max-width:1100px;margin:0 auto;padding:50px 5% 30px;
+    display:grid;grid-template-columns:auto 1fr;gap:50px;align-items:center;
+  }
+  @media(max-width:720px){.ig-header{grid-template-columns:1fr;text-align:center;gap:24px;padding:40px 5%}}
+  .profile-pic-wrap{position:relative;display:inline-block;justify-self:start}
+  @media(max-width:720px){.profile-pic-wrap{justify-self:center}}
+  .profile-ring{
+    position:absolute;inset:-5px;
+    border-radius:50%;
+    background:var(--gradient-ig);
+    animation:rotate 8s linear infinite;
+  }
+  @keyframes rotate{to{transform:rotate(360deg)}}
+  .profile-pic{
+    position:relative;width:150px;height:150px;border-radius:50%;
+    background:linear-gradient(135deg,#1a1a25,#0B0B0F);
+    border:5px solid var(--bg);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Playfair Display',serif;font-size:54px;font-weight:800;letter-spacing:-3px;
+    overflow:hidden;
+  }
+  .profile-pic::after{
+    content:'MAG';
+    background:var(--gradient-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  }
+
+  .profile-info h1{font-family:'Playfair Display',serif;font-size:36px;font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  @media(max-width:720px){.profile-info h1{justify-content:center}}
+  .verified{width:22px;height:22px;border-radius:50%;background:var(--gradient-gold);color:#0B0B0F;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}
+  .handle{color:var(--text-dim);font-size:15px;letter-spacing:1px;margin-bottom:18px}
+  .stats{display:flex;gap:32px;margin-bottom:18px}
+  @media(max-width:720px){.stats{justify-content:center}}
+  .stat strong{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;display:block;background:var(--gradient-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .stat span{font-size:11px;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase}
+  .bio-text{font-size:14px;color:var(--text-dim);max-width:560px;line-height:1.6;margin-bottom:14px}
+  .bio-text strong{color:var(--text);font-weight:600}
+  .bio-link a{color:var(--gold);font-weight:600;font-size:14px}
+  .follow-row{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+  @media(max-width:720px){.follow-row{justify-content:center}}
+  .follow-btn{padding:10px 26px;border-radius:10px;font-weight:700;font-size:13px;letter-spacing:.5px}
+  .fb-primary{background:var(--gradient-ig);color:white}
+  .fb-ghost{background:rgba(255,255,255,.08);border:1px solid var(--line)}
+
+  /* ===== HIGHLIGHTS (STORIES) ===== */
+  .highlights{
+    max-width:1100px;margin:30px auto;padding:0 5%;
+    display:flex;gap:20px;overflow-x:auto;
+    padding-bottom:10px;
+  }
+  .highlights::-webkit-scrollbar{display:none}
+  .highlight{flex-shrink:0;text-align:center;cursor:pointer;transition:transform .3s}
+  .highlight:hover{transform:translateY(-3px)}
+  .hl-img{
+    width:80px;height:80px;border-radius:50%;
+    padding:3px;background:var(--gradient-gold);
+    margin:0 auto 8px;
+  }
+  .hl-img-inner{
+    width:100%;height:100%;border-radius:50%;
+    background:linear-gradient(135deg,#1a1a25,#0B0B0F);
+    border:3px solid var(--bg);
+    display:flex;align-items:center;justify-content:center;
+    font-size:26px;
+  }
+  .hl-title{font-size:11px;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase;font-weight:500}
+
+  /* ===== TABS ===== */
+  .tabs{
+    max-width:1100px;margin:20px auto 0;padding:0 5%;
+    display:flex;justify-content:center;gap:60px;
+    border-top:1px solid var(--line);padding-top:20px;
+  }
+  .tab{
+    display:flex;align-items:center;gap:8px;
+    padding:14px 0;font-size:12px;letter-spacing:3px;text-transform:uppercase;font-weight:600;
+    color:var(--text-dim);
+    border-top:2px solid transparent;margin-top:-21px;
+    transition:all .3s;
+  }
+  .tab.active{color:var(--text);border-top-color:var(--gold)}
+  .tab:hover{color:var(--gold)}
+
+  /* ===== GRID ===== */
+  .feed{
+    max-width:1100px;margin:30px auto 80px;padding:0 5%;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:4px;
+  }
+  @media(max-width:520px){.feed{gap:2px}}
+  .post{
+    position:relative;aspect-ratio:1/1;cursor:pointer;
+    overflow:hidden;transition:all .3s;
+  }
+  .post::after{
+    content:'';position:absolute;inset:0;
+    background:rgba(0,0,0,0);
+    transition:background .3s;
+    display:flex;align-items:center;justify-content:center;
+    gap:20px;color:white;font-weight:700;font-size:14px;
+  }
+  .post:hover::after{
+    background:rgba(0,0,0,.5);
+    content:'❤ 2.4k  💬 148';
+  }
+  .post-type{
+    position:absolute;top:10px;right:10px;z-index:3;
+    color:white;filter:drop-shadow(0 2px 4px rgba(0,0,0,.8));
+  }
+
+  /* ===== POST VARIANTS ===== */
+  /* All posts share premium dark + gold aesthetic — adapted per category */
+
+  /* Post 1: HERO — Whey Isolate */
+  .p1{
+    background:
+      radial-gradient(circle at 30% 40%,rgba(212,168,90,.4) 0%,transparent 60%),
+      linear-gradient(135deg,#1a1a25 0%,#0B0B0F 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:20px;text-align:center;
+  }
+  .p1-title{font-family:'Bebas Neue',sans-serif;font-size:min(8vw,32px);letter-spacing:3px;line-height:1;margin-bottom:6px}
+  .p1-title span{background:var(--gradient-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .p1-sub{font-size:9px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
+  .p1-bottle{
+    width:40%;height:50%;
+    background:linear-gradient(180deg,#2a2a35 0%,#0f0f18 100%);
+    border-radius:6px 6px 30px 30px;
+    box-shadow:0 10px 30px rgba(0,0,0,.6);
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid rgba(212,168,90,.3);
+  }
+  .p1-bottle-label{
+    background:var(--gradient-gold);
+    padding:6px 8px;border-radius:4px;color:#0B0B0F;
+    font-family:'Playfair Display',serif;font-weight:800;font-size:min(3vw,11px);
+  }
+
+  /* Post 2: Quote */
+  .p2{
+    background:
+      radial-gradient(circle at 70% 30%,rgba(255,77,58,.2) 0%,transparent 60%),
+      linear-gradient(135deg,#2a140a 0%,#0B0B0F 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;
+  }
+  .p2 .qmark{font-family:'Playfair Display',serif;font-size:min(12vw,50px);color:var(--gold);line-height:.8;margin-bottom:4px;opacity:.4}
+  .p2 .qtext{font-family:'Playfair Display',serif;font-size:min(3.5vw,14px);font-style:italic;font-weight:600;line-height:1.3;margin-bottom:10px}
+  .p2 .qauthor{font-size:min(2vw,9px);letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+
+  /* Post 3: Creatina */
+  .p3{
+    background:
+      radial-gradient(circle at 50% 50%,rgba(59,130,246,.25) 0%,transparent 60%),
+      linear-gradient(180deg,#0a1122 0%,#0B0B0F 100%);
+    display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;
+    padding:18px;position:relative;
+  }
+  .p3-tag{position:absolute;top:14px;left:14px;padding:4px 8px;border-radius:100px;background:rgba(212,168,90,.2);border:1px solid var(--gold);font-size:min(1.8vw,8px);letter-spacing:1.5px;font-weight:700;text-transform:uppercase;color:var(--gold)}
+  .p3-num{font-family:'Bebas Neue',sans-serif;font-size:min(10vw,50px);line-height:.9;background:var(--gradient-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .p3-desc{font-size:min(2.5vw,11px);font-weight:600;margin-top:4px}
+  .p3-desc span{color:var(--gold);font-weight:500}
+
+  /* Post 4: Category bars */
+  .p4{
+    background:linear-gradient(135deg,#0B0B0F 0%,#1a1a25 100%);
+    padding:14px;display:flex;flex-direction:column;gap:4px;justify-content:center;
+  }
+  .p4-head{font-family:'Bebas Neue',sans-serif;font-size:min(3.5vw,14px);letter-spacing:2px;margin-bottom:6px;color:var(--gold)}
+  .p4-row{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.04);padding:6px;border-radius:4px}
+  .p4-icon{width:16px;height:16px;border-radius:4px;background:var(--gradient-gold);flex-shrink:0}
+  .p4-label{font-size:min(2vw,8.5px);font-weight:600;flex:1}
+  .p4-bar{height:3px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;width:40%}
+  .p4-fill{height:100%;background:var(--gradient-gold);border-radius:2px}
+
+  /* Post 5: Tips numbered */
+  .p5{
+    background:
+      radial-gradient(circle at 30% 70%,rgba(139,92,246,.25) 0%,transparent 60%),
+      linear-gradient(180deg,#1a0f22 0%,#0B0B0F 100%);
+    padding:16px;display:flex;flex-direction:column;justify-content:center;
+  }
+  .p5-label{font-size:min(1.8vw,8px);letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:6px;font-weight:700}
+  .p5-title{font-family:'Playfair Display',serif;font-size:min(4.5vw,18px);font-weight:800;line-height:1.1;margin-bottom:8px}
+  .p5-tips{display:flex;flex-direction:column;gap:3px}
+  .p5-tip{display:flex;align-items:center;gap:5px;font-size:min(2vw,9px);color:var(--text-dim)}
+  .p5-tip-num{width:14px;height:14px;border-radius:50%;background:rgba(212,168,90,.2);border:1px solid var(--gold);color:var(--gold);font-size:min(1.8vw,8px);font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+  /* Post 6: Colágeno belleza */
+  .p6{
+    background:
+      radial-gradient(circle at 50% 40%,rgba(255,77,58,.2) 0%,transparent 60%),
+      linear-gradient(135deg,#2d1a1a 0%,#0B0B0F 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;text-align:center;gap:8px;
+  }
+  .p6-dot{width:30%;height:30%;border-radius:50%;background:var(--gradient-gold);box-shadow:0 10px 30px rgba(212,168,90,.4);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;color:#0B0B0F;font-size:min(6vw,24px);font-weight:800}
+  .p6-h{font-family:'Playfair Display',serif;font-size:min(3.5vw,14px);font-weight:700;line-height:1.1}
+  .p6-sub{font-size:min(1.8vw,8px);letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+
+  /* Post 7: Antes-Después */
+  .p7{background:linear-gradient(90deg,#2a140a 0%,#2a140a 50%,#0a2a1a 50%,#0a2a1a 100%);display:flex;align-items:center;justify-content:center;position:relative}
+  .p7::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(212,168,90,.15) 0%,transparent 50%)}
+  .p7-side{flex:1;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;position:relative;z-index:1;padding:10px}
+  .p7-label{font-size:min(1.8vw,8px);letter-spacing:2px;text-transform:uppercase;color:var(--text-dim)}
+  .p7-num{font-family:'Bebas Neue',sans-serif;font-size:min(8vw,36px);color:var(--gold)}
+  .p7-vs{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--gradient-gold);color:#0B0B0F;width:10%;aspect-ratio:1;border-radius:50%;font-weight:900;font-size:min(2.2vw,10px);display:flex;align-items:center;justify-content:center;letter-spacing:1px;z-index:2}
+
+  /* Post 8: Product launch */
+  .p8{
+    background:
+      radial-gradient(circle at 20% 20%,rgba(45,212,191,.2) 0%,transparent 60%),
+      linear-gradient(135deg,#0a1f1c 0%,#0B0B0F 100%);
+    padding:16px;display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .p8-head{display:flex;justify-content:space-between;align-items:flex-start}
+  .p8-new{padding:3px 8px;border-radius:100px;background:var(--gradient-gold);color:#0B0B0F;font-size:min(1.8vw,8px);letter-spacing:2px;font-weight:800}
+  .p8-date{font-size:min(1.8vw,8px);color:var(--text-dim);letter-spacing:1px}
+  .p8-title{font-family:'Playfair Display',serif;font-size:min(5vw,20px);font-weight:800;line-height:1;margin-top:auto}
+  .p8-title span{background:var(--gradient-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:italic;display:block}
+  .p8-cta{margin-top:8px;font-size:min(2vw,9px);color:var(--gold);font-weight:600;letter-spacing:1.5px;text-transform:uppercase}
+
+  /* Post 9: Testimonial */
+  .p9{
+    background:linear-gradient(135deg,#1a1a25 0%,#0B0B0F 100%);
+    padding:16px;display:flex;flex-direction:column;gap:8px;justify-content:center;
+  }
+  .p9-stars{color:var(--gold);font-size:min(2.5vw,12px);letter-spacing:2px}
+  .p9-text{font-family:'Playfair Display',serif;font-size:min(3vw,13px);font-style:italic;font-weight:500;line-height:1.3}
+  .p9-author{display:flex;align-items:center;gap:6px;margin-top:6px}
+  .p9-av{width:22px;height:22px;border-radius:50%;background:var(--gradient-gold);color:#0B0B0F;display:flex;align-items:center;justify-content:center;font-size:min(1.8vw,9px);font-weight:800}
+  .p9-info strong{display:block;font-size:min(2vw,9px)}
+  .p9-info small{font-size:min(1.6vw,7px);color:var(--text-dim);letter-spacing:1px;text-transform:uppercase}
+
+  /* Post 10: Big %off */
+  .p10{
+    background:linear-gradient(135deg,#ff4d3a 0%,#D4A85A 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;color:#0B0B0F;padding:12px;text-align:center;
+  }
+  .p10-num{font-family:'Bebas Neue',sans-serif;font-size:min(18vw,90px);line-height:.9;font-weight:900}
+  .p10-label{font-family:'Playfair Display',serif;font-weight:800;font-size:min(4vw,16px);letter-spacing:2px;text-transform:uppercase;margin-top:-5px}
+  .p10-date{font-size:min(1.8vw,8px);letter-spacing:3px;margin-top:8px;font-weight:600}
+
+  /* Post 11: Carousel arrow */
+  .p11{
+    background:
+      radial-gradient(circle at 80% 80%,rgba(139,92,246,.3) 0%,transparent 60%),
+      linear-gradient(180deg,#0a122a 0%,#0B0B0F 100%);
+    display:flex;flex-direction:column;justify-content:center;padding:16px;
+  }
+  .p11-tag{font-size:min(1.8vw,8px);letter-spacing:3px;color:var(--gold);text-transform:uppercase;font-weight:700;margin-bottom:6px}
+  .p11-title{font-family:'Playfair Display',serif;font-size:min(5vw,20px);font-weight:800;line-height:1;margin-bottom:8px}
+  .p11-arrow{align-self:flex-end;display:flex;align-items:center;gap:4px;color:var(--gold);font-size:min(2vw,9px);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:auto}
+  .p11-dots{display:flex;gap:3px;margin-top:6px}
+  .p11-dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.2)}
+  .p11-dot.on{background:var(--gold)}
+
+  /* Post 12: Athlete */
+  .p12{
+    background:
+      radial-gradient(circle at 50% 30%,rgba(212,168,90,.4) 0%,transparent 50%),
+      linear-gradient(180deg,#1a1a25 0%,#0B0B0F 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:16px;
+  }
+  .p12-silh{
+    width:60%;height:50%;
+    background:linear-gradient(180deg,rgba(212,168,90,.4) 0%,transparent 100%);
+    mask:radial-gradient(ellipse 60% 40% at 50% 30%,#000 40%,transparent 70%);
+    -webkit-mask:radial-gradient(ellipse 60% 40% at 50% 30%,#000 40%,transparent 70%);
+  }
+  .p12-ico{font-size:min(10vw,40px);margin-top:auto;margin-bottom:8px}
+  .p12-title{font-family:'Bebas Neue',sans-serif;font-size:min(4vw,16px);letter-spacing:3px;color:var(--gold)}
+  .p12-sub{font-size:min(1.8vw,8px);letter-spacing:2px;color:var(--text-dim);text-transform:uppercase}
+
+  /* ===== STATS BELOW POST ===== */
+  .post-meta{
+    position:absolute;bottom:6px;left:6px;z-index:3;display:flex;gap:10px;
+    color:white;font-size:10px;font-weight:700;
+    filter:drop-shadow(0 2px 4px rgba(0,0,0,.6));
+  }
+  .post-meta span{display:flex;align-items:center;gap:3px}
+
+  /* ===== STRATEGY BOX ===== */
+  .strategy{
+    max-width:1100px;margin:40px auto;padding:40px 5%;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    background:rgba(255,255,255,.015);
+  }
+  .strategy h2{font-family:'Playfair Display',serif;font-size:32px;font-weight:800;margin-bottom:12px;text-align:center}
+  .strategy h2 span{background:var(--gradient-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:italic}
+  .strategy .lead{text-align:center;color:var(--text-dim);max-width:640px;margin:0 auto 40px;font-size:15px}
+  .strat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  @media(max-width:900px){.strat-grid{grid-template-columns:repeat(2,1fr)}}
+  .strat-item{padding:24px;background:var(--bg-card);border:1px solid var(--line);border-radius:16px}
+  .strat-num{font-family:'Playfair Display',serif;font-size:28px;color:var(--gold);font-weight:800;margin-bottom:8px}
+  .strat-item h4{font-family:'Playfair Display',serif;font-size:17px;margin-bottom:6px}
+  .strat-item p{font-size:13px;color:var(--text-dim);line-height:1.5}
+
+  /* ===== POST QUICK-SHOP POPUP ===== */
+  .post-popup-bg{
+    position:fixed;inset:0;z-index:200;
+    background:rgba(0,0,0,.75);backdrop-filter:blur(8px);
+    display:flex;align-items:flex-end;justify-content:center;
+    opacity:0;pointer-events:none;transition:opacity .3s;
+  }
+  .post-popup-bg.open{opacity:1;pointer-events:all}
+  .post-popup{
+    background:var(--bg-card);border:1px solid var(--line);
+    border-radius:24px 24px 0 0;width:100%;max-width:520px;
+    padding:28px 24px 36px;
+    transform:translateY(100%);transition:transform .4s cubic-bezier(.25,.8,.25,1);
+  }
+  .post-popup-bg.open .post-popup{transform:translateY(0)}
+  .pp-drag{width:40px;height:4px;border-radius:4px;background:rgba(255,255,255,.2);margin:0 auto 20px}
+  .pp-tag{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:6px}
+  .pp-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:800;margin-bottom:8px}
+  .pp-desc{font-size:13px;color:var(--text-dim);margin-bottom:18px;line-height:1.5}
+  .pp-btns{display:flex;gap:10px}
+  .pp-btn{flex:1;padding:13px;border-radius:14px;font-weight:700;font-size:13px;text-align:center;border:none;cursor:pointer;font-family:'Inter',sans-serif;transition:all .3s}
+  .pp-btn-gold{background:var(--gradient-gold);color:#0B0B0F}
+  .pp-btn-ghost{background:rgba(255,255,255,.07);color:var(--text);border:1px solid var(--line)}
+  .pp-btn-ghost:hover{background:rgba(255,255,255,.12)}
+  .pp-close{position:absolute;top:16px;right:20px;background:rgba(255,255,255,.06);border:none;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-dim);font-size:16px;transition:all .3s}
+  .pp-close:hover{background:rgba(255,255,255,.15);color:var(--text)}
+  .post-popup{position:relative}
+
+  /* ===== CROSS NAV ===== */
+  .cross-nav{
+    max-width:1100px;margin:0 auto 80px;padding:0 5%;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+  }
+  @media(max-width:900px){.cross-nav{grid-template-columns:1fr 1fr}}
+  @media(max-width:600px){.cross-nav{grid-template-columns:1fr}}
+  .cross-card{
+    padding:30px;background:var(--bg-card);border:1px solid var(--line);border-radius:20px;
+    transition:all .4s;position:relative;overflow:hidden;
+  }
+  .cross-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient-gold);transform:scaleX(0);transform-origin:left;transition:transform .5s}
+  .cross-card:hover{transform:translateY(-4px);border-color:var(--gold)}
+  .cross-card:hover::before{transform:scaleX(1)}
+  .cross-card .cc-tag{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:8px}
+  .cross-card h3{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:8px}
+  .cross-card p{color:var(--text-dim);font-size:14px;margin-bottom:16px}
+  .cross-card .cta{display:inline-flex;align-items:center;gap:6px;color:var(--gold);font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase}
+
+</style>
+</head>
+<body>
+
+<div class="bg-orbs">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+</div>
+
+<nav>
+  <a href="index.html" class="logo">MAG</a>
+  <a href="index.html" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Volver a la web
+  </a>
+</nav>
+
+<!-- HEADER -->
+<header class="ig-header">
+  <div class="profile-pic-wrap">
+    <div class="profile-ring"></div>
+    <div class="profile-pic"></div>
+  </div>
+  <div class="profile-info">
+    <h1>mag.oficial <span class="verified">✓</span></h1>
+    <div class="handle">@mag.oficial · Marca oficial</div>
+    <div class="stats">
+      <div class="stat"><strong>248</strong><span>Posts</span></div>
+      <div class="stat"><strong>48.3K</strong><span>Seguidores</span></div>
+      <div class="stat"><strong>892</strong><span>Siguiendo</span></div>
+    </div>
+    <p class="bio-text"><strong>MAG · Performance & Wellness 🏆</strong><br>Suplementación premium para atletas exigentes.<br>Representante oficial · Buenos Aires & Mar del Plata.<br>Envíos 48 hs · Asesoramiento gratuito 💬</p>
+    <div class="bio-link"><a href="linkbio.html">🔗 linkbio.mag.com.ar</a></div>
+    <div class="follow-row">
+      <button class="follow-btn fb-primary">Seguir</button>
+      <button class="follow-btn fb-ghost">Mensaje</button>
+      <button class="follow-btn fb-ghost">Contacto</button>
+    </div>
+  </div>
+</header>
+
+<!-- HIGHLIGHTS -->
+<div class="highlights">
+  <div class="highlight">
+    <div class="hl-img"><div class="hl-img-inner">🏆</div></div>
+    <div class="hl-title">New</div>
+  </div>
+  <div class="highlight">
+    <div class="hl-img"><div class="hl-img-inner">💪</div></div>
+    <div class="hl-title">Fuerza</div>
+  </div>
+  <div class="highlight">
+    <div class="hl-img"><div class="hl-img-inner">🏃</div></div>
+    <div class="hl-title">Running</div>
+  </div>
+  <div class="highlight">
+    <div class="hl-img"><div class="hl-img-inner">🧘</div></div>
+    <div class="hl-title">Wellness</div>
+  </div>
+  <div class="highlight">
+    <div class="hl-img"><div class="hl-img-inner">✨</div></div>
+    <div class="hl-title">Belleza</div>
+  </div>
+  <div class="highlight">
+    <div class="hl-img"><div class="hl-img-inner">🔥</div></div>
+    <div class="hl-title">Promos</div>
+  </div>
+  <div class="highlight">
+    <div class="hl-img"><div class="hl-img-inner">💬</div></div>
+    <div class="hl-title">Reseñas</div>
+  </div>
+  <div class="highlight">
+    <div class="hl-img"><div class="hl-img-inner">📖</div></div>
+    <div class="hl-title">Tips</div>
+  </div>
+  <div class="highlight">
+    <div class="hl-img"><div class="hl-img-inner">🎥</div></div>
+    <div class="hl-title">Reels</div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab active">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+    Posts
+  </div>
+  <div class="tab">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+    Reels
+  </div>
+  <div class="tab">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/></svg>
+    Guías
+  </div>
+  <div class="tab">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    Etiquetas
+  </div>
+</div>
+
+<!-- FEED GRID -->
+<section class="feed">
+
+  <!-- POST 1 HERO -->
+  <div class="post p1">
+    <div class="p1-title"><span>WHEY</span> ISOLATE</div>
+    <div class="p1-sub">Signature · Performance</div>
+    <div class="p1-bottle">
+      <div class="p1-bottle-label">MAG</div>
+    </div>
+    <div class="post-type">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+    </div>
+    <div class="post-meta"><span>❤ 4.2K</span><span>💬 286</span></div>
+  </div>
+
+  <!-- POST 2 QUOTE -->
+  <div class="post p2">
+    <div class="qmark">"</div>
+    <div class="qtext">El cuerpo logra lo que la mente cree.</div>
+    <div class="qauthor">— MAG MINDSET</div>
+    <div class="post-meta"><span>❤ 3.1K</span><span>💬 94</span></div>
+  </div>
+
+  <!-- POST 3 CREATINA -->
+  <div class="post p3">
+    <div class="p3-tag">Creatina</div>
+    <div>
+      <div class="p3-num">+35%</div>
+      <div class="p3-desc">Fuerza en <span>solo 3 semanas</span></div>
+    </div>
+    <div class="post-type">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+    </div>
+    <div class="post-meta"><span>❤ 6.8K</span><span>💬 412</span></div>
+  </div>
+
+  <!-- POST 4 CATEGORY BARS -->
+  <div class="post p4">
+    <div class="p4-head">TU STACK IDEAL</div>
+    <div class="p4-row"><div class="p4-icon"></div><div class="p4-label">Proteína</div><div class="p4-bar"><div class="p4-fill" style="width:95%"></div></div></div>
+    <div class="p4-row"><div class="p4-icon"></div><div class="p4-label">Creatina</div><div class="p4-bar"><div class="p4-fill" style="width:88%"></div></div></div>
+    <div class="p4-row"><div class="p4-icon"></div><div class="p4-label">BCAA</div><div class="p4-bar"><div class="p4-fill" style="width:72%"></div></div></div>
+    <div class="p4-row"><div class="p4-icon"></div><div class="p4-label">Multi-Vit</div><div class="p4-bar"><div class="p4-fill" style="width:80%"></div></div></div>
+    <div class="post-meta"><span>❤ 2.9K</span><span>💬 156</span></div>
+  </div>
+
+  <!-- POST 5 TIPS -->
+  <div class="post p5">
+    <div class="p5-label">GUÍA RÁPIDA</div>
+    <div class="p5-title">5 errores al tomar proteína</div>
+    <div class="p5-tips">
+      <div class="p5-tip"><div class="p5-tip-num">1</div>Mezclarla mal</div>
+      <div class="p5-tip"><div class="p5-tip-num">2</div>Tomar más de lo que necesitás</div>
+      <div class="p5-tip"><div class="p5-tip-num">3</div>Ignorar la hidratación</div>
+      <div class="p5-tip"><div class="p5-tip-num">4</div>No combinar con carbs</div>
+      <div class="p5-tip"><div class="p5-tip-num">5</div>Marca desconocida</div>
+    </div>
+    <div class="post-type">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+    </div>
+    <div class="post-meta"><span>❤ 8.4K</span><span>💬 521</span></div>
+  </div>
+
+  <!-- POST 6 COLÁGENO -->
+  <div class="post p6">
+    <div class="p6-dot">C+</div>
+    <div class="p6-h">Colágeno + Biotina</div>
+    <div class="p6-sub">Belleza que se siente</div>
+    <div class="post-meta"><span>❤ 5.7K</span><span>💬 318</span></div>
+  </div>
+
+  <!-- POST 7 ANTES-DESPUÉS -->
+  <div class="post p7">
+    <div class="p7-side">
+      <div class="p7-label">Antes</div>
+      <div class="p7-num">68%</div>
+      <div class="p7-label" style="font-size:min(1.4vw,7px)">Energía</div>
+    </div>
+    <div class="p7-vs">VS</div>
+    <div class="p7-side">
+      <div class="p7-label">Después</div>
+      <div class="p7-num">94%</div>
+      <div class="p7-label" style="font-size:min(1.4vw,7px)">Energía</div>
+    </div>
+    <div class="post-meta"><span>❤ 3.8K</span><span>💬 204</span></div>
+  </div>
+
+  <!-- POST 8 PRODUCT LAUNCH -->
+  <div class="post p8">
+    <div class="p8-head">
+      <span class="p8-new">Drop</span>
+      <span class="p8-date">15·04</span>
+    </div>
+    <div class="p8-title">ENDURANCE<span>elite</span></div>
+    <div class="p8-cta">Swipe para ver →</div>
+    <div class="post-type">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+    </div>
+    <div class="post-meta"><span>❤ 9.1K</span><span>💬 687</span></div>
+  </div>
+
+  <!-- POST 9 TESTIMONIAL -->
+  <div class="post p9">
+    <div class="p9-stars">★★★★★</div>
+    <div class="p9-text">"MAG me devolvió la confianza en suplementarme de verdad."</div>
+    <div class="p9-author">
+      <div class="p9-av">LF</div>
+      <div class="p9-info">
+        <strong>Lucas Ferreyra</strong>
+        <small>Crossfit · MDP</small>
+      </div>
+    </div>
+    <div class="post-meta"><span>❤ 2.2K</span><span>💬 98</span></div>
+  </div>
+
+  <!-- POST 10 BIG OFF -->
+  <div class="post p10">
+    <div class="p10-num">-15%</div>
+    <div class="p10-label">Primer Pedido</div>
+    <div class="p10-date">BIENVENIDO15 · SOLO HOY</div>
+    <div class="post-meta"><span>❤ 12.4K</span><span>💬 1.2K</span></div>
+  </div>
+
+  <!-- POST 11 CAROUSEL -->
+  <div class="post p11">
+    <div class="p11-tag">★ COLECCIÓN</div>
+    <div class="p11-title">Los 4 suplementos de todo atleta</div>
+    <div class="p11-dots">
+      <div class="p11-dot on"></div>
+      <div class="p11-dot"></div>
+      <div class="p11-dot"></div>
+      <div class="p11-dot"></div>
+    </div>
+    <div class="p11-arrow">Deslizar
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+    <div class="post-type">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+    </div>
+    <div class="post-meta"><span>❤ 5.3K</span><span>💬 274</span></div>
+  </div>
+
+  <!-- POST 12 ATHLETE -->
+  <div class="post p12">
+    <div class="p12-silh"></div>
+    <div class="p12-ico">🏆</div>
+    <div class="p12-title">TEAM MAG</div>
+    <div class="p12-sub">Atletas oficiales</div>
+    <div class="post-meta"><span>❤ 7.9K</span><span>💬 398</span></div>
+  </div>
+
+</section>
+
+<!-- STRATEGY -->
+<section class="strategy">
+  <h2>La <span>fórmula</span> del feed MAG</h2>
+  <p class="lead">12 posts cuidadosamente diseñados para contar una historia: educación, deseo, comunidad y conversión. Cada grilla es un viaje visual.</p>
+
+  <div class="strat-grid">
+    <div class="strat-item">
+      <div class="strat-num">01</div>
+      <h4>Hero Product</h4>
+      <p>Lanzamientos y drops fotografiados con identidad dark-gold. Genera deseo y demuestra categoría.</p>
+    </div>
+    <div class="strat-item">
+      <div class="strat-num">02</div>
+      <h4>Educación</h4>
+      <p>Tips, errores comunes, guías rápidas. Posicionan a MAG como autoridad técnica, no solo marca.</p>
+    </div>
+    <div class="strat-item">
+      <div class="strat-num">03</div>
+      <h4>Social Proof</h4>
+      <p>Testimonios reales, antes/después, atletas. La comunidad valida lo que la marca promete.</p>
+    </div>
+    <div class="strat-item">
+      <div class="strat-num">04</div>
+      <h4>Promos & Drops</h4>
+      <p>Códigos exclusivos, lanzamientos, urgencia. Directos al link en bio → carrito → venta.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CROSS NAV -->
+<section class="cross-nav">
+  <a href="index.html" class="cross-card">
+    <div class="cc-tag">Plataforma 01</div>
+    <h3>Tienda Oficial</h3>
+    <p>Catálogo completo, quiz de objetivos, stacks armados y checkout directo por WhatsApp.</p>
+    <div class="cta">Ver tienda
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </div>
+  </a>
+  <a href="linkbio.html" class="cross-card">
+    <div class="cc-tag">Plataforma 02</div>
+    <h3>Link Bio</h3>
+    <p>Tu punto de acceso mobile: promos activas, test de suplementos, stacks y contacto directo.</p>
+    <div class="cta">Ver link bio
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </div>
+  </a>
+  <a href="ecosistema.html" class="cross-card">
+    <div class="cc-tag">Plataforma 03</div>
+    <h3>Ecosistema MAG</h3>
+    <p>Conocé cómo se conectan todas las plataformas y el flujo de conversión del ecosistema digital.</p>
+    <div class="cta">Ver ecosistema
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </div>
+  </a>
+</section>
+
+<!-- POST QUICK-SHOP POPUP -->
+<div class="post-popup-bg" id="ppBg" onclick="closePP(event)">
+  <div class="post-popup" id="ppBox">
+    <div class="pp-drag"></div>
+    <button class="pp-close" onclick="closePP()">✕</button>
+    <div class="pp-tag" id="ppTag">Producto destacado</div>
+    <div class="pp-title" id="ppTitle">Whey Isolate MAG</div>
+    <div class="pp-desc" id="ppDesc">Toccá el botón para verlo en la tienda o consultarnos directo por WhatsApp.</div>
+    <div class="pp-btns">
+      <a class="pp-btn pp-btn-gold" id="ppShop" href="index.html">Ver en tienda →</a>
+      <a class="pp-btn pp-btn-ghost" id="ppWa" href="https://wa.me/5492234000000" target="_blank" rel="noopener">💬 WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== POST QUICK-SHOP DATA ===== */
+const POST_DATA = [
+  {tag:'Proteínas',title:'W-Mass · Whey Protein',desc:'1kg de proteína + carbs complejos. Ideal para hipertrofia y volumen muscular real.',shop:'index.html',wa:'Hola+MAG!+Quiero+info+sobre+W-Mass'},
+  {tag:'Mindset MAG',title:'El cuerpo logra lo que la mente cree',desc:'Seguinos para más frases de motivación y contenido de entrenamiento premium.',shop:'instagram.html',wa:'Hola+MAG!+Quiero+seguir+el+equipo'},
+  {tag:'Fuerza & Rendimiento',title:'High Creatine Power',desc:'Pureza farmacéutica. +35% de fuerza en 3 semanas. 250g · 83 porciones.',shop:'index.html?cat=crossfit#products',wa:'Hola+MAG!+Quiero+info+sobre+Creatina'},
+  {tag:'Test de suplementos',title:'¿Cuál es tu stack ideal?',desc:'Hacé nuestro test de 2 preguntas y descubrí los 3 productos que más te van a ayudar.',shop:'index.html?quiz=1#quiz',wa:'Hola+MAG!+Quiero+asesoramiento+personalizado'},
+  {tag:'Educación',title:'5 errores al tomar proteína',desc:'Evitá los errores más comunes y sacá el máximo provecho de tu suplementación.',shop:'index.html#products',wa:'Hola+MAG!+Tengo+dudas+sobre+proteinas'},
+  {tag:'Belleza & Wellness',title:'Collagen Fit · Colágeno Hidrolizado',desc:'Vitamina C, ácido hialurónico y resveratrol. Piel, pelo y articulaciones.',shop:'index.html?cat=belleza#products',wa:'Hola+MAG!+Quiero+info+sobre+Collagen+Fit'},
+  {tag:'Rendimiento',title:'Resultados comprobados',desc:'Nuestros clientes aumentaron hasta un 26% su energía en 30 días con el stack MAG.',shop:'index.html#stacks',wa:'Hola+MAG!+Quiero+ver+stacks+recomendados'},
+  {tag:'Endurance · Running',title:'EAA MAG · Aminoácidos Esenciales',desc:'9 aminoácidos intra-entreno. Anti-fatiga y recuperación muscular real.',shop:'index.html?cat=endurance#products',wa:'Hola+MAG!+Quiero+info+sobre+EAA'},
+  {tag:'Comunidad MAG',title:'Clientes reales, resultados reales',desc:'Más de 12.000 personas confían en MAG. Sumate al equipo de rendimiento.',shop:'index.html',wa:'Hola+MAG!+Quiero+info+sobre+sus+productos'},
+  {tag:'Promoción',title:'15% OFF Primer Pedido',desc:'Usá el código BIENVENIDO15 al armar tu carrito. Solo hoy, para nuevos clientes.',shop:'linkbio.html',wa:'Hola+MAG!+Quiero+usar+el+codigo+BIENVENIDO15'},
+  {tag:'Stacks · Combos',title:'Los 4 suplementos de todo atleta',desc:'Proteína, creatina, EAA y pre-workout. Mirá los combos ya armados.',shop:'index.html#stacks',wa:'Hola+MAG!+Quiero+ver+los+stacks'},
+  {tag:'Team MAG',title:'Atletas Oficiales MAG',desc:'El equipo que representa el espíritu MAG: rendimiento, disciplina y resultados.',shop:'index.html',wa:'Hola+MAG!+Quiero+ser+parte+del+team'}
+];
+
+function openPP(idx){
+  const d=POST_DATA[idx]||POST_DATA[0];
+  document.getElementById('ppTag').textContent=d.tag;
+  document.getElementById('ppTitle').textContent=d.title;
+  document.getElementById('ppDesc').textContent=d.desc;
+  document.getElementById('ppShop').href=d.shop;
+  document.getElementById('ppWa').href='https://wa.me/5492234000000?text='+d.wa;
+  document.getElementById('ppBg').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closePP(e){
+  if(e&&e.target!==document.getElementById('ppBg')&&e.type==='click')return;
+  if(e&&e.target===document.getElementById('ppBox'))return;
+  document.getElementById('ppBg').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+/* Attach click to each post */
+document.querySelectorAll('.post').forEach((el,i)=>{
+  el.addEventListener('click',()=>openPP(i));
+  el.style.cursor='pointer';
+});
+</script>
+
+</body>
+</html>

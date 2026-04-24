@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MAG · Ecosistema Digital · Web + Link Bio + Instagram</title>
+<meta name="description" content="El ecosistema digital MAG — Web premium, Link Bio y feed de Instagram. Tres universos conectados para una marca de otra galaxia."/>
+<meta name="theme-color" content="#0B0B0F"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0B0F;
+    --bg-card:#16161F;
+    --line:rgba(255,255,255,.08);
+    --text:#F4F4F7;
+    --text-dim:#A8A8B3;
+    --gold:#D4A85A;
+    --gradient-gold:linear-gradient(135deg,#E6C27A 0%,#D4A85A 40%,#B3873F 100%);
+    --shadow-gold:0 20px 60px -15px rgba(212,168,90,.35);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+
+  .bg-orbs{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+  .orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:.3;animation:float 18s ease-in-out infinite}
+  .orb-1{width:500px;height:500px;background:var(--gold);top:-10%;left:-10%}
+  .orb-2{width:600px;height:600px;background:#8B5CF6;bottom:-20%;right:-15%;animation-delay:-7s;opacity:.2}
+  .orb-3{width:400px;height:400px;background:#FF4D3A;top:40%;left:50%;animation-delay:-14s;opacity:.15}
+  @keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(60px,-50px)}}
+
+  /* HEADER */
+  header{padding:60px 5% 40px;text-align:center;max-width:1200px;margin:0 auto}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:100px;
+    background:rgba(212,168,90,.1);border:1px solid rgba(212,168,90,.3);
+    font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;
+    margin-bottom:26px;
+    animation:fadeUp .8s ease;
+  }
+  .eyebrow::before{content:'';width:6px;height:6px;background:var(--gold);border-radius:50%;box-shadow:0 0 12px var(--gold);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+  header h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(44px,7vw,84px);font-weight:800;line-height:1.05;letter-spacing:-2px;
+    margin-bottom:20px;
+    animation:fadeUp 1s ease .1s backwards;
+  }
+  header h1 span{
+    background:var(--gradient-gold);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    font-style:italic;
+  }
+  header p{
+    font-size:18px;color:var(--text-dim);max-width:640px;margin:0 auto;
+    animation:fadeUp 1s ease .2s backwards;
+  }
+
+  /* PLATFORMS */
+  .platforms{
+    max-width:1400px;margin:60px auto 40px;padding:0 5%;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:30px;
+  }
+  @media(max-width:980px){.platforms{grid-template-columns:1fr;gap:24px}}
+
+  .platform{
+    position:relative;
+    background:var(--bg-card);
+    border:1px solid var(--line);
+    border-radius:28px;
+    overflow:hidden;
+    transition:all .5s;
+    animation:fadeUp 1s ease backwards;
+  }
+  .platform:nth-child(1){animation-delay:.3s}
+  .platform:nth-child(2){animation-delay:.45s}
+  .platform:nth-child(3){animation-delay:.6s}
+  .platform:hover{transform:translateY(-10px);border-color:var(--gold);box-shadow:var(--shadow-gold)}
+
+  .p-num{
+    position:absolute;top:24px;right:24px;z-index:3;
+    font-family:'Playfair Display',serif;font-size:68px;font-weight:900;line-height:1;
+    background:var(--gradient-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    opacity:.3;
+  }
+
+  .p-preview{
+    height:340px;position:relative;overflow:hidden;
+    border-bottom:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+  }
+
+  /* Preview 1: Web */
+  .preview-web{
+    background:
+      radial-gradient(circle at 30% 40%,rgba(212,168,90,.3) 0%,transparent 60%),
+      linear-gradient(135deg,#1a1a25 0%,#0B0B0F 100%);
+    position:relative;
+  }
+  .mini-browser{
+    width:88%;height:86%;background:#0B0B0F;border-radius:12px;border:1px solid var(--line);
+    overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,.5);
+  }
+  .browser-bar{height:20px;background:#16161F;display:flex;align-items:center;padding:0 10px;gap:5px;border-bottom:1px solid var(--line)}
+  .browser-bar i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.15);display:block}
+  .browser-content{padding:14px;display:flex;flex-direction:column;gap:8px}
+  .bc-nav{display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  .bc-logo{font-family:'Playfair Display',serif;font-weight:800;font-size:12px;background:var(--gradient-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px}
+  .bc-menu{display:flex;gap:8px}
+  .bc-menu i{width:16px;height:3px;background:rgba(255,255,255,.15);display:block;border-radius:2px}
+  .bc-hero{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;line-height:1.1;margin:8px 0 4px}
+  .bc-hero span{background:var(--gradient-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:italic}
+  .bc-btn{width:60px;height:12px;background:var(--gradient-gold);border-radius:100px;margin-top:4px}
+  .bc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:6px}
+  .bc-prod{aspect-ratio:3/4;background:linear-gradient(180deg,#2a2a35,#0f0f18);border-radius:4px;border:1px solid rgba(212,168,90,.2)}
+
+  /* Preview 2: Link Bio (phone mockup) */
+  .preview-bio{
+    background:
+      radial-gradient(circle at 50% 30%,rgba(221,42,123,.2) 0%,transparent 60%),
+      linear-gradient(135deg,#1a0a1a 0%,#0B0B0F 100%);
+  }
+  .mini-phone{
+    width:140px;height:280px;
+    background:#0B0B0F;border-radius:22px;
+    border:4px solid #16161F;
+    overflow:hidden;position:relative;
+    box-shadow:0 20px 50px rgba(0,0,0,.6);
+  }
+  .mini-phone::before{content:'';position:absolute;top:5px;left:50%;transform:translateX(-50%);width:30px;height:4px;background:#16161F;border-radius:4px;z-index:2}
+  .phone-av{width:30px;height:30px;border-radius:50%;background:var(--gradient-gold);margin:18px auto 4px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:800;color:#0B0B0F;font-size:11px}
+  .phone-name{font-family:'Playfair Display',serif;font-weight:800;text-align:center;font-size:10px}
+  .phone-handle{text-align:center;font-size:7px;color:var(--gold);letter-spacing:1.5px;margin-bottom:8px}
+  .phone-links{padding:0 12px;display:flex;flex-direction:column;gap:5px}
+  .phone-link{height:20px;background:var(--bg-card);border:1px solid var(--line);border-radius:6px;display:flex;align-items:center;padding:0 6px;gap:5px}
+  .phone-link i{width:12px;height:12px;border-radius:4px;background:var(--gradient-gold);display:block;flex-shrink:0}
+  .phone-link i.wa{background:#25D366}
+  .phone-link i.ig{background:linear-gradient(135deg,#FEDA77,#F58529,#DD2A7B,#8134AF)}
+  .phone-link b{height:4px;width:70%;background:rgba(255,255,255,.15);border-radius:2px;display:block}
+
+  /* Preview 3: Instagram */
+  .preview-ig{
+    background:
+      radial-gradient(circle at 70% 40%,rgba(221,42,123,.15) 0%,transparent 60%),
+      linear-gradient(135deg,#0a0a1a 0%,#0B0B0F 100%);
+  }
+  .mini-feed{
+    width:86%;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;
+    background:#16161F;padding:2px;border-radius:8px;border:1px solid var(--line);
+  }
+  .mini-post{aspect-ratio:1;position:relative;overflow:hidden}
+  .mp1{background:radial-gradient(circle at 50% 50%,rgba(212,168,90,.5) 0%,transparent 60%),#1a1a25}
+  .mp2{background:linear-gradient(135deg,#2a140a 0%,#0B0B0F 100%)}
+  .mp3{background:radial-gradient(circle at 50% 50%,rgba(59,130,246,.35) 0%,transparent 60%),#0a1122}
+  .mp4{background:linear-gradient(180deg,#1a1a25 0%,#0B0B0F 100%)}
+  .mp5{background:radial-gradient(circle at 30% 70%,rgba(139,92,246,.35) 0%,transparent 60%),#1a0f22}
+  .mp6{background:linear-gradient(135deg,#2d1a1a 0%,#0B0B0F 100%)}
+  .mp7{background:linear-gradient(90deg,#2a140a 50%,#0a2a1a 50%)}
+  .mp8{background:radial-gradient(circle at 20% 20%,rgba(45,212,191,.3) 0%,transparent 60%),#0a1f1c}
+  .mp9{background:linear-gradient(135deg,#ff4d3a 0%,#D4A85A 100%)}
+  .mini-post::after{content:'';position:absolute;inset:20%;border-radius:50%;background:rgba(212,168,90,.12)}
+
+  /* PLATFORM BODY */
+  .p-body{padding:30px}
+  .p-tag{display:inline-block;padding:4px 10px;border-radius:100px;background:rgba(212,168,90,.1);border:1px solid rgba(212,168,90,.3);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:12px}
+  .p-body h3{font-family:'Playfair Display',serif;font-size:28px;font-weight:800;margin-bottom:8px}
+  .p-body p{color:var(--text-dim);font-size:14px;margin-bottom:22px;min-height:60px}
+  .p-features{list-style:none;margin-bottom:24px;display:flex;flex-direction:column;gap:10px}
+  .p-features li{font-size:13px;color:var(--text);display:flex;align-items:center;gap:10px}
+  .p-features li::before{content:'';width:16px;height:16px;border-radius:50%;background:var(--gradient-gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 8px rgba(212,168,90,.4)}
+  .p-cta{
+    display:inline-flex;align-items:center;gap:8px;padding:14px 24px;border-radius:100px;
+    background:var(--gradient-gold);color:#0B0B0F;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;
+    transition:all .3s;box-shadow:var(--shadow-gold);
+  }
+  .p-cta:hover{transform:translateX(5px)}
+
+  /* CONNECTIONS */
+  .connect{
+    max-width:1200px;margin:60px auto;padding:0 5%;text-align:center;
+  }
+  .connect h2{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,48px);font-weight:800;margin-bottom:12px;line-height:1.1}
+  .connect h2 span{background:var(--gradient-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:italic}
+  .connect p{color:var(--text-dim);max-width:600px;margin:0 auto 40px}
+  .flow{
+    display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:30px;
+  }
+  .flow-node{
+    padding:18px 26px;border-radius:16px;background:var(--bg-card);border:1px solid var(--line);
+    font-weight:600;font-size:14px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .flow-node.active{border-color:var(--gold);background:rgba(212,168,90,.1)}
+  .flow-arrow{color:var(--gold);font-size:20px}
+
+  /* FOOTER */
+  footer{text-align:center;padding:60px 5% 40px;border-top:1px solid var(--line);margin-top:60px}
+  footer .logo{font-family:'Playfair Display',serif;font-size:28px;font-weight:800;background:var(--gradient-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:2px;margin-bottom:14px;display:block}
+  footer p{color:var(--text-dim);font-size:13px;letter-spacing:1px}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<div class="bg-orbs">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+
+<header>
+  <div class="eyebrow">ECOSISTEMA DIGITAL · MAG 2026</div>
+  <h1>Una marca. Tres <span>universos</span> conectados.</h1>
+  <p>El ecosistema digital premium de MAG — diseñado para captar al cliente exigente, convertir con elegancia y construir una comunidad real. Todo funciona como una sola cosa.</p>
+</header>
+
+<section class="platforms">
+
+  <!-- PLATFORM 01 WEB -->
+  <article class="platform">
+    <div class="p-num">01</div>
+    <div class="p-preview preview-web">
+      <div class="mini-browser">
+        <div class="browser-bar"><i></i><i></i><i></i></div>
+        <div class="browser-content">
+          <div class="bc-nav"><span class="bc-logo">MAG</span><div class="bc-menu"><i></i><i></i><i></i></div></div>
+          <div class="bc-hero">De otra <span>galaxia</span></div>
+          <div class="bc-btn"></div>
+          <div class="bc-grid">
+            <div class="bc-prod"></div><div class="bc-prod"></div><div class="bc-prod"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="p-body">
+      <span class="p-tag">E-Commerce Premium</span>
+      <h3>Web Oficial</h3>
+      <p>Tienda online completa con quiz de objetivos, stacks armados y checkout directo por WhatsApp.</p>
+      <ul class="p-features">
+        <li>Quiz recomendador: 2 preguntas → 3 productos</li>
+        <li>Stacks elite pre-armados por especialistas</li>
+        <li>Carrito con cupones de descuento</li>
+        <li>Búsqueda en tiempo real + filtros por deporte</li>
+        <li>Modal de producto con info y cantidad</li>
+        <li>Lista de favoritos persistente</li>
+      </ul>
+      <a href="index.html" class="p-cta">Abrir Web →</a>
+    </div>
+  </article>
+
+  <!-- PLATFORM 02 LINK BIO -->
+  <article class="platform">
+    <div class="p-num">02</div>
+    <div class="p-preview preview-bio">
+      <div class="mini-phone">
+        <div class="phone-av">M</div>
+        <div class="phone-name">MAG</div>
+        <div class="phone-handle">@MAG.OFICIAL</div>
+        <div class="phone-links">
+          <div class="phone-link"><i></i><b></b></div>
+          <div class="phone-link"><i class="wa"></i><b></b></div>
+          <div class="phone-link"><i class="ig"></i><b></b></div>
+          <div class="phone-link"><i></i><b></b></div>
+          <div class="phone-link"><i></i><b></b></div>
+        </div>
+      </div>
+    </div>
+    <div class="p-body">
+      <span class="p-tag">Hub Móvil</span>
+      <h3>Link Bio</h3>
+      <p>El centro de comando mobile — quiz, stacks, promos y contacto en un solo scroll.</p>
+      <ul class="p-features">
+        <li>Countdown de promo activo en tiempo real</li>
+        <li>Acceso directo al quiz de objetivos</li>
+        <li>Shortcut a los stacks recomendados</li>
+        <li>Filtros de tienda por categoría deportiva</li>
+        <li>Código de descuento copiable al toque</li>
+      </ul>
+      <a href="linkbio.html" class="p-cta">Ver Link Bio →</a>
+    </div>
+  </article>
+
+  <!-- PLATFORM 03 INSTAGRAM -->
+  <article class="platform">
+    <div class="p-num">03</div>
+    <div class="p-preview preview-ig">
+      <div class="mini-feed">
+        <div class="mini-post mp1"></div>
+        <div class="mini-post mp2"></div>
+        <div class="mini-post mp3"></div>
+        <div class="mini-post mp4"></div>
+        <div class="mini-post mp5"></div>
+        <div class="mini-post mp6"></div>
+        <div class="mini-post mp7"></div>
+        <div class="mini-post mp8"></div>
+        <div class="mini-post mp9"></div>
+      </div>
+    </div>
+    <div class="p-body">
+      <span class="p-tag">Feed Estratégico</span>
+      <h3>Instagram</h3>
+      <p>Grilla diseñada con estética dark-gold. Contenido que educa, seduce y convierte.</p>
+      <ul class="p-features">
+        <li>12 posts premium con identidad única</li>
+        <li>Stories destacados por categoría</li>
+        <li>Carruseles, reels y testimonios</li>
+        <li>Cada post lleva al Link Bio</li>
+      </ul>
+      <a href="instagram.html" class="p-cta">Ver Feed →</a>
+    </div>
+  </article>
+
+</section>
+
+<!-- CONNECT FLOW -->
+<section class="connect">
+  <h2>Un <span>flujo</span> que convierte</h2>
+  <p>Del scroll en Instagram al pedido por WhatsApp en menos de 3 clicks. Cada plataforma tiene un rol específico en el funnel de conversión MAG.</p>
+
+  <div class="flow">
+    <div class="flow-node">📸 Instagram<br><small style="font-size:10px;color:#A8A8B3;font-weight:400">Descubrimiento</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">⭐ Link Bio<br><small style="font-size:10px;color:#A8A8B3;font-weight:400">Acción rápida</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node active">🧬 Quiz / Stacks<br><small style="font-size:10px;color:#D4A85A;font-weight:400">Personalización</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node active">🛒 Carrito<br><small style="font-size:10px;color:#D4A85A;font-weight:400">Conversión</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">💬 WhatsApp<br><small style="font-size:10px;color:#A8A8B3;font-weight:400">Cierre & fidelización</small></div>
+  </div>
+</section>
+
+<!-- METRICS STRIP -->
+<section style="max-width:1200px;margin:0 auto 60px;padding:0 5%">
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;background:rgba(212,168,90,.06);border:1px solid rgba(212,168,90,.2);border-radius:24px;padding:40px 30px;text-align:center">
+    <div>
+      <div style="font-family:'Playfair Display',serif;font-size:42px;font-weight:800;background:var(--gradient-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">37</div>
+      <div style="font-size:13px;color:var(--text-dim);margin-top:4px">Productos en catálogo</div>
+    </div>
+    <div>
+      <div style="font-family:'Playfair Display',serif;font-size:42px;font-weight:800;background:var(--gradient-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">9</div>
+      <div style="font-size:13px;color:var(--text-dim);margin-top:4px">Segmentos deportivos</div>
+    </div>
+    <div>
+      <div style="font-family:'Playfair Display',serif;font-size:42px;font-weight:800;background:var(--gradient-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">3</div>
+      <div style="font-size:13px;color:var(--text-dim);margin-top:4px">Stacks elite armados</div>
+    </div>
+    <div>
+      <div style="font-family:'Playfair Display',serif;font-size:42px;font-weight:800;background:var(--gradient-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">&lt;3</div>
+      <div style="font-size:13px;color:var(--text-dim);margin-top:4px">Clicks del scroll al pedido</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="logo">MAG</span>
+  <p>© 2026 · Representante Oficial · Buenos Aires & Mar del Plata</p>
+</footer>
+
+</body>
+</html>
