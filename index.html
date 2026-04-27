@@ -197,6 +197,7 @@ section{position:relative;z-index:2;padding:90px 0}
 .b-top{background:var(--gold-grad)}
 .b-new{background:linear-gradient(135deg,#2DD4BF,#22C55E);color:#0B0B16}
 .b-hot{background:linear-gradient(135deg,#FF4D3A,#FF8A3D);color:#fff}
+.b-out{background:linear-gradient(135deg,#F59E0B,#D97706);color:#0B0B16}
 .card-wish{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;background:rgba(11,11,22,.7);backdrop-filter:blur(8px);border:1px solid var(--line);display:grid;place-items:center;cursor:pointer;z-index:3;color:#D1D5DB;transition:.2s}
 .card-wish:hover{color:var(--red);border-color:var(--red)}
 .card-body{padding:20px 18px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
@@ -874,12 +875,12 @@ footer{background:#05050C;border-top:1px solid var(--line);padding:56px 0 32px;p
         <p class="sk-desc">Pre-Workout + V12 Isotónico + EAA + Proteína + L-Carnitina. Activación, energía y recuperación completa en cada kilómetro.</p>
         <div class="sk-prods">
           <div class="sk-prod"><img src="assets/productos/pre-workout.jpg" alt="Pre-Workout"><b>Pre-Workout MAG</b><span>$ 36.000</span></div>
-          <div class="sk-prod"><img src="assets/productos/v12-drink.jpg" alt="V12"><b>V12 Drink Isotónico</b><span>$ 54.000</span></div>
+          <div class="sk-prod"><img src="assets/productos/v12-drink.jpg" alt="V12"><b>V12 Drink Isotónico</b><span>$ 13.000</span></div>
           <div class="sk-prod"><img src="assets/productos/eaa-mag.jpg" alt="EAA"><b>EAA MAG</b><span>$ 71.000</span></div>
           <div class="sk-prod"><img src="assets/productos/protein-w80.jpg" alt="Protein W80"><b>Protein W80</b><span>$ 73.000</span></div>
           <div class="sk-prod"><img src="assets/productos/l-carnitina.jpg" alt="L-Carnitina"><b>L-Carnitina MAG</b><span>$ 20.000</span></div>
         </div>
-        <div class="sk-total"><span class="stl">Total del stack</span><b>$ 254.000</b></div>
+        <div class="sk-total"><span class="stl">Total del stack</span><b>$ 213.000</b></div>
         <a href="https://wa.me/5492235730400?text=Quiero%20el%20Stack%20Running%20%26%20Endurance%20MAG%20%F0%9F%8F%83" class="btn btn-primary" style="width:100%;justify-content:center" target="_blank">Pedir este stack por WhatsApp →</a>
       </div>
 
@@ -1189,7 +1190,7 @@ const products=[
   {id:3,name:'Pre-Workout MAG',desc:'Beta-alanina, arginina, citrulina y cafeína en la dosis justa para volar 60 min.',price:36000,cats:['crossfit','futbol','gym','jiujitsu'],img:'assets/productos/pre-workout.jpg',badges:[],meta:['300g','40 porciones','Pomelo']},
   {id:4,name:'EAA MAG',desc:'9 aminoácidos esenciales intra-entreno. Antifatiga y recuperación muscular real.',price:71000,cats:['crossfit','endurance','gym','surf','jiujitsu'],img:'assets/productos/eaa-mag.jpg',badges:['b-new'],meta:['300g','40 porciones','Limonada']},
   {id:5,name:'Tribulus Terrestris',desc:'350mg por comprimido. Energía, libido y recuperación del tejido muscular.',price:75000,cats:['crossfit','gym'],img:'assets/productos/tribulus.jpg',badges:[],meta:['100 comp','100 días','Extracto puro']},
-  {id:6,name:'V12 Drink Isotónico',desc:'Electrolitos, vitaminas del grupo B y carbs de absorción rápida. Ideal intra-esfuerzo.',price:54000,cats:['endurance','futbol','surf','jiujitsu'],img:'assets/productos/v12-drink.jpg',badges:[],meta:['650g','Frutos Rojos','Lima-Limón']},
+  {id:6,name:'V12 Drink Isotónico',desc:'Electrolitos, vitaminas del grupo B y carbs de absorción rápida. Ideal intra-esfuerzo.',price:13000,cats:['endurance','futbol','surf','jiujitsu'],img:'assets/productos/v12-drink.jpg',badges:[],meta:['650g','Frutos Rojos','Lima-Limón']},
   {id:7,name:'L-Carnitina MAG',desc:'Transporta grasa a mitocondrias para energía sostenida. Perfecta para tiradas largas.',price:20000,cats:['endurance','futbol','golf','surf','belleza'],img:'assets/productos/l-carnitina.jpg',badges:[],meta:['100 cáps','500mg','100 días']},
   {id:8,name:'Collagen Fit',desc:'Colágeno hidrolizado con vitamina C, hialurónico y resveratrol. Piel, pelo y articulaciones.',price:35000,cats:['gym','surf','golf','belleza'],img:'assets/productos/collagen-fit.jpg',badges:['b-new'],meta:['300g','30 porciones','Cítrico']},
   {id:9,name:'Ginseng Complex',desc:'Ginseng + Guaraná + Ginkgo Biloba. Foco, energía limpia y resistencia mental.',price:74000,cats:['belleza','golf','surf','endurance'],img:'assets/productos/ginseng-complex.jpg',badges:[],meta:['120 cáps','30 días','Sin cafeína añadida']},
@@ -1222,12 +1223,11 @@ const products=[
   {id:34,name:'Flex-V Vegetarian Protein',desc:'Proteína flexitariana premium. 30g de proteína por porción de fuentes vegetales de alta calidad. Alta digestibilidad sin proteínas animales.',price:30000,cats:['gym','crossfit','belleza','endurance'],img:'assets/productos/flex-v.jpg',badges:['b-new'],meta:['400g','30g proteína','13 porciones']},
   {id:35,name:'Collagen 90',desc:'Colágeno hidrolizado tipo I y III. Regenera cartílagos, mejora la piel y refuerza ligamentos y tendones.',price:32000,cats:['belleza','golf','surf','gym'],img:'assets/productos/collagen-90.jpg',badges:['b-new'],meta:['400g','90 días','Anti-aging']},
   /* ── ACCESORIOS (con foto) ── */
-  {id:36,name:'Galón MAG Negro',desc:'Botellón deportivo 1 litro con logo MAG serigrafía. Ideal para mantenerte hidratado todo el día en el gym.',price:15000,cats:['accesorios'],img:'assets/productos/galon-negro.jpg',badges:[],meta:['1 Litro','BPA free','Negro']},
-  {id:37,name:'Shaker MAG Pro',desc:'Shaker 600ml con compartimento inferior para suplementos y filtro anti-grumos. Diseño ergonómico premium.',price:15000,cats:['accesorios'],img:'assets/productos/shaker-pro.jpg',badges:['b-new'],meta:['600ml','Compartimento extra','BPA free']},
-  {id:38,name:'Galón MAG Azul',desc:'Botellón deportivo 1 litro con logo MAG serigrafía en blanco. Hidratación total con estilo en cada entrenamiento.',price:15000,cats:['accesorios'],img:'assets/productos/galon-mag.jpg',badges:[],meta:['1 Litro','BPA free','Azul']},
-  {id:39,name:'Galón MAG Rojo',desc:'Botellón deportivo 1 litro con logo MAG. Rojo intenso para los que entrenan sin límites.',price:15000,cats:['accesorios'],img:'assets/productos/galon-rojo.jpg',badges:[],meta:['1 Litro','BPA free','Rojo']},
-  {id:40,name:'Galón MAG Rosa',desc:'Botellón deportivo 1 litro con logo MAG. Diseño rosa para las que no le bajan el ritmo a nada.',price:15000,cats:['accesorios'],img:'assets/productos/galon-rosa.jpg',badges:['b-new'],meta:['1 Litro','BPA free','Rosa']},
-  {id:41,name:'Shaker MAG Violeta',desc:'Shaker 400ml MAG Suplementos. Compacto, liviano y con tapa de rosca segura. Perfecto para el día a día.',price:15000,cats:['accesorios'],img:'assets/productos/shaker-violeta.jpg',badges:['b-new'],meta:['400ml','Compacto','Violeta']}
+  {id:36,name:'Galón MAG Negro',desc:'Botellón deportivo 1600cc con logo MAG serigrafía. Ideal para mantenerte hidratado todo el día en el gym.',price:15000,cats:['accesorios'],img:'assets/productos/galon-negro.jpg',badges:[],meta:['1600cc','BPA free','Negro']},
+  {id:37,name:'Shaker MAG Pro',desc:'Shaker 500cc con compartimento inferior para suplementos y filtro anti-grumos. Disponible en 6 colores: Negro, Azul, Violeta, Rosa, Amarillo y Rojo.',price:15000,cats:['accesorios'],img:'assets/productos/shaker-pro.jpg',badges:['b-out'],meta:['500cc','6 colores','Sin Stock']},
+  {id:38,name:'Galón MAG Azul',desc:'Botellón deportivo 1600cc con logo MAG serigrafía en blanco. Hidratación total con estilo en cada entrenamiento.',price:15000,cats:['accesorios'],img:'assets/productos/galon-mag.jpg',badges:[],meta:['1600cc','BPA free','Azul']},
+  {id:39,name:'Galón MAG Rojo',desc:'Botellón deportivo 1600cc con logo MAG. Rojo intenso para los que entrenan sin límites.',price:15000,cats:['accesorios'],img:'assets/productos/galon-rojo.jpg',badges:[],meta:['1600cc','BPA free','Rojo']},
+  {id:40,name:'Galón MAG Rosa',desc:'Botellón deportivo 1600cc con logo MAG. Diseño rosa para las que no le bajan el ritmo a nada.',price:15000,cats:['accesorios'],img:'assets/productos/galon-rosa.jpg',badges:['b-new'],meta:['1600cc','BPA free','Rosa']},
 ];
 
 /* ===== UTILS ===== */
@@ -1257,7 +1257,7 @@ function render(filter=currentFilter,search=currentSearch){
     <article class="card" data-cat="${mc}" style="--card-bg-1:${bg1};--card-bg-2:${bg2}" onclick="openPmod(${p.id})">
       <div class="card-media">
         ${media}
-        <div class="card-badges">${p.badges.map(b=>`<span class="badge ${b}">${b==='b-top'?'Top Ventas':b==='b-new'?'Nuevo':'Hot'}</span>`).join('')}</div>
+        <div class="card-badges">${p.badges.map(b=>`<span class="badge ${b}">${b==='b-top'?'Top Ventas':b==='b-new'?'Nuevo':b==='b-out'?'Sin Stock':'Hot'}</span>`).join('')}</div>
         <button class="card-wish ${wOn}" title="Favorito" onclick="toggleWish(event,${p.id})">${wOn?'♥':'♡'}</button>
       </div>
       <div class="card-body">
