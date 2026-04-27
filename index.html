@@ -123,25 +123,9 @@ nav{position:sticky;top:0;z-index:50;background:rgba(7,7,16,.72);backdrop-filter
 .proof span{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
 
 .hero-visual{position:relative;aspect-ratio:1/1.08;display:grid;place-items:center}
-.universe{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 50% 50%,rgba(212,168,90,.18) 0%,transparent 70%);filter:blur(20px)}
-.orbit{position:absolute;inset:6%;border:1px dashed rgba(212,168,90,.25);border-radius:50%;animation:spin 40s linear infinite}
-.orbit-2{inset:15%;border-color:rgba(139,92,246,.25);animation:spin 55s linear infinite reverse}
-.orbit-3{inset:24%;border-color:rgba(45,212,191,.2);animation:spin 75s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.planet{position:absolute;border-radius:50%;background:var(--gold-grad);box-shadow:0 0 40px rgba(212,168,90,.6)}
-.planet-1{width:16px;height:16px;top:8%;left:50%;transform:translateX(-50%)}
-.planet-2{width:12px;height:12px;top:50%;right:14%;background:#8B5CF6;box-shadow:0 0 30px #8B5CF6}
-.planet-3{width:14px;height:14px;bottom:22%;left:20%;background:#2DD4BF;box-shadow:0 0 30px #2DD4BF}
-.bottle{position:relative;width:58%;aspect-ratio:.55/1;filter:drop-shadow(0 40px 60px rgba(0,0,0,.5)) drop-shadow(0 0 60px rgba(212,168,90,.35));z-index:3}
-.bottle-cap{height:16%;background:linear-gradient(180deg,#1a1a28,#0d0d16);border-radius:12px 12px 4px 4px;position:relative}
-.bottle-cap::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 3px,transparent 3px 6px);border-radius:inherit}
-.bottle-body{height:84%;background:linear-gradient(180deg,#141425 0%,#0a0a14 100%);border:1px solid rgba(255,255,255,.08);border-radius:4px 4px 18px 18px;position:relative;overflow:hidden}
-.bottle-body::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.08) 50%,transparent 100%)}
-.bottle-label{position:absolute;left:8%;right:8%;top:18%;bottom:14%;background:linear-gradient(135deg,#B4E600 0%,#7DB800 100%);border-radius:6px;padding:14% 10%;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#0B0B16;text-align:center}
-.bottle-label::before{content:"";position:absolute;top:0;left:0;right:0;height:40%;background:linear-gradient(135deg,rgba(255,255,255,.3),transparent)}
-.lbl-brand{font-size:clamp(28px,5vw,52px);font-weight:900;letter-spacing:.04em;position:relative;z-index:2;line-height:1}
-.lbl-product{font-family:'Inter',sans-serif;font-size:clamp(10px,1.7vw,14px);font-weight:700;line-height:1.25;margin:6% 0 4%;position:relative;z-index:2;text-transform:none;letter-spacing:.01em}
-.lbl-sub{font-size:clamp(9px,1.4vw,11px);font-weight:600;letter-spacing:.12em;text-transform:uppercase;position:relative;z-index:2}
+.saturn-glow-outer{position:absolute;inset:-20%;border-radius:50%;background:radial-gradient(circle,rgba(212,168,90,.08) 0%,rgba(100,50,200,.05) 50%,transparent 70%);pointer-events:none;animation:saturnPulse 4s ease-in-out infinite}
+@keyframes saturnPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}}
 
 @media(max-width:900px){
   .hero-grid{grid-template-columns:1fr;gap:40px}
@@ -634,7 +618,7 @@ footer{background:#05050C;border-top:1px solid var(--line);padding:56px 0 32px;p
       <div class="hero-tag"><span class="spark"></span> MAG Signature Collection · 2026</div>
       <h1>
         Suplementación de <span class="grad">otra Galaxia</span>
-        <span class="galactic">para atletas de élite.</span>
+        <span class="galactic">para atletas elite.</span>
       </h1>
       <p class="lead">Somos <b>Representantes Oficiales de MAG Suplementos</b> en la Provincia de Buenos Aires y Mar del Plata. 25 años de ciencia para llevarte al <span class="grad" style="font-style:italic;font-weight:700">próximo nivel</span> — con asesoría humana, envíos 24/48hs y un programa premium para gimnasios y comercios.</p>
       <div class="ctas">
@@ -649,24 +633,9 @@ footer{background:#05050C;border-top:1px solid var(--line);padding:56px 0 32px;p
         <div class="proof"><b>100%</b><span>Industria argentina</span></div>
       </div>
     </div>
-    <div class="hero-visual">
-      <div class="universe"></div>
-      <div class="orbit"></div>
-      <div class="orbit orbit-2"></div>
-      <div class="orbit orbit-3"></div>
-      <div class="planet planet-1"></div>
-      <div class="planet planet-2"></div>
-      <div class="planet planet-3"></div>
-      <div class="bottle">
-        <div class="bottle-cap"></div>
-        <div class="bottle-body">
-          <div class="bottle-label">
-            <div class="lbl-brand">MAG ››</div>
-            <div class="lbl-product">El único laboratorio de<br>suplementación en Argentina</div>
-            <div class="lbl-sub">con Farmacéutico certificado</div>
-          </div>
-        </div>
-      </div>
+    <div class="hero-visual" style="overflow:visible;min-height:420px">
+      <div class="saturn-glow-outer"></div>
+      <canvas id="saturnCanvas" style="display:block;width:100%;height:100%;min-height:420px"></canvas>
     </div>
   </div>
 </header>
@@ -887,26 +856,30 @@ footer{background:#05050C;border-top:1px solid var(--line);padding:56px 0 32px;p
       <div class="sk-card" style="--sk-c:rgba(255,77,58,.25)">
         <span class="sk-badge">🔥 Stack Fuerza & Masa</span>
         <h4>El combo del atleta serio</h4>
-        <p class="sk-desc">Creatina + Whey + Pre-Workout. La trinidad de los que quieren más músculo y más fuerza, siempre.</p>
+        <p class="sk-desc">Proteína + Creatina + Pre-Workout + BCAA + Glutamina. El stack completo para masa muscular real y recuperación total.</p>
         <div class="sk-prods">
-          <div class="sk-prod"><img src="assets/productos/w-mass.jpg" alt="W-Mass"><b>W-Mass 1kg</b><span>$ 38.500</span></div>
+          <div class="sk-prod"><img src="assets/productos/protein-w80.jpg" alt="Protein W80"><b>Protein W80</b><span>$ 34.500</span></div>
           <div class="sk-prod"><img src="assets/productos/high-creatine.jpg" alt="Creatina"><b>High Creatine Power</b><span>$ 24.500</span></div>
           <div class="sk-prod"><img src="assets/productos/pre-workout.jpg" alt="Pre-Workout"><b>Pre-Workout MAG</b><span>$ 28.900</span></div>
+          <div class="sk-prod"><img src="assets/productos/bcaa-8-1-1.jpg" alt="BCAA"><b>BCAA 8:1:1</b><span>$ 21.500</span></div>
+          <div class="sk-prod"><img src="assets/productos/l-glutamine-max.jpg" alt="Glutamina"><b>L-Glutamine Max</b><span>$ 18.500</span></div>
         </div>
-        <div class="sk-total"><span class="stl">Total del stack</span><b>$ 91.900</b></div>
+        <div class="sk-total"><span class="stl">Total del stack</span><b>$ 127.900</b></div>
         <a href="https://wa.me/5492235730400?text=Quiero%20el%20Stack%20Fuerza%20%26%20Masa%20MAG%20%F0%9F%94%A5" class="btn btn-primary" style="width:100%;justify-content:center" target="_blank">Pedir este stack por WhatsApp →</a>
       </div>
 
       <div class="sk-card" style="--sk-c:rgba(45,212,191,.25)">
         <span class="sk-badge">🏃 Stack Running & Endurance</span>
         <h4>Para los que van a fondo</h4>
-        <p class="sk-desc">V12 Isotónico + EAA + L-Carnitina. Energía, recuperación y quema de grasa en cada kilómetro.</p>
+        <p class="sk-desc">Pre-Workout + V12 Isotónico + EAA + Proteína + L-Carnitina. Activación, energía y recuperación completa en cada kilómetro.</p>
         <div class="sk-prods">
+          <div class="sk-prod"><img src="assets/productos/pre-workout.jpg" alt="Pre-Workout"><b>Pre-Workout MAG</b><span>$ 28.900</span></div>
           <div class="sk-prod"><img src="assets/productos/v12-drink.jpg" alt="V12"><b>V12 Drink Isotónico</b><span>$ 16.500</span></div>
           <div class="sk-prod"><img src="assets/productos/eaa-mag.jpg" alt="EAA"><b>EAA MAG</b><span>$ 26.500</span></div>
+          <div class="sk-prod"><img src="assets/productos/protein-w80.jpg" alt="Protein W80"><b>Protein W80</b><span>$ 34.500</span></div>
           <div class="sk-prod"><img src="assets/productos/l-carnitina.jpg" alt="L-Carnitina"><b>L-Carnitina MAG</b><span>$ 18.900</span></div>
         </div>
-        <div class="sk-total"><span class="stl">Total del stack</span><b>$ 61.900</b></div>
+        <div class="sk-total"><span class="stl">Total del stack</span><b>$ 125.300</b></div>
         <a href="https://wa.me/5492235730400?text=Quiero%20el%20Stack%20Running%20%26%20Endurance%20MAG%20%F0%9F%8F%83" class="btn btn-primary" style="width:100%;justify-content:center" target="_blank">Pedir este stack por WhatsApp →</a>
       </div>
 
@@ -1020,7 +993,7 @@ footer{background:#05050C;border-top:1px solid var(--line);padding:56px 0 32px;p
         <div class="mstat"><b>0$</b><span>Fee de ingreso</span></div>
         <div class="mstat"><b>+80</b><span>Puntos de venta</span></div>
       </div>
-      <p style="position:relative;font-size:13.5px;color:#C0C0D0;line-height:1.6">Proyectamos expandir a Santa Fe, Córdoba y Uruguay durante 2026-2027. Los primeros puntos de venta tienen preferencia para la expansión.</p>
+      <p style="position:relative;font-size:13.5px;color:#C0C0D0;line-height:1.6">Proyectamos expandir a más provincias próximamente. Súmate a la galaxia de MAG y sus beneficios para entrar en la élite del cuidado y bienestar personal.</p>
     </div>
   </div>
 </section>
@@ -1569,7 +1542,284 @@ document.querySelectorAll('.promo-code').forEach(el=>{
   }
 })();
 updateCart();
-</script>
 
-</body>
+// ═══════════════════════════════════════════════════
+// SATURN 3D PLANET — GALAXY EDITION
+// ═══════════════════════════════════════════════════
+(function saturnInit(){
+  const canvas = document.getElementById('saturnCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const TAU = Math.PI*2;
+
+  /* ── Stars ─────────────────────────────────────── */
+  const STARS = Array.from({length:220},()=>({
+    xf:Math.random(), yf:Math.random(),
+    r:Math.random()*1.6+0.2,
+    a:Math.random()*0.75+0.12,
+    spd:Math.random()*0.35+0.08,
+    ph:Math.random()*TAU
+  }));
+
+  /* ── Orbit items ────────────────────────────────── */
+  const RING_SLUGS=[
+    ['high-creatine','pre-workout','protein-w80'],
+    ['eaa-mag','v12-drink','bcaa-8-1-1','fat-burner'],
+    ['collagen-fit','l-carnitina','w-mass']
+  ];
+  const RING_RGB=[[212,168,90],[139,92,246],[45,212,191]];
+  const RING_SPD=[0.38,-0.24,0.14];
+
+  const items=[];
+  RING_SLUGS.forEach((slugs,ri)=>{
+    slugs.forEach((slug,si)=>{
+      items.push({ring:ri,slug,angle:si*(TAU/slugs.length)+ri*0.55});
+    });
+  });
+
+  const imgs={};
+  items.forEach(it=>{
+    if(!imgs[it.slug]){
+      const img=new Image();
+      img.src='assets/productos/'+it.slug+'.jpg';
+      imgs[it.slug]=img;
+    }
+  });
+
+  let W,H,cx,cy,pR,lastT=0,clock=0;
+
+  function resize(){
+    const r=canvas.parentElement.getBoundingClientRect();
+    W=canvas.width =Math.round(r.width) ||500;
+    H=canvas.height=Math.round(r.height)||560;
+    cx=W/2; cy=H/2;
+    pR=Math.min(W,H)*0.34;
+  }
+
+  function rAB(ri){
+    const af=[0.43,0.56,0.68][ri];
+    return {a:W*af, b:W*af*0.22};
+  }
+
+  /* ── Stars ──────────────────────────────────────── */
+  function drawStars(t){
+    STARS.forEach(s=>{
+      const a=s.a*(0.5+0.5*Math.sin(t*s.spd+s.ph));
+      ctx.beginPath();
+      ctx.arc(s.xf*W,s.yf*H,s.r,0,TAU);
+      ctx.fillStyle=`rgba(255,255,255,${a.toFixed(2)})`;
+      ctx.fill();
+    });
+  }
+
+  /* ── Nebula ─────────────────────────────────────── */
+  function drawNebula(){
+    const paint=(gx,gy,gr,col)=>{
+      const g=ctx.createRadialGradient(gx,gy,0,cx,cy,gr);
+      g.addColorStop(0,col); g.addColorStop(1,'transparent');
+      ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    };
+    paint(cx*.85,cy*.60,pR*3.2,'rgba(25,12,55,0.55)');
+    paint(cx*1.25,cy*1.35,pR*2.6,'rgba(45,212,191,0.05)');
+    paint(cx*.70,cy*.75,pR*2.0,'rgba(212,168,90,0.06)');
+    paint(cx*1.10,cy*.55,pR*1.8,'rgba(139,92,246,0.07)');
+  }
+
+  /* ── 3-D ring half with per-segment depth shading ─ */
+  function drawRingHalf(ri,a0,a1,segs){
+    const {a,b}=rAB(ri);
+    const [r,g,bl]=RING_RGB[ri];
+    for(let i=0;i<segs;i++){
+      const t1=a0+(i/segs)*(a1-a0);
+      const t2=a0+((i+1)/segs)*(a1-a0);
+      const mid=(t1+t2)/2;
+      const x1=cx+a*Math.cos(t1), y1=cy+b*Math.sin(t1);
+      const x2=cx+a*Math.cos(t2), y2=cy+b*Math.sin(t2);
+      const sinM=Math.sin(mid);
+      const depth=(sinM+1)/2;
+      const bright=0.18+0.82*Math.pow(Math.abs(Math.cos(mid)),0.65);
+      const al=Math.min(0.95,depth*bright+0.04);
+      const lw=Math.max(0.7,1.0+4.0*depth);
+      ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2);
+      ctx.strokeStyle=`rgba(${r},${g},${bl},${al.toFixed(3)})`;
+      ctx.lineWidth=lw; ctx.stroke();
+    }
+  }
+
+  /* ── Planet with full 3-D shading ──────────────── */
+  function drawPlanet(){
+    /* outer atmosphere aura */
+    const aura=ctx.createRadialGradient(cx,cy,pR*0.88,cx,cy,pR*2.6);
+    aura.addColorStop(0,'rgba(212,168,90,0.20)');
+    aura.addColorStop(0.25,'rgba(139,92,246,0.12)');
+    aura.addColorStop(0.6,'rgba(45,212,191,0.05)');
+    aura.addColorStop(1,'transparent');
+    ctx.beginPath(); ctx.arc(cx,cy,pR*2.6,0,TAU);
+    ctx.fillStyle=aura; ctx.fill();
+
+    /* base sphere (ambient) */
+    const base=ctx.createRadialGradient(cx-pR*.12,cy+pR*.12,pR*.03,cx,cy,pR);
+    base.addColorStop(0,'#211348');
+    base.addColorStop(0.40,'#0f0926');
+    base.addColorStop(0.78,'#06041c');
+    base.addColorStop(1,'#020110');
+    ctx.beginPath(); ctx.arc(cx,cy,pR,0,TAU);
+    ctx.fillStyle=base; ctx.fill();
+
+    ctx.save();
+    ctx.beginPath(); ctx.arc(cx,cy,pR,0,TAU); ctx.clip();
+
+    /* key light — top-left gold diffuse */
+    const kx=cx-pR*.44,ky=cy-pR*.46;
+    const diff=ctx.createRadialGradient(kx,ky,0,kx,ky,pR*1.75);
+    diff.addColorStop(0,'rgba(212,168,90,0.52)');
+    diff.addColorStop(0.28,'rgba(180,130,50,0.22)');
+    diff.addColorStop(0.65,'rgba(80,40,180,0.08)');
+    diff.addColorStop(1,'transparent');
+    ctx.fillStyle=diff; ctx.fillRect(cx-pR,cy-pR,pR*2,pR*2);
+
+    /* specular highlight */
+    const sx=cx-pR*.35,sy=cy-pR*.42;
+    const spec=ctx.createRadialGradient(sx,sy,0,sx,sy,pR*.32);
+    spec.addColorStop(0,'rgba(255,248,210,0.97)');
+    spec.addColorStop(0.18,'rgba(255,225,140,0.60)');
+    spec.addColorStop(0.50,'rgba(200,155,55,0.18)');
+    spec.addColorStop(1,'transparent');
+    ctx.fillStyle=spec; ctx.fillRect(cx-pR,cy-pR,pR*2,pR*2);
+
+    /* fill light — bottom-right purple */
+    const rx=cx+pR*.58,ry=cy+pR*.46;
+    const fill=ctx.createRadialGradient(rx,ry,0,rx,ry,pR*1.25);
+    fill.addColorStop(0,'rgba(139,92,246,0.32)');
+    fill.addColorStop(0.45,'rgba(80,40,180,0.12)');
+    fill.addColorStop(1,'transparent');
+    ctx.fillStyle=fill; ctx.fillRect(cx-pR,cy-pR,pR*2,pR*2);
+
+    /* subtle teal backlight — top-right */
+    const tlx=cx+pR*.42,tly=cy-pR*.30;
+    const tl=ctx.createRadialGradient(tlx,tly,0,tlx,tly,pR*.90);
+    tl.addColorStop(0,'rgba(45,212,191,0.14)');
+    tl.addColorStop(1,'transparent');
+    ctx.fillStyle=tl; ctx.fillRect(cx-pR,cy-pR,pR*2,pR*2);
+
+    ctx.restore();
+
+    /* gold rim glow */
+    ctx.save();
+    ctx.beginPath(); ctx.arc(cx,cy,pR,0,TAU);
+    ctx.strokeStyle='rgba(212,168,90,0.92)';
+    ctx.lineWidth=Math.max(2,pR*.050);
+    ctx.shadowColor='rgba(212,168,90,0.80)';
+    ctx.shadowBlur=pR*.38;
+    ctx.stroke();
+    ctx.restore();
+
+    /* ── Text inside planet ─────────────────────── */
+    ctx.save();
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+
+    /* MAG */
+    const mSz=Math.max(22,pR*.52);
+    ctx.font=`900 ${mSz}px 'Playfair Display',serif`;
+    ctx.shadowColor='rgba(212,168,90,1)';
+    ctx.shadowBlur=32;
+    ctx.fillStyle='#D4A85A';
+    ctx.fillText('MAG',cx,cy-pR*.26);
+
+    /* divider */
+    ctx.shadowBlur=0;
+    ctx.save();
+    ctx.strokeStyle='rgba(212,168,90,0.38)';
+    ctx.lineWidth=1;
+    ctx.beginPath();
+    ctx.moveTo(cx-pR*.36,cy-pR*.06);
+    ctx.lineTo(cx+pR*.36,cy-pR*.06);
+    ctx.stroke();
+    ctx.restore();
+
+    /* taglines */
+    const tSz=Math.max(7,pR*.109);
+    ctx.font=`400 ${tSz}px 'Inter',sans-serif`;
+    ctx.fillStyle='rgba(215,205,255,0.92)';
+    const lh=tSz*1.52;
+    ['Único laboratorio','oficial con','Farmacéutico','autorizado en el país']
+      .forEach((l,i)=>ctx.fillText(l,cx,cy+pR*.06+i*lh));
+
+    ctx.restore();
+  }
+
+  /* ── Orbit item with glow ───────────────────────── */
+  function drawItem(it){
+    const {a,b}=rAB(it.ring);
+    const x=cx+a*Math.cos(it.angle);
+    const y=cy+b*Math.sin(it.angle);
+    const sinA=Math.sin(it.angle);
+    const depth=(sinA+1)/2;
+    const sc=0.44+0.72*depth;
+    const al=Math.max(0.20,0.26+0.74*depth);
+    const sz=pR*.44*sc;
+    const img=imgs[it.slug];
+    if(!img||!img.complete||!img.naturalWidth) return;
+    const [r,g,bl]=RING_RGB[it.ring];
+
+    /* halo glow */
+    ctx.save();
+    ctx.globalAlpha=al*.58;
+    const halo=ctx.createRadialGradient(x,y,sz*.32,x,y,sz*.88);
+    halo.addColorStop(0,`rgba(${r},${g},${bl},0.55)`);
+    halo.addColorStop(1,'transparent');
+    ctx.beginPath(); ctx.arc(x,y,sz*.88,0,TAU);
+    ctx.fillStyle=halo; ctx.fill();
+    ctx.restore();
+
+    /* image clipped to circle */
+    ctx.save();
+    ctx.globalAlpha=al;
+    ctx.beginPath(); ctx.arc(x,y,sz/2,0,TAU); ctx.clip();
+    ctx.drawImage(img,x-sz/2,y-sz/2,sz,sz);
+    ctx.restore();
+
+    /* coloured border */
+    ctx.save();
+    ctx.globalAlpha=al*.95;
+    ctx.beginPath(); ctx.arc(x,y,sz/2+1.2,0,TAU);
+    ctx.strokeStyle=`rgba(${r},${g},${bl},0.95)`;
+    ctx.lineWidth=Math.max(1,sz*.065);
+    ctx.shadowColor=`rgba(${r},${g},${bl},0.85)`;
+    ctx.shadowBlur=sz*.38;
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  /* ── Main loop ──────────────────────────────────── */
+  function frame(ts){
+    const dt=lastT?Math.min((ts-lastT)/1000,.05):0;
+    lastT=ts; clock+=dt;
+    ctx.clearRect(0,0,W,H);
+
+    drawStars(clock);
+    drawNebula();
+
+    items.forEach(it=>{ it.angle+=RING_SPD[it.ring]*dt; });
+
+    const back =items.filter(it=>Math.sin(it.angle)<0);
+    const front=items.filter(it=>Math.sin(it.angle)>=0);
+    back.sort( (a,b)=>Math.sin(a.angle)-Math.sin(b.angle));
+    front.sort((a,b)=>Math.sin(a.angle)-Math.sin(b.angle));
+
+    for(let i=0;i<3;i++) drawRingHalf(i,Math.PI,Math.PI*2,90); // back rings
+    back.forEach(it=>drawItem(it));
+    drawPlanet();
+    for(let i=0;i<3;i++) drawRingHalf(i,0,Math.PI,90);          // front rings
+    front.forEach(it=>drawItem(it));
+
+    requestAnimationFrame(frame);
+  }
+
+  const ro=new ResizeObserver(resize);
+  ro.observe(canvas.parentElement);
+  resize();
+  requestAnimationFrame(frame);
+})();
+</script>
 </html>
