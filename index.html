@@ -80,7 +80,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 .top-notice strong{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:900}
 
-nav{position:sticky;top:0;z-index:50;background:rgba(7,7,16,.72);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
+nav{position:fixed;top:0;left:0;right:0;width:100%;z-index:50;background:rgba(7,7,16,.82);backdrop-filter:saturate(180%) blur(22px);border-bottom:1px solid var(--line);transition:transform .32s cubic-bezier(.4,0,.2,1)}
+nav.nav-hidden{transform:translateY(-110%);pointer-events:none}
 .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:16px}
 .logo{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.02em}
 .logo-mark{width:44px;height:44px;border-radius:12px;background:var(--gold-grad);display:grid;place-items:center;color:#0B0B16;font-weight:900;font-size:18px;position:relative;box-shadow:0 8px 28px rgba(212,168,90,.35)}
@@ -91,7 +92,7 @@ nav{position:sticky;top:0;z-index:50;background:rgba(7,7,16,.72);backdrop-filter
 .logo-txt span{font-size:10px;font-weight:500;color:var(--muted);letter-spacing:.22em;text-transform:uppercase}
 .nav-links{display:flex;gap:28px;align-items:center}
 .nav-links a{font-size:14px;font-weight:500;color:#D1D5DB;transition:color .2s}
-.nav-links a:hover{color:var(--gold-2)}
+.nav-links a:hover,.nav-links a.nla-on{color:var(--gold-2)}
 .nav-cta{display:flex;gap:10px;align-items:center}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:12px;font-weight:600;font-size:14px;transition:.25s;white-space:nowrap;cursor:pointer;border:1px solid transparent}
 .btn-primary{background:var(--gold-grad);color:#0B0B16;box-shadow:var(--shadow-gold)}
@@ -539,6 +540,15 @@ footer{background:#05050C;border-top:1px solid var(--line);padding:56px 0 32px;p
 .sk-total{display:flex;justify-content:space-between;align-items:center;padding:11px;background:rgba(212,168,90,.07);border:1px solid var(--line-hi);border-radius:10px;margin-bottom:13px;position:relative}
 .sk-total .stl{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
 .sk-total b{font-family:'Playfair Display',serif;font-size:19px;font-weight:900;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ── Section quick-nav bar ── */
+.nav-space{height:57px}
+@media(max-width:800px){.nav-space{height:106px}}
+.sec-bar{display:none;overflow-x:auto;scrollbar-width:none;padding:6px 16px 10px;gap:4px;-webkit-overflow-scrolling:touch}
+.sec-bar::-webkit-scrollbar{display:none}
+.sec-tab{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#6B7280;padding:5px 15px;border-radius:999px;white-space:nowrap;flex-shrink:0;transition:all .2s;border:1px solid transparent;cursor:pointer}
+.sec-tab:hover,.sec-tab.stab-on{color:var(--gold-2);background:rgba(212,168,90,.12);border-color:rgba(212,168,90,.25)}
+@media(max-width:800px){.sec-bar{display:flex;border-top:1px solid rgba(255,255,255,.06)}}
 </style>
 </head>
 <body>
@@ -592,6 +602,15 @@ footer{background:#05050C;border-top:1px solid var(--line);padding:56px 0 32px;p
       <button class="menu-btn" onclick="openMob()">☰</button>
     </div>
   </div>
+
+  <div class="sec-bar">
+    <a href="#segments" class="sec-tab" data-s="segments">Segmentos</a>
+    <a href="#products" class="sec-tab" data-s="products">Catálogo</a>
+    <a href="#stacks" class="sec-tab" data-s="stacks">Stacks</a>
+    <a href="#guide" class="sec-tab" data-s="guide">Guía de uso</a>
+    <a href="#mayoristas" class="sec-tab" data-s="mayoristas">Mayoristas</a>
+    <a href="#eco" class="sec-tab" data-s="eco">Contacto</a>
+  </div>
 </nav>
 
 <!-- MOBILE NAV -->
@@ -613,6 +632,7 @@ footer{background:#05050C;border-top:1px solid var(--line);padding:56px 0 32px;p
   </div>
 </div>
 
+<div class="nav-space" aria-hidden="true"></div>
 <header class="hero">
   <div class="wrap hero-grid">
     <div>
@@ -1820,6 +1840,38 @@ updateCart();
   ro.observe(canvas.parentElement);
   resize();
   requestAnimationFrame(frame);
+})();
+
+/* ===== SMART NAV (hide on scroll-down, show on scroll-up) ===== */
+(function(){
+  const nav=document.querySelector('nav');
+  const secTabs=document.querySelectorAll('.sec-tab');
+  const navLinks=document.querySelectorAll('.nav-links a');
+  const secs=['segments','products','stacks','guide','mayoristas','eco'];
+  let lastY=window.scrollY, tick=false;
+
+  function getTop(id){const el=document.getElementById(id);return el?el.offsetTop:Infinity;}
+
+  function update(){
+    const y=window.scrollY;
+    /* show / hide */
+    if(y<80){
+      nav.classList.remove('nav-hidden');
+    } else if(y>lastY+5){
+      nav.classList.add('nav-hidden');
+    } else if(y<lastY-5){
+      nav.classList.remove('nav-hidden');
+    }
+    /* active section */
+    let cur='';
+    secs.forEach(id=>{if(y>=getTop(id)-130)cur=id;});
+    secTabs.forEach(t=>t.classList.toggle('stab-on',t.dataset.s===cur));
+    navLinks.forEach(a=>a.classList.toggle('nla-on',a.getAttribute('href').slice(1)===cur));
+    lastY=y;tick=false;
+  }
+
+  window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(update);}},{passive:true});
+  update();
 })();
 </script>
 </html>
