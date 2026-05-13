@@ -109,28 +109,43 @@ nav.nav-hidden{transform:translateY(-110%);pointer-events:none}
   .menu-btn{display:grid;place-items:center;width:42px;height:42px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.04)}
 }
 
-.hero{position:relative;padding:72px 0 80px;overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+/* ── Banda de certificación ── */
+.cert-band{position:relative;z-index:10;background:linear-gradient(90deg,#0a0a12 0%,#1a0e00 40%,#0a0a12 100%);border-bottom:1px solid rgba(212,168,90,.35);overflow:hidden}
+.cert-band::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(212,168,90,.06) 50%,transparent 100%);animation:certShine 4s ease-in-out infinite}
+@keyframes certShine{0%,100%{opacity:0}50%{opacity:1}}
+.cert-inner{display:flex;align-items:center;justify-content:center;gap:18px;padding:13px 20px;flex-wrap:wrap}
+.cert-icon{font-size:22px;flex-shrink:0;filter:drop-shadow(0 0 8px rgba(212,168,90,.6))}
+.cert-txt{font-size:14px;color:#EAD9B0;font-weight:500;text-align:center;line-height:1.4}
+.cert-txt strong{color:#D4A85A;font-weight:800;font-size:15px}
+.cert-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:999px;background:rgba(212,168,90,.18);border:1px solid rgba(212,168,90,.5);color:#D4A85A;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+.cert-badge::before{content:'✓';font-size:12px}
+@media(max-width:600px){.cert-txt{font-size:13px}.cert-txt strong{font-size:14px}}
+
+.hero{position:relative;padding:60px 0 72px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:40px;align-items:center}
 .hero-tag{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border:1px solid var(--line-hi);border-radius:999px;background:rgba(212,168,90,.08);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#EAD9B0;font-weight:600;margin-bottom:22px}
 .hero-tag .spark{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(44px,7vw,86px);line-height:.98;font-weight:900;letter-spacing:-.03em;margin-bottom:20px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(40px,6.5vw,82px);line-height:.98;font-weight:900;letter-spacing:-.03em;margin-bottom:20px}
 .hero h1 .grad{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic;font-weight:700}
 .hero h1 .galactic{display:block;background:linear-gradient(90deg,#8B5CF6 0%,#EC4899 50%,#06B6D4 100%);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:900}
-.hero p.lead{font-size:18px;color:#D1D5DB;max-width:560px;line-height:1.65;margin-bottom:32px}
-.hero .ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:36px}
-.hero-proofs{display:flex;gap:28px;flex-wrap:wrap;padding-top:28px;border-top:1px solid var(--line)}
+.hero p.lead{font-size:17px;color:#D1D5DB;max-width:540px;line-height:1.65;margin-bottom:28px}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:32px}
+.hero-proofs{display:flex;gap:22px;flex-wrap:wrap;padding-top:24px;border-top:1px solid var(--line)}
 .proof{display:flex;flex-direction:column;gap:2px}
-.proof b{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.proof span{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.proof b{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.proof span{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.proof-farm{display:flex;flex-direction:column;gap:3px;padding:10px 14px;border-radius:10px;background:rgba(212,168,90,.1);border:1px solid rgba(212,168,90,.3)}
+.proof-farm b{font-size:12px;font-weight:800;color:#D4A85A;letter-spacing:.04em;text-transform:uppercase;line-height:1.3}
+.proof-farm span{font-size:10px;color:#EAD9B0;font-weight:400;line-height:1.3}
 
-.hero-visual{position:relative;aspect-ratio:1/1.08;display:grid;place-items:center}
+.hero-visual{position:relative;aspect-ratio:1/1;display:grid;place-items:center;min-height:500px}
 @keyframes spin{to{transform:rotate(360deg)}}
-.saturn-glow-outer{position:absolute;inset:-20%;border-radius:50%;background:radial-gradient(circle,rgba(212,168,90,.08) 0%,rgba(100,50,200,.05) 50%,transparent 70%);pointer-events:none;animation:saturnPulse 4s ease-in-out infinite}
-@keyframes saturnPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}}
+.saturn-glow-outer{position:absolute;inset:-25%;border-radius:50%;background:radial-gradient(circle,rgba(212,168,90,.12) 0%,rgba(100,50,200,.07) 50%,transparent 70%);pointer-events:none;animation:saturnPulse 4s ease-in-out infinite}
+@keyframes saturnPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
 
 @media(max-width:900px){
-  .hero-grid{grid-template-columns:1fr;gap:40px}
-  .hero-visual{aspect-ratio:1/1;max-width:400px;margin:0 auto}
+  .hero-grid{grid-template-columns:1fr;gap:36px}
+  .hero-visual{aspect-ratio:1/1;max-width:480px;margin:0 auto;min-height:380px}
 }
 
 section{position:relative;z-index:2;padding:90px 0}
@@ -633,6 +648,19 @@ footer{background:#05050C;border-top:1px solid var(--line);padding:56px 0 32px;p
 </div>
 
 <div class="nav-space" aria-hidden="true"></div>
+
+<!-- BANDA CERTIFICACIÓN FARMACÉUTICO -->
+<div class="cert-band">
+  <div class="wrap cert-inner">
+    <span class="cert-icon">🔬</span>
+    <span class="cert-txt">
+      El <strong>único laboratorio de suplementos deportivos de la Argentina</strong>
+      con Farmacéutico Habilitado — garantía de calidad, pureza y seguridad en cada producto.
+    </span>
+    <span class="cert-badge">Oficial</span>
+  </div>
+</div>
+
 <header class="hero">
   <div class="wrap hero-grid">
     <div>
@@ -641,22 +669,25 @@ footer{background:#05050C;border-top:1px solid var(--line);padding:56px 0 32px;p
         Suplementación de <span class="grad">otra Galaxia</span>
         <span class="galactic">para atletas elite.</span>
       </h1>
-      <p class="lead">Somos <b>Representantes Oficiales de MAG Suplementos</b> en la Provincia de Buenos Aires y Mar del Plata. 25 años de ciencia para llevarte al <span class="grad" style="font-style:italic;font-weight:700">próximo nivel</span> — con asesoría humana, envíos 24/48hs y un programa premium para gimnasios y comercios.</p>
+      <p class="lead">Somos <b>Representantes Oficiales de MAG</b> en Buenos Aires y Mar del Plata. MAG es el <b style="color:#D4A85A">único laboratorio de suplementos deportivos de la Argentina con Farmacéutico Habilitado</b> — 25 años de ciencia certificada para llevarte al <span class="grad" style="font-style:italic;font-weight:700">próximo nivel.</span></p>
       <div class="ctas">
         <a href="#products" class="btn btn-primary">Explorar catálogo →</a>
         <a href="https://wa.me/5492235730400" class="btn btn-wapp">💬 WhatsApp directo</a>
         <a href="#mayoristas" class="btn btn-ghost">Soy gimnasio / comercio</a>
       </div>
       <div class="hero-proofs">
-        <div class="proof"><b>25+</b><span>Años de experiencia</span></div>
+        <div class="proof"><b>25+</b><span>Años de ciencia</span></div>
         <div class="proof"><b>+12K</b><span>Atletas activos</span></div>
-        <div class="proof"><b>9</b><span>Segmentos deportivos</span></div>
-        <div class="proof"><b>100%</b><span>Industria argentina</span></div>
+        <div class="proof"><b>34</b><span>Productos oficiales</span></div>
+        <div class="proof-farm">
+          <b>🔬 Farmacéutico<br>Habilitado</b>
+          <span>Único laboratorio<br>oficial del país</span>
+        </div>
       </div>
     </div>
-    <div class="hero-visual" style="overflow:visible;min-height:420px">
+    <div class="hero-visual" style="overflow:visible;min-height:520px">
       <div class="saturn-glow-outer"></div>
-      <canvas id="saturnCanvas" style="display:block;width:100%;height:100%;min-height:420px"></canvas>
+      <canvas id="saturnCanvas" style="display:block;width:100%;height:100%;min-height:520px"></canvas>
     </div>
   </div>
 </header>
@@ -1610,10 +1641,10 @@ updateCart();
 
   function resize(){
     const r=canvas.parentElement.getBoundingClientRect();
-    W=canvas.width =Math.round(r.width) ||500;
-    H=canvas.height=Math.round(r.height)||560;
+    W=canvas.width =Math.round(r.width) ||560;
+    H=canvas.height=Math.round(r.height)||600;
     cx=W/2; cy=H/2;
-    pR=Math.min(W,H)*0.34;
+    pR=Math.min(W,H)*0.41;
   }
 
   function rAB(ri){
