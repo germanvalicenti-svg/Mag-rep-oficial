@@ -1881,12 +1881,14 @@ updateCart();
     ctx.restore();
 
     /* taglines */
-    const tSz=Math.max(7,pR*.109);
-    ctx.font=`400 ${tSz}px 'Inter',sans-serif`;
-    ctx.fillStyle='rgba(215,205,255,0.92)';
-    const lh=tSz*1.52;
-    ['Único laboratorio','oficial con','Farmacéutico','autorizado en el país']
-      .forEach((l,i)=>ctx.fillText(l,cx,cy+pR*.06+i*lh));
+    const tSz=Math.max(9,pR*.145);
+    ctx.font=`800 ${tSz}px 'Inter',sans-serif`;
+    ctx.shadowColor='rgba(139,92,246,0.7)';
+    ctx.shadowBlur=14;
+    ctx.fillStyle='rgba(215,205,255,0.96)';
+    const lh=tSz*1.6;
+    ['SUPERA TUS','LÍMITES']
+      .forEach((l,i)=>ctx.fillText(l,cx,cy+pR*.05+i*lh));
 
     ctx.restore();
   }
