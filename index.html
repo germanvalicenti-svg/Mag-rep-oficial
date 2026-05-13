@@ -968,7 +968,7 @@ footer{background:#05050C;border-top:1px solid var(--line);padding:56px 0 32px;p
         <div class="promo-head">
           <span class="promo-tag">Nueva cuenta · Sin vencimiento</span>
           <h3>10% OFF en tu primera compra.</h3>
-          <p>Aplicable a todo el catálogo MAG con compra mínima de $100.000. Sin envío gratuito incluido.</p>
+          <p>Aplicable a todo el catálogo MAG con compra mínima de $150.000. El costo de envío se calcula al finalizar el pedido según peso, volumen y destino.</p>
         </div>
         <div class="promo-foot">
           <div class="promo-code">BIENVENIDO10</div>
@@ -977,13 +977,13 @@ footer{background:#05050C;border-top:1px solid var(--line);padding:56px 0 32px;p
       </div>
       <div class="promo promo-2">
         <div class="promo-head">
-          <span class="promo-tag">Para atletas MAG</span>
-          <h3>15% OFF para atletas MAG.</h3>
-          <p>Descuento exclusivo para quienes entrenan en serio. Compra mínima de $150.000. Sin envío gratuito incluido.</p>
+          <span class="promo-tag">Para atletas MAG · $19.900/mes</span>
+          <h3>10% OFF para atletas MAG.</h3>
+          <p>Descuento exclusivo para miembros del programa Atleta MAG. Compra mínima de $100.000. El costo de envío se calcula al finalizar el pedido según peso, volumen y destino.</p>
         </div>
         <div class="promo-foot">
-          <div class="promo-code">ATLETA15</div>
-          <a href="https://wa.me/5492235730400?text=Hola!%20Quiero%20aplicar%20el%20descuento%20ATLETA15%20%F0%9F%92%AA" class="btn btn-wapp">Pedir por WhatsApp</a>
+          <div class="promo-code">ATLETA10</div>
+          <a href="https://wa.me/5492235730400?text=Hola!%20Quiero%20unirme%20al%20programa%20Atleta%20MAG%20y%20obtener%20mi%20descuento%20ATLETA10%20%F0%9F%92%AA" class="btn btn-wapp">Quiero ser Atleta MAG →</a>
         </div>
       </div>
     </div>
@@ -1331,7 +1331,7 @@ function toggleWish(ev,id){
 /* ===== CARRITO ===== */
 const cart=[];
 let coupon=null;
-const COUPONS={'BIENVENIDO10':{pct:10,label:'10% OFF — Bienvenida',minOrder:100000},'ATLETA15':{pct:15,label:'15% OFF — Atleta MAG',minOrder:150000}};
+const COUPONS={'BIENVENIDO10':{pct:10,label:'10% OFF — Bienvenida',minOrder:150000},'ATLETA10':{pct:10,label:'10% OFF — Atleta MAG',minOrder:100000}};
 
 function add(id,qty=1){
   const p=products.find(x=>x.id===id);
