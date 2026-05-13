@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <title>MAG · Representantes Oficiales Buenos Aires & Mar del Plata</title>
-<meta name="description" content="MAG Suplementos Nutricionales · Representantes Oficiales provincia de Buenos Aires y Mar del Plata. Envíos 24/48hs · Asesoría humana · Programa mayorista para gimnasios y comercios." />
+<meta name="description" content="MAG Suplementos Nutricionales · Representantes Oficiales provincia de Buenos Aires y Mar del Plata. Envíos 48/72hs Bs.As · 24/48hs Mar del Plata · Asesoría humana · Programa mayorista para gimnasios y comercios." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@500;700;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
@@ -556,6 +556,24 @@ footer{background:#05050C;border-top:1px solid var(--line);padding:56px 0 32px;p
 .sk-total .stl{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
 .sk-total b{font-family:'Playfair Display',serif;font-size:19px;font-weight:900;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 
+/* ── Info operacional: pagos, envíos, retiro, horarios ── */
+.info-ops{padding:56px 0 60px}
+.info-ops-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+@media(max-width:1100px){.info-ops-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){.info-ops-grid{grid-template-columns:1fr}}
+.iop-card{background:rgba(255,255,255,.03);border:1px solid rgba(212,168,90,.18);border-radius:20px;padding:26px 22px;position:relative;overflow:hidden;transition:border-color .25s,transform .2s}
+.iop-card:hover{border-color:rgba(212,168,90,.45);transform:translateY(-3px)}
+.iop-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold-grad);opacity:.6}
+.iop-icon{font-size:28px;margin-bottom:12px;display:block}
+.iop-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--gold-2);margin-bottom:10px}
+.iop-line{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:13.5px;color:#C0C0D0;line-height:1.5}
+.iop-line b{color:#E8E8F0;font-weight:600;white-space:nowrap}
+.iop-alias{background:rgba(212,168,90,.1);border:1px solid rgba(212,168,90,.3);border-radius:8px;padding:7px 12px;font-family:'Space Grotesk',monospace;font-size:13px;font-weight:700;color:var(--gold-2);letter-spacing:.03em;margin-bottom:7px;word-break:break-all}
+.iop-alias-sub{font-size:11px;color:#888;margin-bottom:10px;letter-spacing:.02em}
+.iop-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3);border-radius:6px;padding:3px 9px;font-size:11px;font-weight:700;color:#4ade80;letter-spacing:.06em;margin-top:4px}
+.iop-badge-soon{background:rgba(212,168,90,.1);border-color:rgba(212,168,90,.3);color:var(--gold-2)}
+.iop-divider{border:none;border-top:1px solid rgba(255,255,255,.07);margin:10px 0}
+
 /* ── Section quick-nav bar ── */
 .nav-space{height:57px}
 @media(max-width:800px){.nav-space{height:106px}}
@@ -578,7 +596,7 @@ footer{background:#05050C;border-top:1px solid var(--line);padding:56px 0 32px;p
 
 <div class="top-notice">
   <div class="top-notice-inner">
-    <div><span class="dot"></span> <strong>REPRESENTANTES OFICIALES</strong> · Pcia. Buenos Aires & Mar del Plata · Envíos 24/48hs</div>
+    <div><span class="dot"></span> <strong>REPRESENTANTES OFICIALES</strong> · Bs.As 48/72hs &nbsp;·&nbsp; Mar del Plata 24/48hs &nbsp;·&nbsp; Retiro en MdP disponible</div>
     <div style="display:flex;gap:14px;align-items:center">
       <span>IG @mag.rep.oficial</span>
       <span style="opacity:.5">·</span>
@@ -1021,6 +1039,80 @@ footer{background:#05050C;border-top:1px solid var(--line);padding:56px 0 32px;p
   </div>
 </section>
 
+<!-- SECCIÓN INFO OPERACIONAL: PAGOS, ENVÍOS, RETIRO, HORARIOS -->
+<section class="info-ops">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">✦ Todo lo que necesitás saber</span>
+      <h2>Formas de pago, envíos <span class="grad">y retiro.</span></h2>
+      <p>Trabajamos con múltiples medios de pago. Enviamos a toda la provincia y también podés retirar en Mar del Plata.</p>
+    </div>
+    <div class="info-ops-grid">
+
+      <!-- MÉTODOS DE PAGO -->
+      <div class="iop-card">
+        <span class="iop-icon">💳</span>
+        <div class="iop-title">Métodos de pago</div>
+        <div class="iop-line"><b>MercadoPago</b></div>
+        <div class="iop-line" style="color:#aaa;font-size:12.5px;margin-top:-4px;margin-bottom:10px">Tarjeta débito / crédito · transferencia MP</div>
+        <hr class="iop-divider">
+        <div class="iop-line" style="margin-bottom:6px"><b>Transferencia bancaria</b></div>
+        <div style="margin-bottom:4px">
+          <div class="iop-alias">MAG.Rep.Oficial</div>
+          <div class="iop-alias-sub">📞 Contacto: Guillermo</div>
+        </div>
+        <div>
+          <div class="iop-alias">MAG.Rep.Oficial.Arg</div>
+          <div class="iop-alias-sub">📞 Contacto: Germán</div>
+        </div>
+        <hr class="iop-divider">
+        <div class="iop-line"><b>Efectivo</b> · solo en retiro presencial</div>
+      </div>
+
+      <!-- ENVÍOS BUENOS AIRES -->
+      <div class="iop-card">
+        <span class="iop-icon">📦</span>
+        <div class="iop-title">Envíos · Bs. As.</div>
+        <div class="iop-line"><b>Tiempo:</b>&nbsp;48 a 72 hs hábiles</div>
+        <div class="iop-line"><b>Zona:</b>&nbsp;Toda la provincia de Bs. As. y AMBA</div>
+        <div class="iop-line"><b>Costo:</b>&nbsp;Se calcula al finalizar el pedido según peso, volumen y destino</div>
+        <hr class="iop-divider">
+        <div class="iop-line" style="color:#aaa;font-size:12.5px">El pedido se arma por WhatsApp y el link de seguimiento se envía al confirmar.</div>
+        <div class="iop-badge">🚚 Envío a toda Bs. As.</div>
+      </div>
+
+      <!-- ENVÍOS MAR DEL PLATA -->
+      <div class="iop-card">
+        <span class="iop-icon">🌊</span>
+        <div class="iop-title">Envíos · Mar del Plata</div>
+        <div class="iop-line"><b>Tiempo:</b>&nbsp;24 a 48 hs hábiles</div>
+        <div class="iop-line"><b>Zona:</b>&nbsp;Mar del Plata y alrededores</div>
+        <div class="iop-line"><b>Costo:</b>&nbsp;Se calcula al finalizar el pedido según peso, volumen y destino</div>
+        <hr class="iop-divider">
+        <div class="iop-line" style="color:#aaa;font-size:12.5px">Base operativa en Mar del Plata — salidas diarias en días hábiles.</div>
+        <div class="iop-badge">⚡ Entrega express local</div>
+      </div>
+
+      <!-- RETIRO Y HORARIOS -->
+      <div class="iop-card">
+        <span class="iop-icon">🏪</span>
+        <div class="iop-title">Retiro presencial</div>
+        <div class="iop-line"><b>Mar del Plata</b></div>
+        <div class="iop-badge" style="margin-bottom:10px">✅ Disponible ahora</div>
+        <div class="iop-line" style="font-size:12.5px">Coordiná por WhatsApp para lugar y horario de entrega. Pago en efectivo o transferencia.</div>
+        <hr class="iop-divider">
+        <div class="iop-line"><b>Buenos Aires</b></div>
+        <div class="iop-badge iop-badge-soon" style="margin-bottom:10px">🔜 Próximamente</div>
+        <hr class="iop-divider">
+        <div class="iop-title" style="font-size:13px;margin-top:4px;margin-bottom:8px">🕐 Horario WhatsApp</div>
+        <div class="iop-line"><b>Lun–Vie</b>&nbsp;8:00 a 21:00 hs</div>
+        <div class="iop-line"><b>Sáb–Dom</b>&nbsp;9:00 a 18:00 hs</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <section id="mayoristas" class="mayor">
   <div class="wrap mayor-grid">
     <div class="mayor-text">
@@ -1123,7 +1215,7 @@ footer{background:#05050C;border-top:1px solid var(--line);padding:56px 0 32px;p
     <div class="contact-card">
       <span class="official-badge">Rep. Oficial Buenos Aires</span>
       <h2 style="margin-top:18px">¿Querés <span class="grad">asesoría humana?</span></h2>
-      <p>Hablá con el equipo. Respondemos en menos de 30 minutos en horario comercial y te armamos el stack ideal para tu deporte y objetivos.</p>
+      <p>Hablá con el equipo. Respondemos en menos de 30 min — <b>Lun a Vie de 8 a 21 hs</b> · <b>Sáb y Dom de 9 a 18 hs</b>. Te armamos el stack ideal para tu deporte y objetivos.</p>
       <div class="contact-ctas">
         <a href="https://wa.me/5492235730400?text=Hola%20MAG!%20%F0%9F%91%8B%20Encontr%C3%A9%20su%20web%20y%20me%20gustar%C3%ADa%20recibir%20asesoramiento%20personalizado.%20%C2%A1Quedo%20a%20la%20espera%2C%20gracias!" class="btn btn-wapp">💬 WhatsApp directo</a>
         <a href="https://instagram.com/mag.rep.oficial" class="btn btn-primary">📱 @mag.rep.oficial</a>
