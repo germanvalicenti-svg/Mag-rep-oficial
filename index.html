@@ -556,6 +556,21 @@ footer{background:#05050C;border-top:1px solid var(--line);padding:56px 0 32px;p
 .sk-total .stl{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
 .sk-total b{font-family:'Playfair Display',serif;font-size:19px;font-weight:900;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 
+/* ── Badge sin stock ── */
+.b-out{background:#374151!important;color:#D1D5DB!important}
+.card-out-overlay{position:absolute;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;border-radius:inherit;pointer-events:none}
+.card-out-label{color:#E5E7EB;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;background:rgba(0,0,0,.7);padding:5px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.15)}
+.add-btn:disabled{opacity:.38;cursor:not-allowed}
+/* ── Selector de sabor en modal ── */
+.pm-flavor{margin:12px 0 4px}
+.pm-flavor-label{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-2);margin-bottom:8px}
+.pm-flavor-opts{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px}
+.flavor-btn{padding:6px 13px;border-radius:999px;border:1px solid rgba(212,168,90,.35);background:rgba(212,168,90,.07);color:#C0C0D0;font-size:12px;font-weight:600;cursor:pointer;transition:all .18s;white-space:nowrap}
+.flavor-btn:hover{border-color:rgba(212,168,90,.7);color:#EAD9B0;background:rgba(212,168,90,.14)}
+.flavor-btn.selected{border-color:#D4A85A;background:rgba(212,168,90,.22);color:#EAD9B0;box-shadow:0 0 8px rgba(212,168,90,.3)}
+.pm-flavor-err{font-size:12px;color:#F87171;margin-top:6px;min-height:16px}
+.di-flavor{font-size:11px;color:var(--gold-2);font-weight:600;font-style:normal;margin-left:4px}
+.pm-out-msg{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.3);color:#FCA5A5;border-radius:10px;padding:10px 14px;font-size:13px;font-weight:600;text-align:center;margin-bottom:10px}
 /* ── Info operacional: pagos, envíos, retiro, horarios ── */
 .info-ops{padding:56px 0 60px}
 .info-ops-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
@@ -1326,7 +1341,7 @@ footer{background:#05050C;border-top:1px solid var(--line);padding:56px 0 32px;p
 /* ===== DATOS ===== */
 const CATS={crossfit:'Crossfit · Fuerza',endurance:'Endurance · Running/Moto',futbol:'Fútbol',gym:'Gym · Aesthetics',golf:'Golf',surf:'Surf',jiujitsu:'Jiu Jitsu',belleza:'Belleza · Wellness',accesorios:'Accesorios'};
 const CAT_BG={crossfit:['rgba(255,80,30,.55)','#150300'],endurance:['rgba(45,212,191,.55)','#011614'],futbol:['rgba(34,197,94,.5)','#030f06'],gym:['rgba(139,92,246,.55)','#0b0420'],golf:['rgba(190,130,25,.55)','#100c02'],surf:['rgba(59,130,246,.55)','#020818'],jiujitsu:['rgba(170,35,35,.55)','#0d0303'],belleza:['rgba(236,72,153,.55)','#12040e'],accesorios:['rgba(170,120,30,.6)','#0e0b02']};
-const USAGE={1:'1 medida (40g) en 250ml de agua o leche. Ideal 30–60 min post-entreno.',2:'3–5g diarios con agua, en cualquier momento del día. Sin fase de carga.',3:'1 medida en 200ml de agua fría, 20–30 min antes de entrenar. Máx 1 dosis/día.',4:'1 medida en 500ml de agua durante el entrenamiento.',5:'1 comprimido con el desayuno. Ciclos de 60–90 días.',6:'1 medida (32g) en 500ml de agua durante el entreno o competencia.',7:'1 cápsula 30 min antes del entreno. 100 días de suministro.',8:'1 medida (10g) en agua o jugo, preferentemente en ayunas.',9:'2 cápsulas con el desayuno o almuerzo. No tomar después de las 18hs.',10:'1 cápsula con desayuno y 1 con almuerzo. Máx 2 cápsulas por día.',11:'Lavar con agua fría antes del primer uso.',12:'Lavar a 30°C al revés. No usar secadora.',13:'Lavar a mano con agua fría.',14:'Lavar a mano o en bolsa de laundry.',15:'Pre-enfriar 30 min antes de usar.',16:'Lavar a 40°C. No usar suavizante.'};
+const USAGE={1:'1 medida (40g) en 250ml de agua o leche. Ideal 30–60 min post-entreno.',2:'3–5g diarios con agua, en cualquier momento del día. Sin fase de carga.',3:'1 medida en 200ml de agua fría, 20–30 min antes de entrenar. Máx 1 dosis/día.',4:'1 medida en 500ml de agua durante el entrenamiento.',5:'1 comprimido con el desayuno. Ciclos de 60–90 días.',6:'1 medida (32g) en 500ml de agua durante el entreno o competencia.',7:'1 cápsula 30 min antes del entreno. 100 días de suministro.',8:'1 medida (10g) en agua o jugo, preferentemente en ayunas.',9:'2 cápsulas con el desayuno o almuerzo. No tomar después de las 18hs.',10:'1 cápsula con desayuno y 1 con almuerzo. Máx 2 cápsulas por día.',11:'Lavar con agua fría antes del primer uso.',12:'Lavar a 30°C al revés. No usar secadora.',13:'Lavar a mano con agua fría.',14:'Lavar a mano o en bolsa de laundry.',15:'Pre-enfriar 30 min antes de usar.',16:'Lavar a 40°C. No usar suavizante.',35:'1 medida en 250ml de agua fría. Ideal 30–60 min post-entreno. Absorción ultra-rápida por hidrólisis.',36:'1 cápsula antes de dormir con un vaso de agua. Favorece la relajación muscular y el descanso.',37:'1–2 cápsulas con las principales comidas del día. No superar la dosis indicada.',38:'3 cápsulas por día con el desayuno. Consultar con profesional antes de iniciar.',39:'2 a 3 cápsulas 30 min antes de dormir con agua. Favorece la recuperación y el sueño profundo.',40:'1 medida (33g) en 300ml de agua o bebida vegetal. Ideal post-entreno o entre comidas.'};
 const products=[
   {id:1,name:'W-Mass 1kg',desc:'Whey protein + carbs complejos para hipertrofia y volumen muscular.',price:72000,cats:['crossfit','gym','jiujitsu'],img:'assets/productos/w-mass.jpg',badges:['b-top'],meta:['1kg','Cookies & Cream','Vainilla']},
   {id:2,name:'High Creatine Power',desc:'Pureza farmacéutica. Fuerza, explosividad y volumen celular garantizados.',price:33000,cats:['crossfit','endurance','futbol','gym','jiujitsu'],img:'assets/productos/high-creatine.jpg',badges:[],meta:['250g','Sin sabor','83 porciones']},
@@ -1340,8 +1355,8 @@ const products=[
   {id:10,name:'Fat Burner MAG',desc:'Guaraná, Garcinia Cambogia y té verde. Acelera metabolismo y reduce apetito.',price:32000,cats:['belleza','gym'],img:'assets/productos/fat-burner.jpg',badges:[],meta:['60 cáps','30 días','Termogénico']},
   /* ── PROTEÍNAS ── */
   {id:17,name:'MAX-80 Whey + Eggs',desc:'Proteína de suero y huevo, 80% de concentración. 32g de proteína por porción para máxima hipertrofia.',price:86000,cats:['gym','crossfit','jiujitsu'],img:'assets/productos/max-80.jpg',badges:['b-new'],meta:['1kg','32g proteína','25 porciones']},
-  {id:18,name:'Protein W80',desc:'Concentrado de proteína de suero de leche al 80%. Disolución instantánea para recuperación rápida. Sabores: Chocolate, Vainilla, Frutilla, Frutos Rojos, Dulce de Leche, Banana, Banana Split.',price:94000,cats:['gym','crossfit','endurance'],img:'assets/productos/protein-w80.jpg',badges:['b-new'],meta:['1kg','80% proteína','37 porciones']},
-  {id:19,name:'EGG PROT Ovoalbúmina',desc:'Proteína pura de huevo, libre de lactosa. Perfil completo de aminoácidos para quienes buscan calidad sin lácteos.',price:66000,cats:['gym','crossfit','belleza'],img:'assets/productos/egg-prot.jpg',badges:[],meta:['1kg','25g proteína','33 porciones','Lactosa Free']},
+  {id:18,name:'Protein W80',desc:'Concentrado de proteína de suero de leche al 80%. Disolución instantánea para recuperación rápida. Disponible en 7 sabores.',price:94000,cats:['gym','crossfit','endurance'],img:'assets/productos/protein-w80.jpg',badges:['b-new'],meta:['1kg','80% proteína','37 porciones'],flavors:['Chocolate','Vainilla','Frutilla','Frutos Rojos','Dulce de Leche','Banana','Banana Split']},
+  {id:19,name:'EGG PROT Ovoalbúmina',desc:'Proteína pura de huevo, libre de lactosa. Perfil completo de aminoácidos para quienes buscan calidad sin lácteos.',price:66000,cats:['gym','crossfit','belleza'],img:'assets/productos/egg-prot.jpg',badges:[],meta:['1kg','25g proteína','33 porciones','Lactosa Free','Chocolate']},
   /* ── GAINERS ── */
   {id:20,name:'Total Gainer 1.5kg',desc:'Advanced Muscle & Mass Gainer. Carbohidratos complejos + proteína para subir de peso y volumen de forma efectiva.',price:66000,cats:['gym','crossfit','jiujitsu'],img:'assets/productos/total-gainer.jpg',badges:[],meta:['1.5kg','37 porciones','12g proteína']},
   /* ── CREATINAS ── */
@@ -1363,7 +1378,13 @@ const products=[
   {id:32,name:'Óxido Nítrico',desc:'L-Arginina Alpha Ketoglutarato para máximo pump y vasodilatación. Más sangre y nutrientes en el músculo activo.',price:19000,cats:['crossfit','gym','futbol','jiujitsu'],img:'assets/productos/oxido-nitrico.jpg',badges:[],meta:['100 cápsulas','50 días','Pump máximo']},
   /* ── BIENESTAR ── */
   {id:33,name:'+24 Vitaminas',desc:'Complejo multivitamínico con más de 24 nutrientes esenciales. Refuerza el sistema inmune y el bienestar general.',price:40000,cats:['belleza','golf','endurance','surf'],img:'assets/productos/mas24.jpg',badges:[],meta:['120 cápsulas','60 días','Multivitamínico']},
-  {id:34,name:'Flex-V Vegetarian Protein',desc:'Proteína flexitariana premium. 30g de proteína por porción de fuentes vegetales de alta calidad. Alta digestibilidad sin proteínas animales.',price:32000,cats:['gym','crossfit','belleza','endurance'],img:'assets/productos/flex-v.jpg',badges:['b-new'],meta:['400g','30g proteína','13 porciones']},
+  {id:34,name:'Flex-V Vegetarian Protein',desc:'Proteína flexitariana premium. 30g de proteína por porción de fuentes vegetales de alta calidad. Alta digestibilidad sin proteínas animales.',price:32000,cats:['gym','crossfit','belleza','endurance'],img:'assets/productos/flex-v.jpg',badges:['b-new'],meta:['400g','30g proteína','13 porciones','Vainilla']},
+  {id:35,name:'Protein W80 1kg Hidrolizada',desc:'Proteína de suero hidrolizada de máxima absorción. Ideal para post-entreno inmediato. Sabor Vainilla.',price:123000,cats:['gym','crossfit','endurance'],img:'assets/productos/protein-hidrolizada.jpg',badges:['b-new'],meta:['1kg','Hidrolizada','Vainilla','Alta absorción']},
+  {id:36,name:'Bisglicinato de Magnesio 500mg',desc:'Magnesio en su forma más biodisponible. Favorece la función muscular, nerviosa y el descanso nocturno.',price:41000,cats:['gym','crossfit','endurance','belleza'],img:'assets/productos/bisglicinato-magnesio.jpg',badges:[],meta:['100 cáps','500mg','100 días']},
+  {id:37,name:'Cúrcuma Complex 250g',desc:'Extracto de cúrcuma + piperina para máxima absorción. Propiedades antiinflamatorias y antioxidantes naturales.',price:78000,cats:['endurance','golf','belleza','gym'],img:'assets/productos/curcuma.jpg',badges:[],meta:['250g','Con piperina','Antiinflamatorio']},
+  {id:38,name:'Metabolix Advance 90 cáps',desc:'Fórmula termogénica avanzada para acelerar el metabolismo, quemar grasa y potenciar el rendimiento.',price:30000,cats:['gym','crossfit','endurance'],img:'assets/productos/metabolix-advance.jpg',badges:[],meta:['90 cáps','Termogénico','30 días'],outOfStock:true},
+  {id:39,name:'Sleep Support 100 cáps',desc:'Fórmula natural con melatonina, valeriana y magnesio para un sueño profundo y recuperación muscular nocturna.',price:20000,cats:['gym','crossfit','endurance','belleza'],img:'assets/productos/sleep.jpg',badges:[],meta:['100 cáps','Con melatonina','Natural'],outOfStock:true},
+  {id:40,name:'Pure Plant Protein Vegan 1kg',desc:'Proteína 100% vegetal de guisante y arroz. Alta digestibilidad, perfil completo de aminoácidos y sin lácteos.',price:51000,cats:['gym','crossfit','endurance','belleza'],img:'assets/productos/pureplant.jpg',badges:[],meta:['1kg','Vegana','Sin lactosa'],outOfStock:true},
   {id:35,name:'Collagen 90',desc:'Colágeno hidrolizado tipo I y III. Regenera cartílagos, mejora la piel y refuerza ligamentos y tendones.',price:33000,cats:['belleza','golf','surf','gym'],img:'assets/productos/collagen-90.jpg',badges:['b-new'],meta:['400g','90 días','Anti-aging']},
   /* ── ACCESORIOS (con foto) ── */
   {id:36,name:'Galón MAG Negro',desc:'Botellón deportivo 1600cc con logo MAG serigrafía. Ideal para mantenerte hidratado todo el día en el gym.',price:15000,cats:['accesorios'],img:'assets/productos/galon-negro.jpg',badges:[],meta:['1600cc','BPA free','Negro']},
@@ -1400,7 +1421,8 @@ function render(filter=currentFilter,search=currentSearch){
     <article class="card" data-cat="${mc}" style="--card-bg-1:${bg1};--card-bg-2:${bg2}" onclick="openPmod(${p.id})">
       <div class="card-media">
         ${media}
-        <div class="card-badges">${p.badges.map(b=>`<span class="badge ${b}">${b==='b-top'?'Top Ventas':b==='b-new'?'Nuevo':b==='b-out'?'Sin Stock':'Hot'}</span>`).join('')}</div>
+        ${p.outOfStock?'<div class="card-out-overlay"><span class="card-out-label">Sin Stock</span></div>':''}
+        <div class="card-badges">${p.badges.map(b=>`<span class="badge ${b}">${b==='b-top'?'Top Ventas':b==='b-new'?'Nuevo':b==='b-out'?'Sin Stock':'Hot'}</span>`).join('')}${p.outOfStock?'<span class="badge b-out">Sin Stock</span>':''}</div>
         <button class="card-wish ${wOn}" title="Favorito" onclick="toggleWish(event,${p.id})">${wOn?'♥':'♡'}</button>
       </div>
       <div class="card-body">
@@ -1417,7 +1439,7 @@ function render(filter=currentFilter,search=currentSearch){
           </div>
           <div class="card-actions">
             <button class="wapp-mini" title="Consultar por WhatsApp" onclick="event.stopPropagation();wappProd(${p.id})">💬</button>
-            <button class="add-btn" title="Agregar al carrito" onclick="event.stopPropagation();add(${p.id})">+</button>
+            <button class="add-btn" title="${p.outOfStock?'Sin stock':p.flavors?'Elegir sabor':'Agregar al carrito'}" onclick="event.stopPropagation();add(${p.id})" ${p.outOfStock?'disabled':''}>+</button>
           </div>
         </div>
       </div>
@@ -1456,17 +1478,21 @@ const cart=[];
 let coupon=null;
 const COUPONS={'BIENVENIDO10':{pct:10,label:'10% OFF — Bienvenida',minOrder:150000},'ATLETA10':{pct:10,label:'10% OFF — Atleta MAG',minOrder:100000}};
 
-function add(id,qty=1){
+function add(id,qty=1,flavor=null){
   const p=products.find(x=>x.id===id);
-  const ex=cart.find(c=>c.id===id);
-  if(ex)ex.qty+=qty; else cart.push({...p,qty});
+  if(!p)return;
+  if(p.outOfStock)return;
+  if(p.flavors&&p.flavors.length>0&&!flavor){openPmod(id);return;}
+  const ckey=flavor?`${id}_${flavor}`:`${id}`;
+  const ex=cart.find(c=>c._ckey===ckey);
+  if(ex)ex.qty+=qty; else cart.push({...p,qty,flavor:flavor||null,_ckey:ckey});
   updateCart();
   openCart();
-  showToast(`${p.name} agregado al carrito 🎉`);
+  showToast(`${p.name}${flavor?' · '+flavor:''} agregado 🎉`);
 }
-function inc(id){const c=cart.find(x=>x.id===id);if(c){c.qty++;updateCart();}}
-function dec(id){const c=cart.find(x=>x.id===id);if(c){c.qty<=1?rm(id):(c.qty--,updateCart());}}
-function rm(id){const i=cart.findIndex(c=>c.id===id);if(i>=0){cart.splice(i,1);updateCart();}}
+function inc(ckey){const c=cart.find(x=>x._ckey===ckey);if(c){c.qty++;updateCart();}}
+function dec(ckey){const c=cart.find(x=>x._ckey===ckey);if(c){c.qty<=1?rm(ckey):(c.qty--,updateCart());}}
+function rm(ckey){const i=cart.findIndex(c=>c._ckey===ckey);if(i>=0){cart.splice(i,1);updateCart();}}
 
 function updateCart(){
   const count=cart.reduce((s,c)=>s+c.qty,0);
@@ -1494,13 +1520,13 @@ function updateCart(){
     <div class="drawer-item">
       <div class="di-img">${c.img?`<img src="${c.img}" alt="${c.name}">`:`<span style="font-size:28px">${c.icon||'✦'}</span>`}</div>
       <div>
-        <span class="di-name">${c.name}</span>
+        <span class="di-name">${c.name}${c.flavor?`<em class="di-flavor">· ${c.flavor}</em>`:''}</span>
         <span class="di-pr">${fmt(c.price)} c/u</span>
         <div class="di-ctrl">
-          <button class="di-qb" onclick="dec(${c.id})">−</button>
+          <button class="di-qb" onclick="dec('${c._ckey}')">−</button>
           <span class="di-qn">${c.qty}</span>
-          <button class="di-qb" onclick="inc(${c.id})">+</button>
-          <button class="di-rm" onclick="rm(${c.id})">✕</button>
+          <button class="di-qb" onclick="inc('${c._ckey}')">+</button>
+          <button class="di-rm" onclick="rm('${c._ckey}')">✕</button>
         </div>
       </div>
     </div>`).join('');
@@ -1525,7 +1551,7 @@ function checkout(ev){
   const raw=cart.reduce((s,c)=>s+c.qty*c.price,0);
   const disc=coupon?Math.round(raw*coupon.pct/100):0;
   const total=raw-disc;
-  let lines=cart.map(c=>`• ${c.name} x${c.qty} → ${fmt(c.price*c.qty)}`).join('%0A');
+  let lines=cart.map(c=>`• ${c.name}${c.flavor?' ('+c.flavor+')':''} x${c.qty} → ${fmt(c.price*c.qty)}`).join('%0A');
   let extra='';
   if(coupon)extra=`%0ACódigo%3A%20${document.getElementById('couponInp').value.trim().toUpperCase()}%20(-${fmt(disc)})`;
   const msg=`Hola%20MAG%20Rep.%20Oficial%20👋%0A%0AQuiero%20hacer%20este%20pedido%3A%0A${lines}${extra}%0A%0ATOTAL%3A%20${fmt(total)}%0A%0A¿Me%20pasan%20formas%20de%20pago%20y%20envío%3F%20Gracias!`;
@@ -1540,10 +1566,11 @@ function wappProd(id){
 
 /* ===== MODAL PRODUCTO ===== */
 let pmodQty=1;
+let pmodSelectedFlavor=null;
 function openPmod(id){
   const p=products.find(x=>x.id===id);
   if(!p)return;
-  pmodQty=1;
+  pmodQty=1; pmodSelectedFlavor=null;
   const mc=p.cats[0];
   const[bg1,bg2]=CAT_BG[mc]||CAT_BG.accesorios;
   document.getElementById('pmodLeft').style.setProperty('--pc1',bg1);
@@ -1552,6 +1579,34 @@ function openPmod(id){
     ?`<img src="${p.img}" alt="${p.name}">`
     :`<div class="pm-ico">${p.icon||'✦'}</div>`;
   const saveTag=p.oldPrice?`<span class="pm-save-tag">-${Math.round((1-p.price/p.oldPrice)*100)}% OFF</span>`:'';
+  const flavorHtml=p.flavors&&p.flavors.length>0?`
+    <div class="pm-flavor">
+      <div class="pm-flavor-label">Elegí tu sabor</div>
+      <div class="pm-flavor-opts">
+        ${p.flavors.map(f=>`<button class="flavor-btn" onclick="selectFlavor(this,'${f}')">${f}</button>`).join('')}
+      </div>
+      <div class="pm-flavor-err" id="pmodFlavorErr"></div>
+    </div>`:'';
+  const qtyHtml=`
+    <div class="pm-qty">
+      <label>Cantidad</label>
+      <div class="pm-qty-ctrl">
+        <button class="pm-qb" onclick="pmodDec()">−</button>
+        <span class="pm-qv" id="pmodQv">1</span>
+        <button class="pm-qb" onclick="pmodInc()">+</button>
+      </div>
+    </div>`;
+  const btnsHtml=p.outOfStock?`
+    <div class="pm-out-msg">⚠ Producto temporalmente sin stock</div>
+    <div class="pm-btns">
+      <a href="${'https://wa.me/5492235730400?text=Hola%20MAG!%20Quiero%20que%20me%20avisen%20cuando%20vuelva%20a%20haber%20stock%20de%20'+encodeURIComponent(p.name)}" class="btn btn-wapp" target="_blank">💬 Avisame cuando haya stock</a>
+      <button class="btn btn-ghost" onclick="closePmod()">Seguir mirando</button>
+    </div>`:`
+    <div class="pm-btns">
+      <button class="btn btn-primary" onclick="addFromModal(${p.id})">+ Agregar al carrito</button>
+      <a href="${'https://wa.me/5492235730400?text=Hola%20MAG!%20Quiero%20info%20sobre%20'+encodeURIComponent(p.name)}" class="btn btn-wapp" target="_blank">💬 Consultar por WhatsApp</a>
+      <button class="btn btn-ghost" onclick="closePmod()">Seguir mirando</button>
+    </div>`;
   document.getElementById('pmodRight').innerHTML=`
     <div class="pm-cat">${CATS[mc]||'MAG'}</div>
     <div class="pm-name">${p.name}</div>
@@ -1563,27 +1618,37 @@ function openPmod(id){
       ${p.oldPrice?`<span class="pm-old">${fmt(p.oldPrice)}</span>`:''}
       ${saveTag}
     </div>
-    <div class="pm-qty">
-      <label>Cantidad</label>
-      <div class="pm-qty-ctrl">
-        <button class="pm-qb" onclick="pmodDec()">−</button>
-        <span class="pm-qv" id="pmodQv">1</span>
-        <button class="pm-qb" onclick="pmodInc()">+</button>
-      </div>
-    </div>
-    <div class="pm-btns">
-      <button class="btn btn-primary" onclick="addFromModal(${p.id})">+ Agregar al carrito</button>
-      <a href="${'https://wa.me/5492235730400?text=Hola%20MAG!%20Quiero%20info%20sobre%20'+encodeURIComponent(p.name)}" class="btn btn-wapp" target="_blank">💬 Consultar por WhatsApp</a>
-      <button class="btn btn-ghost" onclick="closePmod()">Seguir mirando</button>
-    </div>`;
+    ${flavorHtml}
+    ${p.outOfStock?'':qtyHtml}
+    ${btnsHtml}`;
   document.getElementById('pmodBg').classList.add('open');
   document.body.style.overflow='hidden';
+}
+function selectFlavor(btn,flavor){
+  document.querySelectorAll('.flavor-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  pmodSelectedFlavor=flavor;
+  const err=document.getElementById('pmodFlavorErr');
+  if(err)err.textContent='';
 }
 function closePmod(){document.getElementById('pmodBg').classList.remove('open');document.body.style.overflow='';}
 function closePmodOutside(e){if(e.target===document.getElementById('pmodBg'))closePmod();}
 function pmodInc(){pmodQty++;document.getElementById('pmodQv').textContent=pmodQty;}
 function pmodDec(){if(pmodQty>1){pmodQty--;document.getElementById('pmodQv').textContent=pmodQty;}}
-function addFromModal(id){add(id,pmodQty);closePmod();}
+function addFromModal(id){
+  const p=products.find(x=>x.id===id);
+  if(p&&p.flavors&&p.flavors.length>0){
+    if(!pmodSelectedFlavor){
+      const err=document.getElementById('pmodFlavorErr');
+      if(err)err.textContent='⚠ Elegí un sabor antes de agregar.';
+      return;
+    }
+    add(id,pmodQty,pmodSelectedFlavor);
+  } else {
+    add(id,pmodQty);
+  }
+  closePmod();
+}
 
 /* ===== MOBILE NAV ===== */
 function openMob(){document.getElementById('mobBg').classList.add('open');document.body.style.overflow='hidden';}
