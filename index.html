@@ -568,6 +568,8 @@ footer{background:#05050C;border-top:1px solid var(--line);padding:56px 0 32px;p
 .flavor-btn{padding:6px 13px;border-radius:999px;border:1px solid rgba(212,168,90,.35);background:rgba(212,168,90,.07);color:#C0C0D0;font-size:12px;font-weight:600;cursor:pointer;transition:all .18s;white-space:nowrap}
 .flavor-btn:hover{border-color:rgba(212,168,90,.7);color:#EAD9B0;background:rgba(212,168,90,.14)}
 .flavor-btn.selected{border-color:#D4A85A;background:rgba(212,168,90,.22);color:#EAD9B0;box-shadow:0 0 8px rgba(212,168,90,.3)}
+.flavor-btn.fl-out{opacity:.42;cursor:not-allowed;text-decoration:line-through;border-color:rgba(248,113,113,.3);color:#F87171}
+.flavor-btn.fl-out:hover{background:rgba(248,113,113,.07);border-color:rgba(248,113,113,.3);color:#F87171}
 .pm-flavor-err{font-size:12px;color:#F87171;margin-top:6px;min-height:16px}
 .di-flavor{font-size:11px;color:var(--gold-2);font-weight:600;font-style:normal;margin-left:4px}
 .pm-out-msg{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.3);color:#FCA5A5;border-radius:10px;padding:10px 14px;font-size:13px;font-weight:600;text-align:center;margin-bottom:10px}
@@ -1341,7 +1343,7 @@ footer{background:#05050C;border-top:1px solid var(--line);padding:56px 0 32px;p
 /* ===== DATOS ===== */
 const CATS={crossfit:'Crossfit · Fuerza',endurance:'Endurance · Running/Moto',futbol:'Fútbol',gym:'Gym · Aesthetics',golf:'Golf',surf:'Surf',jiujitsu:'Jiu Jitsu',belleza:'Belleza · Wellness',accesorios:'Accesorios'};
 const CAT_BG={crossfit:['rgba(255,80,30,.55)','#150300'],endurance:['rgba(45,212,191,.55)','#011614'],futbol:['rgba(34,197,94,.5)','#030f06'],gym:['rgba(139,92,246,.55)','#0b0420'],golf:['rgba(190,130,25,.55)','#100c02'],surf:['rgba(59,130,246,.55)','#020818'],jiujitsu:['rgba(170,35,35,.55)','#0d0303'],belleza:['rgba(236,72,153,.55)','#12040e'],accesorios:['rgba(170,120,30,.6)','#0e0b02']};
-const USAGE={1:'1 medida (40g) en 250ml de agua o leche. Ideal 30–60 min post-entreno.',2:'3–5g diarios con agua, en cualquier momento del día. Sin fase de carga.',3:'1 medida en 200ml de agua fría, 20–30 min antes de entrenar. Máx 1 dosis/día.',4:'1 medida en 500ml de agua durante el entrenamiento.',5:'1 comprimido con el desayuno. Ciclos de 60–90 días.',6:'1 medida (32g) en 500ml de agua durante el entreno o competencia.',7:'1 cápsula 30 min antes del entreno. 100 días de suministro.',8:'1 medida (10g) en agua o jugo, preferentemente en ayunas.',9:'2 cápsulas con el desayuno o almuerzo. No tomar después de las 18hs.',10:'1 cápsula con desayuno y 1 con almuerzo. Máx 2 cápsulas por día.',11:'Lavar con agua fría antes del primer uso.',12:'Lavar a 30°C al revés. No usar secadora.',13:'Lavar a mano con agua fría.',14:'Lavar a mano o en bolsa de laundry.',15:'Pre-enfriar 30 min antes de usar.',16:'Lavar a 40°C. No usar suavizante.',42:'1 medida en 250ml de agua fría. Ideal 30–60 min post-entreno. Absorción ultra-rápida por hidrólisis.',43:'1 cápsula antes de dormir con un vaso de agua. Favorece la relajación muscular y el descanso.',44:'1–2 cápsulas con las principales comidas del día. No superar la dosis indicada.',45:'3 cápsulas por día con el desayuno. Consultar con profesional antes de iniciar.',46:'2 a 3 cápsulas 30 min antes de dormir con agua. Favorece la recuperación y el sueño profundo.',47:'1 medida (33g) en 300ml de agua o bebida vegetal. Ideal post-entreno o entre comidas.',48:'1 cápsula por día con una comida principal que contenga grasas. Ciclos de 60–90 días.'};
+const USAGE={1:'1 medida (40g) en 250ml de agua o leche. Ideal 30–60 min post-entreno.',2:'3–5g diarios con agua, en cualquier momento del día. Sin fase de carga.',3:'1 medida en 200ml de agua fría, 20–30 min antes de entrenar. Máx 1 dosis/día.',4:'1 medida en 500ml de agua durante el entrenamiento.',5:'1 comprimido con el desayuno. Ciclos de 60–90 días.',6:'1 medida (32g) en 500ml de agua durante el entreno o competencia.',7:'1 cápsula 30 min antes del entreno. 100 días de suministro.',8:'1 medida (10g) en agua o jugo, preferentemente en ayunas.',9:'2 cápsulas con el desayuno o almuerzo. No tomar después de las 18hs.',10:'1 cápsula con desayuno y 1 con almuerzo. Máx 2 cápsulas por día.',11:'Lavar con agua fría antes del primer uso.',12:'Lavar a 30°C al revés. No usar secadora.',13:'Lavar a mano con agua fría.',14:'Lavar a mano o en bolsa de laundry.',15:'Pre-enfriar 30 min antes de usar.',16:'Lavar a 40°C. No usar suavizante.',42:'1 medida en 250ml de agua fría. Ideal 30–60 min post-entreno. Absorción ultra-rápida por hidrólisis.',43:'1 cápsula antes de dormir con un vaso de agua. Favorece la relajación muscular y el descanso.',44:'1–2 cápsulas con las principales comidas del día. No superar la dosis indicada.',45:'3 cápsulas por día con el desayuno. Consultar con profesional antes de iniciar.',46:'1 a 2 cápsulas 30 min antes de dormir. El GABA favorece la relajación y el sueño profundo. No exceder la dosis recomendada.',47:'1 medida (33g) en 300ml de agua o bebida vegetal. Ideal post-entreno o entre comidas.',48:'1 cápsula por día con una comida principal que contenga grasas. Ciclos de 60–90 días.'};
 const products=[
   {id:1,name:'W-Mass 1kg',desc:'Whey protein + carbs complejos para hipertrofia y volumen muscular.',price:72000,cats:['crossfit','gym','jiujitsu'],img:'assets/productos/w-mass.jpg',badges:['b-top'],meta:['1kg','Cookies & Cream','Vainilla']},
   {id:2,name:'High Creatine Power',desc:'Pureza farmacéutica. Fuerza, explosividad y volumen celular garantizados.',price:33000,cats:['crossfit','endurance','futbol','gym','jiujitsu'],img:'assets/productos/high-creatine.jpg',badges:[],meta:['250g','Sin sabor','83 porciones']},
@@ -1379,13 +1381,13 @@ const products=[
   /* ── BIENESTAR ── */
   {id:33,name:'+24 Vitaminas',desc:'Complejo multivitamínico con más de 24 nutrientes esenciales. Refuerza el sistema inmune y el bienestar general.',price:40000,cats:['belleza','golf','endurance','surf'],img:'assets/productos/mas24.jpg',badges:[],meta:['120 cápsulas','60 días','Multivitamínico']},
   {id:34,name:'Flex-V Vegetarian Protein',desc:'Proteína flexitariana premium. 30g de proteína por porción de fuentes vegetales de alta calidad. Alta digestibilidad sin proteínas animales.',price:32000,cats:['gym','crossfit','belleza','endurance'],img:'assets/productos/flex-v.jpg',badges:['b-new'],meta:['400g','30g proteína','13 porciones','Vainilla']},
-  {id:42,name:'Protein W80 1kg Hidrolizada',desc:'Proteína de suero hidrolizada de máxima absorción. Ideal para post-entreno inmediato. Sabor Vainilla.',price:123000,cats:['gym','crossfit','endurance'],img:'assets/productos/protein-hidrolizada.jpg',badges:['b-new'],meta:['1kg','Hidrolizada','Vainilla','Alta absorción']},
+  {id:42,name:'Protein W80 1kg Hidrolizada',desc:'Proteína de suero hidrolizada de máxima absorción. Ideal para post-entreno inmediato. Disponible en Vainilla y Chocolate.',price:123000,cats:['gym','crossfit','endurance'],img:'assets/productos/protein-hidrolizada.jpg',badges:['b-new'],meta:['1kg','Hidrolizada','Alta absorción'],flavors:['Vainilla','Chocolate'],flavorStock:{'Vainilla':1,'Chocolate':0}},
   {id:43,name:'Bisglicinato de Magnesio 500mg',desc:'Magnesio en su forma más biodisponible. Favorece la función muscular, nerviosa y el descanso nocturno.',price:41000,cats:['gym','crossfit','endurance','belleza'],img:'assets/productos/bisglicinato-magnesio.jpg',badges:[],meta:['100 cáps','500mg','100 días']},
   {id:44,name:'Cúrcuma Complex 250g',desc:'Extracto de cúrcuma + piperina para máxima absorción. Propiedades antiinflamatorias y antioxidantes naturales.',price:78000,cats:['endurance','golf','belleza','gym'],img:'assets/productos/curcuma.jpg',badges:[],meta:['250g','Con piperina','Antiinflamatorio']},
-  {id:45,name:'Metabolix Advance 90 cáps',desc:'Fórmula termogénica avanzada para acelerar el metabolismo, quemar grasa y potenciar el rendimiento.',price:30000,cats:['gym','crossfit','endurance'],img:'assets/productos/metabolix-advance.jpg',badges:[],meta:['90 cáps','Termogénico','30 días'],outOfStock:true},
-  {id:46,name:'Sleep Support 100 cáps',desc:'Fórmula natural con melatonina, valeriana y magnesio para un sueño profundo y recuperación muscular nocturna.',price:20000,cats:['gym','crossfit','endurance','belleza'],img:'assets/productos/sleep.jpg',badges:[],meta:['100 cáps','Con melatonina','Natural'],outOfStock:true},
-  {id:47,name:'Pure Plant Protein Vegan 1kg',desc:'Proteína 100% vegetal de guisante y arroz. Alta digestibilidad, perfil completo de aminoácidos y sin lácteos.',price:51000,cats:['gym','crossfit','endurance','belleza'],img:'assets/productos/pureplant.jpg',badges:[],meta:['1kg','Vegana','Sin lactosa'],outOfStock:true},
-  {id:48,name:'Vitamina E 250mg',desc:'Potente antioxidante liposoluble. Protege células del daño oxidativo, favorece la piel, el sistema inmune y la recuperación muscular.',price:72000,cats:['belleza','endurance','golf','gym'],img:'assets/productos/vitamina-e.jpg',badges:[],meta:['100 cáps','250mg','100 días']},
+  {id:45,name:'Metabolix Advance 90 cáps',desc:'Fórmula termogénica avanzada para acelerar el metabolismo, quemar grasa y potenciar el rendimiento.',price:30000,cats:['gym','crossfit','endurance'],img:'assets/productos/metabolix-advance.jpg',badges:['b-new'],meta:['90 cáps','Termogénico','30 días']},
+  {id:46,name:'GABA PLUS 100 cáps',desc:'Fórmula natural con GABA, melatonina, valeriana y magnesio para un sueño profundo y recuperación muscular nocturna.',price:20000,cats:['gym','crossfit','endurance','belleza'],img:'assets/productos/sleep.jpg',badges:['b-new'],meta:['100 cáps','Con GABA + Melatonina','Recuperación nocturna']},
+  {id:47,name:'Protein Vegetal Premium Pure Plant 1kg',desc:'Proteína vegetal premium de Poroto Mungo, Arroz y Arveja. Perfil completo de aminoácidos, alta digestibilidad, sin lactosa y sin gluten.',price:51000,cats:['gym','crossfit','endurance','belleza'],img:'assets/productos/pureplant.jpg',badges:['b-new'],meta:['1kg','Vegana','Poroto Mungo · Arroz · Arveja','Sin lactosa']},
+  /* Vitamina E: temporalmente fuera de la web — mantener en stock Excel */
   {id:35,name:'Collagen 90',desc:'Colágeno hidrolizado tipo I y III. Regenera cartílagos, mejora la piel y refuerza ligamentos y tendones.',price:33000,cats:['belleza','golf','surf','gym'],img:'assets/productos/collagen-90.jpg',badges:['b-new'],meta:['400g','90 días','Anti-aging']},
   /* ── ACCESORIOS (con foto) ── */
   {id:36,name:'Galón MAG Negro',desc:'Botellón deportivo 1600cc con logo MAG serigrafía. Ideal para mantenerte hidratado todo el día en el gym.',price:15000,cats:['accesorios'],img:'assets/productos/galon-negro.jpg',badges:[],meta:['1600cc','BPA free','Negro']},
@@ -1584,7 +1586,13 @@ function openPmod(id){
     <div class="pm-flavor">
       <div class="pm-flavor-label">Elegí tu sabor</div>
       <div class="pm-flavor-opts">
-        ${p.flavors.map(f=>`<button class="flavor-btn" onclick="selectFlavor(this,'${f}')">${f}</button>`).join('')}
+        ${p.flavors.map(f=>{
+          const agotado=p.flavorStock&&p.flavorStock[f]===0;
+          const cls='flavor-btn'+(agotado?' fl-out':'');
+          const onclick=agotado?'':`onclick="selectFlavor(this,'${f}')"`;
+          const label=agotado?`${f} — Sin stock`:f;
+          return `<button class="${cls}" ${onclick} ${agotado?'disabled':''}>${label}</button>`;
+        }).join('')}
       </div>
       <div class="pm-flavor-err" id="pmodFlavorErr"></div>
     </div>`:'';
@@ -1642,6 +1650,11 @@ function addFromModal(id){
     if(!pmodSelectedFlavor){
       const err=document.getElementById('pmodFlavorErr');
       if(err)err.textContent='⚠ Elegí un sabor antes de agregar.';
+      return;
+    }
+    if(p.flavorStock&&p.flavorStock[pmodSelectedFlavor]===0){
+      const err=document.getElementById('pmodFlavorErr');
+      if(err)err.textContent='⚠ Ese sabor está sin stock. Elegí otro.';
       return;
     }
     add(id,pmodQty,pmodSelectedFlavor);
