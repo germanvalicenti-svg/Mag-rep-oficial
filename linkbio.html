@@ -4,6 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
 <title>MAG · Link Bio · Performance & Wellness</title>
+<link rel="icon" type="image/png" href="assets/mag-logo.png"/>
+<link rel="apple-touch-icon" href="assets/mag-logo.png"/>
 <meta name="description" content="Centro de acceso rápido MAG — Tienda, promos, redes y contacto directo. Representante oficial Buenos Aires."/>
 <meta name="theme-color" content="#0B0B0F"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -82,13 +84,7 @@
     background-clip:padding-box;
     overflow:hidden;
   }
-  .avatar::after{
-    content:'MAG';
-    background:var(--gradient-gold);
-    -webkit-background-clip:text;background-clip:text;
-    -webkit-text-fill-color:transparent;
-    letter-spacing:-2px;
-  }
+  .avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
   @keyframes rotate{to{transform:rotate(360deg)}}
 
   .verified{
@@ -344,7 +340,7 @@
   <section class="bio-head">
     <div class="avatar-wrap">
       <div class="avatar-ring"></div>
-      <div class="avatar"></div>
+      <div class="avatar"><img src="assets/mag-logo.png" alt="MAG Rep. Oficial"/></div>
       <div class="verified">✓</div>
     </div>
     <h1>MAG</h1>
