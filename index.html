@@ -1820,7 +1820,7 @@ updateCart();
   const items=[];
   RING_SLUGS.forEach((slugs,ri)=>{
     slugs.forEach((slug,si)=>{
-      items.push({ring:ri,slug,angle:si*(TAU/slugs.length)+ri*0.55});
+      items.push({ring:ri,slug,angle:si*(TAU/slugs.length)+ri*0.55,bob:Math.random()*TAU});
     });
   });
 
@@ -1841,6 +1841,7 @@ updateCart();
     H=canvas.height=Math.round(r.height)||600;
     cx=W/2; cy=H/2;
     pR=Math.min(W,H)*0.41;
+    ctx.imageSmoothingEnabled=true; ctx.imageSmoothingQuality='high';
   }
 
   function rAB(ri){
@@ -1893,150 +1894,99 @@ updateCart();
     }
   }
 
-  /* ── Planet with full 3-D shading ──────────────── */
+  /* ── Planet = real MAG hero logo ────────────────── */
+  const planetImg=new Image();
+  planetImg.src='assets/mag-hero.png';
+
   function drawPlanet(){
     /* outer atmosphere aura */
-    const aura=ctx.createRadialGradient(cx,cy,pR*0.88,cx,cy,pR*2.6);
-    aura.addColorStop(0,'rgba(212,168,90,0.20)');
-    aura.addColorStop(0.25,'rgba(139,92,246,0.12)');
+    const aura=ctx.createRadialGradient(cx,cy,pR*0.86,cx,cy,pR*2.7);
+    aura.addColorStop(0,'rgba(212,168,90,0.22)');
+    aura.addColorStop(0.25,'rgba(139,92,246,0.13)');
     aura.addColorStop(0.6,'rgba(45,212,191,0.05)');
     aura.addColorStop(1,'transparent');
-    ctx.beginPath(); ctx.arc(cx,cy,pR*2.6,0,TAU);
+    ctx.beginPath(); ctx.arc(cx,cy,pR*2.7,0,TAU);
     ctx.fillStyle=aura; ctx.fill();
 
-    /* base sphere (ambient) */
-    const base=ctx.createRadialGradient(cx-pR*.12,cy+pR*.12,pR*.03,cx,cy,pR);
-    base.addColorStop(0,'#211348');
-    base.addColorStop(0.40,'#0f0926');
-    base.addColorStop(0.78,'#06041c');
-    base.addColorStop(1,'#020110');
-    ctx.beginPath(); ctx.arc(cx,cy,pR,0,TAU);
-    ctx.fillStyle=base; ctx.fill();
+    /* soft breathing pulse */
+    const pulse=1+0.012*Math.sin(clock*0.9);
+    const R=pR*pulse;
 
+    /* logo image clipped to circle */
+    if(planetImg.complete && planetImg.naturalWidth){
+      ctx.save();
+      ctx.beginPath(); ctx.arc(cx,cy,R,0,TAU); ctx.clip();
+      ctx.drawImage(planetImg,cx-R,cy-R,R*2,R*2);
+      ctx.restore();
+    } else {
+      ctx.beginPath(); ctx.arc(cx,cy,R,0,TAU);
+      ctx.fillStyle='#0a0716'; ctx.fill();
+    }
+
+    /* gold rim glow on top */
     ctx.save();
-    ctx.beginPath(); ctx.arc(cx,cy,pR,0,TAU); ctx.clip();
-
-    /* key light — top-left gold diffuse */
-    const kx=cx-pR*.44,ky=cy-pR*.46;
-    const diff=ctx.createRadialGradient(kx,ky,0,kx,ky,pR*1.75);
-    diff.addColorStop(0,'rgba(212,168,90,0.52)');
-    diff.addColorStop(0.28,'rgba(180,130,50,0.22)');
-    diff.addColorStop(0.65,'rgba(80,40,180,0.08)');
-    diff.addColorStop(1,'transparent');
-    ctx.fillStyle=diff; ctx.fillRect(cx-pR,cy-pR,pR*2,pR*2);
-
-    /* specular highlight */
-    const sx=cx-pR*.35,sy=cy-pR*.42;
-    const spec=ctx.createRadialGradient(sx,sy,0,sx,sy,pR*.32);
-    spec.addColorStop(0,'rgba(255,248,210,0.97)');
-    spec.addColorStop(0.18,'rgba(255,225,140,0.60)');
-    spec.addColorStop(0.50,'rgba(200,155,55,0.18)');
-    spec.addColorStop(1,'transparent');
-    ctx.fillStyle=spec; ctx.fillRect(cx-pR,cy-pR,pR*2,pR*2);
-
-    /* fill light — bottom-right purple */
-    const rx=cx+pR*.58,ry=cy+pR*.46;
-    const fill=ctx.createRadialGradient(rx,ry,0,rx,ry,pR*1.25);
-    fill.addColorStop(0,'rgba(139,92,246,0.32)');
-    fill.addColorStop(0.45,'rgba(80,40,180,0.12)');
-    fill.addColorStop(1,'transparent');
-    ctx.fillStyle=fill; ctx.fillRect(cx-pR,cy-pR,pR*2,pR*2);
-
-    /* subtle teal backlight — top-right */
-    const tlx=cx+pR*.42,tly=cy-pR*.30;
-    const tl=ctx.createRadialGradient(tlx,tly,0,tlx,tly,pR*.90);
-    tl.addColorStop(0,'rgba(45,212,191,0.14)');
-    tl.addColorStop(1,'transparent');
-    ctx.fillStyle=tl; ctx.fillRect(cx-pR,cy-pR,pR*2,pR*2);
-
-    ctx.restore();
-
-    /* gold rim glow */
-    ctx.save();
-    ctx.beginPath(); ctx.arc(cx,cy,pR,0,TAU);
-    ctx.strokeStyle='rgba(212,168,90,0.92)';
-    ctx.lineWidth=Math.max(2,pR*.050);
-    ctx.shadowColor='rgba(212,168,90,0.80)';
-    ctx.shadowBlur=pR*.38;
+    ctx.beginPath(); ctx.arc(cx,cy,R,0,TAU);
+    ctx.strokeStyle='rgba(212,168,90,0.55)';
+    ctx.lineWidth=Math.max(2,pR*.030);
+    ctx.shadowColor='rgba(212,168,90,0.85)';
+    ctx.shadowBlur=pR*.42;
     ctx.stroke();
-    ctx.restore();
-
-    /* ── Text inside planet ─────────────────────── */
-    ctx.save();
-    ctx.textAlign='center'; ctx.textBaseline='middle';
-
-    /* MAG */
-    const mSz=Math.max(22,pR*.52);
-    ctx.font=`900 ${mSz}px 'Playfair Display',serif`;
-    ctx.shadowColor='rgba(212,168,90,1)';
-    ctx.shadowBlur=32;
-    ctx.fillStyle='#D4A85A';
-    ctx.fillText('MAG',cx,cy-pR*.26);
-
-    /* divider */
-    ctx.shadowBlur=0;
-    ctx.save();
-    ctx.strokeStyle='rgba(212,168,90,0.38)';
-    ctx.lineWidth=1;
-    ctx.beginPath();
-    ctx.moveTo(cx-pR*.36,cy-pR*.06);
-    ctx.lineTo(cx+pR*.36,cy-pR*.06);
-    ctx.stroke();
-    ctx.restore();
-
-    /* taglines */
-    const tSz=Math.max(9,pR*.145);
-    ctx.font=`800 ${tSz}px 'Inter',sans-serif`;
-    ctx.shadowColor='rgba(139,92,246,0.7)';
-    ctx.shadowBlur=14;
-    ctx.fillStyle='rgba(215,205,255,0.96)';
-    const lh=tSz*1.6;
-    ['SUPERA TUS','LÍMITES']
-      .forEach((l,i)=>ctx.fillText(l,cx,cy+pR*.05+i*lh));
-
     ctx.restore();
   }
 
   /* ── Orbit item with glow ───────────────────────── */
   function drawItem(it){
     const {a,b}=rAB(it.ring);
+    const bob=Math.sin(clock*0.8+it.bob)*pR*0.018;
     const x=cx+a*Math.cos(it.angle);
-    const y=cy+b*Math.sin(it.angle);
+    const y=cy+b*Math.sin(it.angle)+bob;
     const sinA=Math.sin(it.angle);
     const depth=(sinA+1)/2;
-    const sc=0.44+0.72*depth;
-    const al=Math.max(0.20,0.26+0.74*depth);
-    const sz=pR*.44*sc;
+    const ease=depth*depth*(3-2*depth);            /* smoothstep depth */
+    const sc=0.46+0.70*ease;
+    const al=Math.max(0.22,0.30+0.70*ease);
+    const sz=pR*.50*sc;
     const img=imgs[it.slug];
     if(!img||!img.complete||!img.naturalWidth) return;
     const [r,g,bl]=RING_RGB[it.ring];
 
     /* halo glow */
     ctx.save();
-    ctx.globalAlpha=al*.58;
-    const halo=ctx.createRadialGradient(x,y,sz*.32,x,y,sz*.88);
+    ctx.globalAlpha=al*.55;
+    const halo=ctx.createRadialGradient(x,y,sz*.30,x,y,sz*.92);
     halo.addColorStop(0,`rgba(${r},${g},${bl},0.55)`);
     halo.addColorStop(1,'transparent');
-    ctx.beginPath(); ctx.arc(x,y,sz*.88,0,TAU);
+    ctx.beginPath(); ctx.arc(x,y,sz*.92,0,TAU);
     ctx.fillStyle=halo; ctx.fill();
     ctx.restore();
 
-    /* image clipped to circle */
+    /* white disc backing so product reads crisp */
     ctx.save();
     ctx.globalAlpha=al;
-    ctx.beginPath(); ctx.arc(x,y,sz/2,0,TAU); ctx.clip();
+    ctx.beginPath(); ctx.arc(x,y,sz/2,0,TAU);
+    ctx.fillStyle='#fff'; ctx.fill();
+    ctx.clip();
     ctx.drawImage(img,x-sz/2,y-sz/2,sz,sz);
     ctx.restore();
 
     /* coloured border */
     ctx.save();
-    ctx.globalAlpha=al*.95;
-    ctx.beginPath(); ctx.arc(x,y,sz/2+1.2,0,TAU);
+    ctx.globalAlpha=al;
+    ctx.beginPath(); ctx.arc(x,y,sz/2+1,0,TAU);
     ctx.strokeStyle=`rgba(${r},${g},${bl},0.95)`;
-    ctx.lineWidth=Math.max(1,sz*.065);
+    ctx.lineWidth=Math.max(1.2,sz*.06);
     ctx.shadowColor=`rgba(${r},${g},${bl},0.85)`;
-    ctx.shadowBlur=sz*.38;
+    ctx.shadowBlur=sz*.40;
     ctx.stroke();
+    ctx.restore();
+
+    /* top-left sheen */
+    ctx.save();
+    ctx.globalAlpha=al*.5;
+    const sh=ctx.createRadialGradient(x-sz*.2,y-sz*.22,0,x-sz*.2,y-sz*.22,sz*.5);
+    sh.addColorStop(0,'rgba(255,255,255,0.5)');
+    sh.addColorStop(1,'transparent');
+    ctx.beginPath(); ctx.arc(x,y,sz/2,0,TAU); ctx.fillStyle=sh; ctx.fill();
     ctx.restore();
   }
 
