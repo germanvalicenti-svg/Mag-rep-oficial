@@ -582,6 +582,15 @@ footer{background:#05050C;border-top:1px solid var(--line);padding:56px 0 32px;p
 .pm-flavor-err{font-size:12px;color:#F87171;margin-top:6px;min-height:16px}
 .di-flavor{font-size:11px;color:var(--gold-2);font-weight:600;font-style:normal;margin-left:4px}
 .pm-out-msg{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.3);color:#FCA5A5;border-radius:10px;padding:10px 14px;font-size:13px;font-weight:600;text-align:center;margin-bottom:10px}
+/* ── Toggle frente/dorso en modal ── */
+.pmod-img-wrap{position:relative;width:100%;height:100%;display:grid;place-items:center;min-height:340px}
+@media(max-width:640px){.pmod-img-wrap{min-height:220px}}
+.pmod-img-front,.pmod-img-back{width:62%;max-height:240px;object-fit:contain;position:absolute;z-index:2;filter:drop-shadow(0 20px 40px rgba(0,0,0,.5));transition:opacity .35s ease,transform .35s ease}
+.pmod-img-back{opacity:0;transform:scale(.92);pointer-events:none}
+.pmod-img-wrap.show-back .pmod-img-front{opacity:0;transform:scale(.92);pointer-events:none}
+.pmod-img-wrap.show-back .pmod-img-back{opacity:1;transform:scale(1);pointer-events:auto}
+.pmod-flip-btn{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:5;background:rgba(0,0,0,.6);border:1px solid rgba(212,168,90,.45);border-radius:999px;padding:7px 16px;font-size:11px;font-weight:700;color:#EAD9B0;letter-spacing:.08em;cursor:pointer;backdrop-filter:blur(6px);transition:.2s;white-space:nowrap}
+.pmod-flip-btn:hover{border-color:var(--gold);color:var(--gold-2)}
 /* ── Info operacional: pagos, envíos, retiro, horarios ── */
 .info-ops{padding:56px 0 60px}
 .info-ops-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
@@ -1356,46 +1365,46 @@ const USAGE={1:'1 medida (40g) en 250ml de agua o leche. Ideal 30–60 min post-
 49:'2 cápsulas por día en ayunas con 300ml de agua. Completar el ciclo recomendado. Consultar con tu médico o nutricionista antes de iniciar.'
 };
 const products=[
-  {id:1,name:'W-Mass 1kg',desc:'Whey protein + carbs complejos para hipertrofia y volumen muscular.',price:72000,cats:['crossfit','gym','jiujitsu'],img:'assets/productos/w-mass.jpg',badges:['b-top'],meta:['1kg','Cookies & Cream','Vainilla']},
-  {id:2,name:'High Creatine Power',desc:'Pureza farmacéutica. Fuerza, explosividad y volumen celular garantizados.',price:33000,cats:['crossfit','endurance','futbol','gym','jiujitsu'],img:'assets/productos/high-creatine.jpg',badges:[],meta:['250g','Sin sabor','83 porciones']},
-  {id:3,name:'Pre-Workout MAG',desc:'Beta-alanina, arginina, citrulina y cafeína en la dosis justa para volar 60 min.',price:36000,cats:['crossfit','futbol','gym','jiujitsu'],img:'assets/productos/pre-workout.jpg',badges:[],meta:['300g','40 porciones','Pomelo']},
-  {id:4,name:'EAA MAG',desc:'9 aminoácidos esenciales intra-entreno. Antifatiga y recuperación muscular real.',price:33000,cats:['crossfit','endurance','gym','surf','jiujitsu'],img:'assets/productos/eaa-mag.jpg',badges:['b-new'],meta:['300g','40 porciones','Limonada']},
-  {id:5,name:'Tribulus Terrestris',desc:'350mg por comprimido. Energía, libido y recuperación del tejido muscular.',price:68000,cats:['crossfit','gym'],img:'assets/productos/tribulus.jpg',badges:[],meta:['100 comp','100 días','Extracto puro']},
-  {id:6,name:'V12 Drink Isotónico',desc:'Electrolitos, vitaminas del grupo B y carbs de absorción rápida. Ideal intra-esfuerzo.',price:15000,cats:['endurance','futbol','surf','jiujitsu'],img:'assets/productos/v12-drink.jpg',badges:[],meta:['650g','Frutos Rojos','Lima-Limón']},
-  {id:7,name:'L-Carnitina MAG',desc:'Transporta grasa a mitocondrias para energía sostenida. Perfecta para tiradas largas.',price:18000,cats:['endurance','futbol','golf','surf','belleza'],img:'assets/productos/l-carnitina.jpg',badges:[],meta:['100 cáps','500mg','100 días']},
-  {id:8,name:'Collagen Fit',desc:'Colágeno hidrolizado con vitamina C, hialurónico y resveratrol. Piel, pelo y articulaciones.',price:39000,cats:['gym','surf','golf','belleza'],img:'assets/productos/collagen-fit.jpg',badges:['b-new'],meta:['300g','30 porciones','Cítrico']},
-  {id:9,name:'Ginseng Complex',desc:'Ginseng + Guaraná + Ginkgo Biloba. Foco, energía limpia y resistencia mental.',price:66000,cats:['belleza','golf','surf','endurance'],img:'assets/productos/ginseng-complex.jpg',badges:[],meta:['120 cáps','30 días','Sin cafeína añadida']},
-  {id:10,name:'Fat Burner MAG',desc:'Guaraná, Garcinia Cambogia y té verde. Acelera metabolismo y reduce apetito.',price:32000,cats:['belleza','gym'],img:'assets/productos/fat-burner.jpg',badges:[],meta:['60 cáps','30 días','Termogénico']},
+  {id:1,name:'W-Mass 1kg',desc:'Whey protein + carbs complejos para hipertrofia y volumen muscular.',price:72000,cats:['crossfit','gym','jiujitsu'],img:'assets/productos/w-mass.jpg',backImg:'assets/productos/w-mass-back.jpg',badges:['b-top'],meta:['1kg','Cookies & Cream','Vainilla']},
+  {id:2,name:'High Creatine Power',desc:'Pureza farmacéutica. Fuerza, explosividad y volumen celular garantizados.',price:33000,cats:['crossfit','endurance','futbol','gym','jiujitsu'],img:'assets/productos/high-creatine.jpg',backImg:'assets/productos/high-creatine-power-back.jpg',badges:[],meta:['250g','Sin sabor','83 porciones']},
+  {id:3,name:'Pre-Workout MAG',desc:'Beta-alanina, arginina, citrulina y cafeína en la dosis justa para volar 60 min.',price:36000,cats:['crossfit','futbol','gym','jiujitsu'],img:'assets/productos/pre-workout.jpg',backImg:'assets/productos/pre-workout-back.jpg',badges:[],meta:['300g','40 porciones','Pomelo']},
+  {id:4,name:'EAA MAG',desc:'9 aminoácidos esenciales intra-entreno. Antifatiga y recuperación muscular real.',price:33000,cats:['crossfit','endurance','gym','surf','jiujitsu'],img:'assets/productos/eaa-mag.jpg',backImg:'assets/productos/eaa-back.jpg',badges:['b-new'],meta:['300g','40 porciones','Limonada']},
+  {id:5,name:'Tribulus Terrestris',desc:'350mg por comprimido. Energía, libido y recuperación del tejido muscular.',price:68000,cats:['crossfit','gym'],img:'assets/productos/tribulus.jpg',backImg:'assets/productos/tribulus-back.jpg',badges:[],meta:['100 comp','100 días','Extracto puro']},
+  {id:6,name:'V12 Drink Isotónico',desc:'Electrolitos, vitaminas del grupo B y carbs de absorción rápida. Ideal intra-esfuerzo.',price:15000,cats:['endurance','futbol','surf','jiujitsu'],img:'assets/productos/v12-drink.jpg',backImg:'assets/productos/v12-drink-back.jpg',badges:[],meta:['650g','Frutos Rojos','Lima-Limón']},
+  {id:7,name:'L-Carnitina MAG',desc:'Transporta grasa a mitocondrias para energía sostenida. Perfecta para tiradas largas.',price:18000,cats:['endurance','futbol','golf','surf','belleza'],img:'assets/productos/l-carnitina.jpg',backImg:'assets/productos/l-carnitina-back.jpg',badges:[],meta:['100 cáps','500mg','100 días']},
+  {id:8,name:'Collagen Fit',desc:'Colágeno hidrolizado con vitamina C, hialurónico y resveratrol. Piel, pelo y articulaciones.',price:39000,cats:['gym','surf','golf','belleza'],img:'assets/productos/collagen-fit.jpg',backImg:'assets/productos/collagen-fit-back.jpg',badges:['b-new'],meta:['300g','30 porciones','Cítrico']},
+  {id:9,name:'Ginseng Complex',desc:'Ginseng + Guaraná + Ginkgo Biloba. Foco, energía limpia y resistencia mental.',price:66000,cats:['belleza','golf','surf','endurance'],img:'assets/productos/ginseng-complex.jpg',backImg:'assets/productos/ginseng-complex-back.jpg',badges:[],meta:['120 cáps','30 días','Sin cafeína añadida']},
+  {id:10,name:'Fat Burner MAG',desc:'Guaraná, Garcinia Cambogia y té verde. Acelera metabolismo y reduce apetito.',price:32000,cats:['belleza','gym'],img:'assets/productos/fat-burner.jpg',backImg:'assets/productos/fat-burner-back.jpg',badges:[],meta:['60 cáps','30 días','Termogénico']},
   /* ── PROTEÍNAS ── */
-  {id:17,name:'MAX-80 Whey + Eggs',desc:'Proteína de suero y huevo, 80% de concentración. 32g de proteína por porción para máxima hipertrofia.',price:86000,cats:['gym','crossfit','jiujitsu'],img:'assets/productos/max-80.jpg',badges:['b-new'],meta:['1kg','32g proteína','25 porciones']},
-  {id:18,name:'Protein W80',desc:'Concentrado de proteína de suero de leche al 80%. Disolución instantánea para recuperación rápida. Disponible en 7 sabores.',price:94000,cats:['gym','crossfit','endurance'],img:'assets/productos/protein-w80.jpg',badges:['b-new'],meta:['1kg','80% proteína','37 porciones'],flavors:['Chocolate','Vainilla','Frutilla','Frutos Rojos','Dulce de Leche','Banana','Banana Split']},
-  {id:19,name:'EGG PROT Ovoalbúmina',desc:'Proteína pura de huevo, libre de lactosa. Perfil completo de aminoácidos para quienes buscan calidad sin lácteos.',price:66000,cats:['gym','crossfit','belleza'],img:'assets/productos/egg-prot.jpg',badges:[],meta:['1kg','25g proteína','33 porciones','Lactosa Free','Chocolate']},
+  {id:17,name:'MAX-80 Whey + Eggs',desc:'Proteína de suero y huevo, 80% de concentración. 32g de proteína por porción para máxima hipertrofia.',price:86000,cats:['gym','crossfit','jiujitsu'],img:'assets/productos/max-80.jpg',backImg:'assets/productos/max80-back.jpg',badges:['b-new'],meta:['1kg','32g proteína','25 porciones']},
+  {id:18,name:'Protein W80',desc:'Concentrado de proteína de suero de leche al 80%. Disolución instantánea para recuperación rápida. Disponible en 7 sabores.',price:94000,cats:['gym','crossfit','endurance'],img:'assets/productos/protein-w80.jpg',backImg:'assets/productos/protein-w80-back.jpg',badges:['b-new'],meta:['1kg','80% proteína','37 porciones'],flavors:['Chocolate','Vainilla','Frutilla','Frutos Rojos','Dulce de Leche','Banana','Banana Split']},
+  {id:19,name:'EGG PROT Ovoalbúmina',desc:'Proteína pura de huevo, libre de lactosa. Perfil completo de aminoácidos para quienes buscan calidad sin lácteos.',price:66000,cats:['gym','crossfit','belleza'],img:'assets/productos/egg-prot.jpg',backImg:'assets/productos/egg-prot-back.jpg',badges:[],meta:['1kg','25g proteína','33 porciones','Lactosa Free','Chocolate']},
   /* ── GAINERS ── */
-  {id:20,name:'Total Gainer 1.5kg',desc:'Advanced Muscle & Mass Gainer. Carbohidratos complejos + proteína para subir de peso y volumen de forma efectiva.',price:66000,cats:['gym','crossfit','jiujitsu'],img:'assets/productos/total-gainer.jpg',badges:[],meta:['1.5kg','37 porciones','12g proteína']},
+  {id:20,name:'Total Gainer 1.5kg',desc:'Advanced Muscle & Mass Gainer. Carbohidratos complejos + proteína para subir de peso y volumen de forma efectiva.',price:66000,cats:['gym','crossfit','jiujitsu'],img:'assets/productos/total-gainer.jpg',backImg:'assets/productos/total-gainer-back.jpg',badges:[],meta:['1.5kg','37 porciones','12g proteína']},
   /* ── CREATINAS ── */
-  {id:21,name:'Crea Power 500g',desc:'Creatina monohidrato en polvo de alta pureza, presentación grande para ciclos prolongados. Fuerza y volumen celular.',price:38000,cats:['crossfit','gym','endurance','futbol'],img:'assets/productos/crea-power.jpg',badges:[],meta:['500g','83+ porciones','Sin sabor']},
-  {id:22,name:'MAG Creatine 300g',desc:'Creatina monohidrato ultrafina. Aumenta la fosfocreatina muscular para explosividad máxima en cada sesión.',price:29000,cats:['crossfit','gym'],img:'assets/productos/mag-creatine.jpg',badges:[],meta:['300g','50 porciones','Sin sabor']},
+  {id:21,name:'Crea Power 500g',desc:'Creatina monohidrato en polvo de alta pureza, presentación grande para ciclos prolongados. Fuerza y volumen celular.',price:38000,cats:['crossfit','gym','endurance','futbol'],img:'assets/productos/crea-power.jpg',backImg:'assets/productos/crea-power-back.jpg',badges:[],meta:['500g','83+ porciones','Sin sabor']},
+  {id:22,name:'MAG Creatine 300g',desc:'Creatina monohidrato ultrafina. Aumenta la fosfocreatina muscular para explosividad máxima en cada sesión.',price:29000,cats:['crossfit','gym'],img:'assets/productos/mag-creatine.jpg',backImg:'assets/productos/mag-creatine-back.jpg',badges:[],meta:['300g','50 porciones','Sin sabor']},
   /* ── AMINOÁCIDOS ── */
-  {id:23,name:'BCAA 8:1:1',desc:'Ratio 8:1:1 de Leucina, Isoleucina y Valina. Máxima síntesis proteica y recuperación muscular acelerada.',price:23000,cats:['crossfit','gym','endurance','jiujitsu'],img:'assets/productos/bcaa-8-1-1.jpg',badges:[],meta:['250g','40 porciones','Frutos Rojos']},
-  {id:24,name:'BCAA Premium 120 cáps',desc:'BCAAs en cápsula de liberación prolongada. Cómodo para llevar y tomar en cualquier momento del día.',price:33000,cats:['crossfit','gym','endurance'],img:'assets/productos/bcaa-premium.jpg',badges:[],meta:['120 cápsulas','60 días','Sin sabor']},
-  {id:25,name:'L-Glutamine Max 120 cáps',desc:'L-Glutamina de alta concentración. Recuperación muscular, regeneración de tejidos y refuerzo del sistema inmune.',price:17000,cats:['crossfit','gym','jiujitsu'],img:'assets/productos/l-glutamine-max.jpg',badges:[],meta:['120 cápsulas','60 días','Recuperación']},
+  {id:23,name:'BCAA 8:1:1',desc:'Ratio 8:1:1 de Leucina, Isoleucina y Valina. Máxima síntesis proteica y recuperación muscular acelerada.',price:23000,cats:['crossfit','gym','endurance','jiujitsu'],img:'assets/productos/bcaa-8-1-1.jpg',backImg:'assets/productos/bcaa-811-back.jpg',badges:[],meta:['250g','40 porciones','Frutos Rojos']},
+  {id:24,name:'BCAA Premium 120 cáps',desc:'BCAAs en cápsula de liberación prolongada. Cómodo para llevar y tomar en cualquier momento del día.',price:33000,cats:['crossfit','gym','endurance'],img:'assets/productos/bcaa-premium.jpg',backImg:'assets/productos/bcaa-premium-back.jpg',badges:[],meta:['120 cápsulas','60 días','Sin sabor']},
+  {id:25,name:'L-Glutamine Max 120 cáps',desc:'L-Glutamina de alta concentración. Recuperación muscular, regeneración de tejidos y refuerzo del sistema inmune.',price:17000,cats:['crossfit','gym','jiujitsu'],img:'assets/productos/l-glutamine-max.jpg',backImg:'assets/productos/l-glutamine-max-back.jpg',badges:[],meta:['120 cápsulas','60 días','Recuperación']},
   /* ── ENERGÍA / ISOTÓNICOS ── */
-  {id:26,name:'V12 Energy 650g',desc:'Bebida energizante con cafeína natural, taurina y vitaminas del grupo B. Activación total desde el primer sorbo.',price:30000,cats:['endurance','futbol','crossfit','surf'],img:'assets/productos/v12-energy.jpg',badges:['b-new'],meta:['650g','Multifrutal','Estimulante natural']},
-  {id:27,name:'Post Workout MAG',desc:'Fórmula post-entrenamiento compuesta con creatina, BCAAs e isomaltulose. Recuperación y recarga muscular real.',price:30000,cats:['crossfit','gym','endurance'],img:'assets/productos/post-workout-mag.jpg',badges:['b-new'],meta:['300g','40 porciones','Multifrutal']},
+  {id:26,name:'V12 Energy 650g',desc:'Bebida energizante con cafeína natural, taurina y vitaminas del grupo B. Activación total desde el primer sorbo.',price:30000,cats:['endurance','futbol','crossfit','surf'],img:'assets/productos/v12-energy.jpg',backImg:'assets/productos/v12-energy-back.jpg',badges:['b-new'],meta:['650g','Multifrutal','Estimulante natural']},
+  {id:27,name:'Post Workout MAG',desc:'Fórmula post-entrenamiento compuesta con creatina, BCAAs e isomaltulose. Recuperación y recarga muscular real.',price:30000,cats:['crossfit','gym','endurance'],img:'assets/productos/post-workout-mag.jpg',backImg:'assets/productos/post-workout-back.jpg',badges:['b-new'],meta:['300g','40 porciones','Multifrutal']},
   /* ── FAT BURNERS ── */
-  {id:28,name:'Lipo Max 100 comp',desc:'Suplemento dietario termogénico en comprimidos. Acelera el metabolismo y potencia la quema de grasa.',price:44000,cats:['belleza','gym'],img:'assets/productos/lipo-max.jpg',badges:[],meta:['100 comprimidos','50 días','Termogénico']},
-  {id:29,name:'Lipolitic 120 comp',desc:'Fórmula lipolitica avanzada. Activa la movilización de grasa y reduce la retención de líquidos.',price:41000,cats:['belleza','gym','endurance'],img:'assets/productos/lipolitic.jpg',badges:[],meta:['120 comprimidos','60 días','Drenante']},
-  {id:30,name:'C.L.A.',desc:'Ácido Linoleico Conjugado para control de peso y composición corporal. Preserva masa magra mientras reduce grasa.',price:36000,cats:['belleza','gym','endurance'],img:'assets/productos/cla.jpg',badges:[],meta:['150g','Softgels','Composición corporal']},
+  {id:28,name:'Lipo Max 100 comp',desc:'Suplemento dietario termogénico en comprimidos. Acelera el metabolismo y potencia la quema de grasa.',price:44000,cats:['belleza','gym'],img:'assets/productos/lipo-max.jpg',backImg:'assets/productos/lipo-max-back.jpg',badges:[],meta:['100 comprimidos','50 días','Termogénico']},
+  {id:29,name:'Lipolitic 120 comp',desc:'Fórmula lipolitica avanzada. Activa la movilización de grasa y reduce la retención de líquidos.',price:41000,cats:['belleza','gym','endurance'],img:'assets/productos/lipolitic.jpg',backImg:'assets/productos/lipolitic-back.jpg',badges:[],meta:['120 comprimidos','60 días','Drenante']},
+  {id:30,name:'C.L.A.',desc:'Ácido Linoleico Conjugado para control de peso y composición corporal. Preserva masa magra mientras reduce grasa.',price:36000,cats:['belleza','gym','endurance'],img:'assets/productos/cla.jpg',backImg:'assets/productos/cla-back.jpg',badges:[],meta:['150g','Softgels','Composición corporal']},
   /* ── RENDIMIENTO ── */
-  {id:31,name:'BETA',desc:'Beta-Alanina pura en cápsulas. Reduce el ácido láctico y aumenta la resistencia muscular en entrenamientos intensos.',price:15000,cats:['crossfit','gym','endurance','futbol'],img:'assets/productos/beta.jpg',badges:[],meta:['100 cápsulas','50 días','Resistencia']},
-  {id:32,name:'Óxido Nítrico',desc:'L-Arginina Alpha Ketoglutarato para máximo pump y vasodilatación. Más sangre y nutrientes en el músculo activo.',price:19000,cats:['crossfit','gym','futbol','jiujitsu'],img:'assets/productos/oxido-nitrico.jpg',badges:[],meta:['100 cápsulas','50 días','Pump máximo']},
+  {id:31,name:'BETA',desc:'Beta-Alanina pura en cápsulas. Reduce el ácido láctico y aumenta la resistencia muscular en entrenamientos intensos.',price:15000,cats:['crossfit','gym','endurance','futbol'],img:'assets/productos/beta.jpg',backImg:'assets/productos/beta-back.jpg',badges:[],meta:['100 cápsulas','50 días','Resistencia']},
+  {id:32,name:'Óxido Nítrico',desc:'L-Arginina Alpha Ketoglutarato para máximo pump y vasodilatación. Más sangre y nutrientes en el músculo activo.',price:19000,cats:['crossfit','gym','futbol','jiujitsu'],img:'assets/productos/oxido-nitrico.jpg',backImg:'assets/productos/oxido-nitrico-back.jpg',badges:[],meta:['100 cápsulas','50 días','Pump máximo']},
   /* ── BIENESTAR ── */
-  {id:33,name:'+24 Vitaminas',desc:'Complejo multivitamínico con más de 24 nutrientes esenciales. Refuerza el sistema inmune y el bienestar general.',price:40000,cats:['belleza','golf','endurance','surf'],img:'assets/productos/mas24.jpg',badges:[],meta:['120 cápsulas','60 días','Multivitamínico']},
-  {id:34,name:'Flex-V Vegetarian Protein',desc:'Proteína flexitariana premium. 30g de proteína por porción de fuentes vegetales de alta calidad. Alta digestibilidad sin proteínas animales.',price:32000,cats:['gym','crossfit','belleza','endurance'],img:'assets/productos/flex-v.jpg',badges:['b-new'],meta:['400g','30g proteína','13 porciones','Vainilla']},
-  {id:42,name:'Protein W80 1kg Hidrolizada',desc:'Proteína de suero hidrolizada de máxima absorción. Ideal para post-entreno inmediato. Disponible en Vainilla y Chocolate.',price:123000,cats:['gym','crossfit','endurance'],img:'assets/productos/protein-hidrolizada.jpg',badges:['b-new'],meta:['1kg','Hidrolizada','Alta absorción'],flavors:['Vainilla','Chocolate'],flavorStock:{'Vainilla':1,'Chocolate':0}},
-  {id:47,name:'Protein Vegetal Premium Pure Plant 1kg',desc:'Proteína vegetal premium de Poroto Mungo, Arroz y Arveja. Perfil completo de aminoácidos, alta digestibilidad, sin lactosa y sin gluten.',price:51000,cats:['gym','crossfit','endurance','belleza'],img:'assets/productos/pureplant.jpg',badges:['b-new'],meta:['1kg','Vegana','Poroto Mungo · Arroz · Arveja','Sin lactosa']},
+  {id:33,name:'+24 Vitaminas',desc:'Complejo multivitamínico con más de 24 nutrientes esenciales. Refuerza el sistema inmune y el bienestar general.',price:40000,cats:['belleza','golf','endurance','surf'],img:'assets/productos/mas24.jpg',backImg:'assets/productos/24-vitaminas-back.jpg',badges:[],meta:['120 cápsulas','60 días','Multivitamínico']},
+  {id:34,name:'Flex-V Vegetarian Protein',desc:'Proteína flexitariana premium. 30g de proteína por porción de fuentes vegetales de alta calidad. Alta digestibilidad sin proteínas animales.',price:32000,cats:['gym','crossfit','belleza','endurance'],img:'assets/productos/flex-v.jpg',backImg:'assets/productos/flex-v-back.jpg',badges:['b-new'],meta:['400g','30g proteína','13 porciones','Vainilla']},
+  {id:42,name:'Protein W80 1kg Hidrolizada',desc:'Proteína de suero hidrolizada de máxima absorción. Ideal para post-entreno inmediato. Disponible en Vainilla y Chocolate.',price:123000,cats:['gym','crossfit','endurance'],img:'assets/productos/protein-hidrolizada.jpg',backImg:'assets/productos/protein-hidrolizada-back.jpg',badges:['b-new'],meta:['1kg','Hidrolizada','Alta absorción'],flavors:['Vainilla','Chocolate'],flavorStock:{'Vainilla':1,'Chocolate':0}},
+  {id:47,name:'Protein Vegetal Premium Pure Plant 1kg',desc:'Proteína vegetal premium de Poroto Mungo, Arroz y Arveja. Perfil completo de aminoácidos, alta digestibilidad, sin lactosa y sin gluten.',price:51000,cats:['gym','crossfit','endurance','belleza'],img:'assets/productos/pureplant.jpg',backImg:'assets/productos/pure-plant-back.jpg',badges:['b-new'],meta:['1kg','Vegana','Poroto Mungo · Arroz · Arveja','Sin lactosa']},
   /* Vitamina E: temporalmente fuera de la web — mantener en stock Excel */
-  {id:35,name:'Collagen 90',desc:'Colágeno hidrolizado tipo I y III. Regenera cartílagos, mejora la piel y refuerza ligamentos y tendones.',price:33000,cats:['belleza','golf','surf','gym'],img:'assets/productos/collagen-90.jpg',badges:['b-new'],meta:['400g','90 días','Anti-aging']},
+  {id:35,name:'Collagen 90',desc:'Colágeno hidrolizado tipo I y III. Regenera cartílagos, mejora la piel y refuerza ligamentos y tendones.',price:33000,cats:['belleza','golf','surf','gym'],img:'assets/productos/collagen-90.jpg',backImg:'assets/productos/collagen-90-back.jpg',badges:['b-new'],meta:['400g','90 días','Anti-aging']},
   /* ── INGRESOS RECIENTES — precio a consultar por WhatsApp ── */
   {id:43,name:'Bisglicinato de Magnesio 500mg',desc:'Magnesio en su forma más biodisponible. Favorece la función muscular, nerviosa y el descanso nocturno. 📦 Ingreso reciente — precio y disponibilidad a consultar por WhatsApp.',price:41000,priceHidden:true,cats:['gym','crossfit','endurance','belleza'],img:'assets/productos/bisglicinato-magnesio.jpg',badges:['b-new','b-ingreso'],meta:['100 cáps','500mg','100 días']},
   {id:44,name:'Cúrcuma Complex 250g',desc:'Extracto de cúrcuma + piperina para máxima absorción. Propiedades antiinflamatorias y antioxidantes naturales. 📦 Ingreso reciente — precio y disponibilidad a consultar por WhatsApp.',price:78000,priceHidden:true,cats:['endurance','golf','belleza','gym'],img:'assets/productos/curcuma.jpg',badges:['b-new','b-ingreso'],meta:['250g','Con piperina','Antiinflamatorio']},
@@ -1604,9 +1613,19 @@ function openPmod(id){
   const[bg1,bg2]=CAT_BG[mc]||CAT_BG.accesorios;
   document.getElementById('pmodLeft').style.setProperty('--pc1',bg1);
   document.getElementById('pmodLeft').style.setProperty('--pc2',bg2);
-  document.getElementById('pmodLeft').innerHTML=p.img
-    ?`<img src="${p.img}" alt="${p.name}">`
-    :`<div class="pm-ico">${p.icon||'✦'}</div>`;
+  if(p.img){
+    const backHtml=p.backImg
+      ?`<img class="pmod-img-back" src="${p.backImg}" alt="Etiqueta posterior ${p.name}" loading="lazy">
+        <button class="pmod-flip-btn" onclick="togglePmodImg()">🔄 Ver etiqueta posterior</button>`
+      :'';
+    document.getElementById('pmodLeft').innerHTML=
+      `<div class="pmod-img-wrap" id="pmodImgWrap">
+         <img class="pmod-img-front" src="${p.img}" alt="${p.name}">
+         ${backHtml}
+       </div>`;
+  } else {
+    document.getElementById('pmodLeft').innerHTML=`<div class="pm-ico">${p.icon||'✦'}</div>`;
+  }
   const saveTag=p.oldPrice?`<span class="pm-save-tag">-${Math.round((1-p.price/p.oldPrice)*100)}% OFF</span>`:'';
   const flavorHtml=p.flavors&&p.flavors.length>0?`
     <div class="pm-flavor">
@@ -1666,6 +1685,13 @@ function selectFlavor(btn,flavor){
   if(err)err.textContent='';
 }
 function closePmod(){document.getElementById('pmodBg').classList.remove('open');document.body.style.overflow='';}
+function togglePmodImg(){
+  const wrap=document.getElementById('pmodImgWrap');
+  if(!wrap)return;
+  const isBack=wrap.classList.toggle('show-back');
+  const btn=wrap.querySelector('.pmod-flip-btn');
+  if(btn)btn.innerHTML=isBack?'🔄 Ver frente del producto':'🔄 Ver etiqueta posterior';
+}
 function closePmodOutside(e){if(e.target===document.getElementById('pmodBg'))closePmod();}
 function pmodInc(){pmodQty++;document.getElementById('pmodQv').textContent=pmodQty;}
 function pmodDec(){if(pmodQty>1){pmodQty--;document.getElementById('pmodQv').textContent=pmodQty;}}
@@ -1791,7 +1817,7 @@ document.querySelectorAll('.promo-code').forEach(el=>{
 updateCart();
 
 // ═══════════════════════════════════════════════════
-// SATURN 3D PLANET — GALAXY EDITION
+// SATURN 3D PLANET — GALAXY EDITION v2
 // ═══════════════════════════════════════════════════
 (function saturnInit(){
   const canvas = document.getElementById('saturnCanvas');
@@ -1800,27 +1826,31 @@ updateCart();
   const TAU = Math.PI*2;
 
   /* ── Stars ─────────────────────────────────────── */
-  const STARS = Array.from({length:220},()=>({
+  const STARS = Array.from({length:280},()=>({
     xf:Math.random(), yf:Math.random(),
-    r:Math.random()*1.6+0.2,
-    a:Math.random()*0.75+0.12,
-    spd:Math.random()*0.35+0.08,
-    ph:Math.random()*TAU
+    r:Math.random()*1.8+0.15,
+    a:Math.random()*0.8+0.1,
+    spd:Math.random()*0.3+0.06,
+    ph:Math.random()*TAU,
+    twinkle:Math.random()>0.7
   }));
 
-  /* ── Orbit items ────────────────────────────────── */
+  /* ── Orbit items — 3 rings, evenly spaced ───────── */
   const RING_SLUGS=[
     ['high-creatine','pre-workout','protein-w80'],
     ['eaa-mag','v12-drink','bcaa-8-1-1','fat-burner'],
     ['collagen-fit','l-carnitina','w-mass']
   ];
   const RING_RGB=[[212,168,90],[139,92,246],[45,212,191]];
-  const RING_SPD=[0.38,-0.24,0.14];
+  const RING_SPD=[0.62,-0.42,0.28];
 
   const items=[];
   RING_SLUGS.forEach((slugs,ri)=>{
     slugs.forEach((slug,si)=>{
-      items.push({ring:ri,slug,angle:si*(TAU/slugs.length)+ri*0.55,bob:Math.random()*TAU});
+      /* offset start angle per ring so they never bunch */
+      items.push({ring:ri,slug,
+        angle:si*(TAU/slugs.length)+ri*1.1,
+        bob:Math.random()*TAU});
     });
   });
 
@@ -1840,22 +1870,27 @@ updateCart();
     W=canvas.width =Math.round(r.width) ||560;
     H=canvas.height=Math.round(r.height)||600;
     cx=W/2; cy=H/2;
-    pR=Math.min(W,H)*0.41;
-    ctx.imageSmoothingEnabled=true; ctx.imageSmoothingQuality='high';
+    /* logo is bigger — 46% of shortest side */
+    pR=Math.min(W,H)*0.44;
+    /* shift orbit centre up so front-arc items pass above the text zone */
+    cy=H/2 - pR*0.08;
+    ctx.imageSmoothingEnabled=true;
+    ctx.imageSmoothingQuality='high';
   }
 
   function rAB(ri){
-    const af=[0.43,0.56,0.68][ri];
-    return {a:W*af, b:W*af*0.22};
+    /* a must be > pR so products orbit OUTSIDE the planet disc */
+    const af=[0.54,0.70,0.86][ri];
+    return {a:W*af, b:W*af*0.30};
   }
 
   /* ── Stars ──────────────────────────────────────── */
   function drawStars(t){
     STARS.forEach(s=>{
-      const a=s.a*(0.5+0.5*Math.sin(t*s.spd+s.ph));
+      const base=s.twinkle ? s.a*(0.3+0.7*Math.sin(t*s.spd*2.2+s.ph)) : s.a;
       ctx.beginPath();
       ctx.arc(s.xf*W,s.yf*H,s.r,0,TAU);
-      ctx.fillStyle=`rgba(255,255,255,${a.toFixed(2)})`;
+      ctx.fillStyle=`rgba(255,255,255,${Math.min(1,base).toFixed(2)})`;
       ctx.fill();
     });
   }
@@ -1867,30 +1902,50 @@ updateCart();
       g.addColorStop(0,col); g.addColorStop(1,'transparent');
       ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
     };
-    paint(cx*.85,cy*.60,pR*3.2,'rgba(25,12,55,0.55)');
-    paint(cx*1.25,cy*1.35,pR*2.6,'rgba(45,212,191,0.05)');
-    paint(cx*.70,cy*.75,pR*2.0,'rgba(212,168,90,0.06)');
-    paint(cx*1.10,cy*.55,pR*1.8,'rgba(139,92,246,0.07)');
+    paint(cx*.82,cy*.58,pR*3.4,'rgba(22,10,52,0.60)');
+    paint(cx*1.28,cy*1.38,pR*2.8,'rgba(45,212,191,0.06)');
+    paint(cx*.68,cy*.72,pR*2.2,'rgba(212,168,90,0.07)');
+    paint(cx*1.12,cy*.52,pR*2.0,'rgba(139,92,246,0.09)');
   }
 
-  /* ── 3-D ring half with per-segment depth shading ─ */
+  /* ── Ring: base glow track + bright shimmer line ── */
   function drawRingHalf(ri,a0,a1,segs){
     const {a,b}=rAB(ri);
     const [r,g,bl]=RING_RGB[ri];
+
+    /* pass 1 — soft glow track */
     for(let i=0;i<segs;i++){
       const t1=a0+(i/segs)*(a1-a0);
       const t2=a0+((i+1)/segs)*(a1-a0);
       const mid=(t1+t2)/2;
       const x1=cx+a*Math.cos(t1), y1=cy+b*Math.sin(t1);
       const x2=cx+a*Math.cos(t2), y2=cy+b*Math.sin(t2);
-      const sinM=Math.sin(mid);
-      const depth=(sinM+1)/2;
-      const bright=0.18+0.82*Math.pow(Math.abs(Math.cos(mid)),0.65);
-      const al=Math.min(0.95,depth*bright+0.04);
-      const lw=Math.max(0.7,1.0+4.0*depth);
+      const depth=(Math.sin(mid)+1)/2;
+      const al=Math.min(0.38, depth*0.35+0.03);
       ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2);
       ctx.strokeStyle=`rgba(${r},${g},${bl},${al.toFixed(3)})`;
-      ctx.lineWidth=lw; ctx.stroke();
+      ctx.lineWidth=Math.max(1,3.5*depth);
+      ctx.shadowColor=`rgba(${r},${g},${bl},0.5)`;
+      ctx.shadowBlur=4*depth;
+      ctx.stroke();
+    }
+    ctx.shadowBlur=0;
+
+    /* pass 2 — sharp bright line on top */
+    for(let i=0;i<segs;i++){
+      const t1=a0+(i/segs)*(a1-a0);
+      const t2=a0+((i+1)/segs)*(a1-a0);
+      const mid=(t1+t2)/2;
+      const x1=cx+a*Math.cos(t1), y1=cy+b*Math.sin(t1);
+      const x2=cx+a*Math.cos(t2), y2=cy+b*Math.sin(t2);
+      const depth=(Math.sin(mid)+1)/2;
+      const bright=Math.pow(depth,1.8);
+      const shimmer=0.5+0.5*Math.sin(clock*1.4+ri*2.1+mid*3);
+      const al=Math.min(0.92, bright*shimmer*0.88+0.04);
+      ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2);
+      ctx.strokeStyle=`rgba(${r},${g},${bl},${al.toFixed(3)})`;
+      ctx.lineWidth=Math.max(0.5,1.2*depth);
+      ctx.stroke();
     }
   }
 
@@ -1899,20 +1954,19 @@ updateCart();
   planetImg.src='assets/mag-hero.png';
 
   function drawPlanet(){
-    /* outer atmosphere aura */
-    const aura=ctx.createRadialGradient(cx,cy,pR*0.86,cx,cy,pR*2.7);
-    aura.addColorStop(0,'rgba(212,168,90,0.22)');
-    aura.addColorStop(0.25,'rgba(139,92,246,0.13)');
-    aura.addColorStop(0.6,'rgba(45,212,191,0.05)');
+    /* outer aura */
+    const aura=ctx.createRadialGradient(cx,cy,pR*0.88,cx,cy,pR*2.8);
+    aura.addColorStop(0,'rgba(212,168,90,0.24)');
+    aura.addColorStop(0.22,'rgba(139,92,246,0.14)');
+    aura.addColorStop(0.55,'rgba(45,212,191,0.05)');
     aura.addColorStop(1,'transparent');
-    ctx.beginPath(); ctx.arc(cx,cy,pR*2.7,0,TAU);
+    ctx.beginPath(); ctx.arc(cx,cy,pR*2.8,0,TAU);
     ctx.fillStyle=aura; ctx.fill();
 
-    /* soft breathing pulse */
-    const pulse=1+0.012*Math.sin(clock*0.9);
+    /* gentle breathing */
+    const pulse=1+0.014*Math.sin(clock*0.85);
     const R=pR*pulse;
 
-    /* logo image clipped to circle */
     if(planetImg.complete && planetImg.naturalWidth){
       ctx.save();
       ctx.beginPath(); ctx.arc(cx,cy,R,0,TAU); ctx.clip();
@@ -1923,44 +1977,50 @@ updateCart();
       ctx.fillStyle='#0a0716'; ctx.fill();
     }
 
-    /* gold rim glow on top */
+    /* gold rim — double ring for premium feel */
     ctx.save();
+    ctx.beginPath(); ctx.arc(cx,cy,R+Math.max(3,pR*.022),0,TAU);
+    ctx.strokeStyle='rgba(212,168,90,0.18)';
+    ctx.lineWidth=Math.max(4,pR*.045);
+    ctx.stroke();
     ctx.beginPath(); ctx.arc(cx,cy,R,0,TAU);
-    ctx.strokeStyle='rgba(212,168,90,0.55)';
-    ctx.lineWidth=Math.max(2,pR*.030);
-    ctx.shadowColor='rgba(212,168,90,0.85)';
-    ctx.shadowBlur=pR*.42;
+    ctx.strokeStyle='rgba(212,168,90,0.75)';
+    ctx.lineWidth=Math.max(1.5,pR*.018);
+    ctx.shadowColor='rgba(212,168,90,0.95)';
+    ctx.shadowBlur=pR*.50;
     ctx.stroke();
     ctx.restore();
   }
 
-  /* ── Orbit item with glow ───────────────────────── */
+  /* ── Orbit item ─────────────────────────────────── */
   function drawItem(it){
     const {a,b}=rAB(it.ring);
-    const bob=Math.sin(clock*0.8+it.bob)*pR*0.018;
     const x=cx+a*Math.cos(it.angle);
-    const y=cy+b*Math.sin(it.angle)+bob;
+    const y=cy+b*Math.sin(it.angle);
     const sinA=Math.sin(it.angle);
     const depth=(sinA+1)/2;
-    const ease=depth*depth*(3-2*depth);            /* smoothstep depth */
-    const sc=0.46+0.70*ease;
-    const al=Math.max(0.22,0.30+0.70*ease);
-    const sz=pR*.50*sc;
+    /* smoothstep: cubic ease for natural perspective scale */
+    const ease=depth*depth*(3-2*depth);
+    /* min size 28%, max size 100% — dramatic size change */
+    const sc=0.28+0.72*ease;
+    const al=Math.max(0.18,0.25+0.75*ease);
+    /* base product diameter: 36% of logo radius */
+    const sz=pR*0.36*sc;
     const img=imgs[it.slug];
     if(!img||!img.complete||!img.naturalWidth) return;
     const [r,g,bl]=RING_RGB[it.ring];
 
-    /* halo glow */
+    /* halo */
     ctx.save();
-    ctx.globalAlpha=al*.55;
-    const halo=ctx.createRadialGradient(x,y,sz*.30,x,y,sz*.92);
-    halo.addColorStop(0,`rgba(${r},${g},${bl},0.55)`);
+    ctx.globalAlpha=al*0.50;
+    const halo=ctx.createRadialGradient(x,y,sz*.28,x,y,sz*.95);
+    halo.addColorStop(0,`rgba(${r},${g},${bl},0.60)`);
     halo.addColorStop(1,'transparent');
-    ctx.beginPath(); ctx.arc(x,y,sz*.92,0,TAU);
+    ctx.beginPath(); ctx.arc(x,y,sz*.95,0,TAU);
     ctx.fillStyle=halo; ctx.fill();
     ctx.restore();
 
-    /* white disc backing so product reads crisp */
+    /* white disc + product image */
     ctx.save();
     ctx.globalAlpha=al;
     ctx.beginPath(); ctx.arc(x,y,sz/2,0,TAU);
@@ -1969,24 +2029,25 @@ updateCart();
     ctx.drawImage(img,x-sz/2,y-sz/2,sz,sz);
     ctx.restore();
 
-    /* coloured border */
+    /* coloured border with glow */
     ctx.save();
     ctx.globalAlpha=al;
     ctx.beginPath(); ctx.arc(x,y,sz/2+1,0,TAU);
-    ctx.strokeStyle=`rgba(${r},${g},${bl},0.95)`;
-    ctx.lineWidth=Math.max(1.2,sz*.06);
-    ctx.shadowColor=`rgba(${r},${g},${bl},0.85)`;
-    ctx.shadowBlur=sz*.40;
+    ctx.strokeStyle=`rgba(${r},${g},${bl},1)`;
+    ctx.lineWidth=Math.max(1,sz*0.055);
+    ctx.shadowColor=`rgba(${r},${g},${bl},0.9)`;
+    ctx.shadowBlur=sz*0.45;
     ctx.stroke();
     ctx.restore();
 
-    /* top-left sheen */
+    /* specular sheen top-left */
     ctx.save();
-    ctx.globalAlpha=al*.5;
-    const sh=ctx.createRadialGradient(x-sz*.2,y-sz*.22,0,x-sz*.2,y-sz*.22,sz*.5);
-    sh.addColorStop(0,'rgba(255,255,255,0.5)');
+    ctx.globalAlpha=al*0.45;
+    const sh=ctx.createRadialGradient(x-sz*.18,y-sz*.20,0,x-sz*.18,y-sz*.20,sz*.45);
+    sh.addColorStop(0,'rgba(255,255,255,0.55)');
     sh.addColorStop(1,'transparent');
-    ctx.beginPath(); ctx.arc(x,y,sz/2,0,TAU); ctx.fillStyle=sh; ctx.fill();
+    ctx.beginPath(); ctx.arc(x,y,sz/2,0,TAU);
+    ctx.fillStyle=sh; ctx.fill();
     ctx.restore();
   }
 
@@ -2006,10 +2067,10 @@ updateCart();
     back.sort( (a,b)=>Math.sin(a.angle)-Math.sin(b.angle));
     front.sort((a,b)=>Math.sin(a.angle)-Math.sin(b.angle));
 
-    for(let i=0;i<3;i++) drawRingHalf(i,Math.PI,Math.PI*2,90); // back rings
+    for(let i=0;i<3;i++) drawRingHalf(i,Math.PI,TAU,120);  // back rings
     back.forEach(it=>drawItem(it));
     drawPlanet();
-    for(let i=0;i<3;i++) drawRingHalf(i,0,Math.PI,90);          // front rings
+    for(let i=0;i<3;i++) drawRingHalf(i,0,Math.PI,120);     // front rings
     front.forEach(it=>drawItem(it));
 
     requestAnimationFrame(frame);
