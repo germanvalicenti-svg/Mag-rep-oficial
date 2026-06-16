@@ -1825,15 +1825,6 @@ updateCart();
   const ctx = canvas.getContext('2d');
   const TAU = Math.PI*2;
 
-  /* ── Stars (reduced for perf) ──────────────────── */
-  const STARS = Array.from({length:120},()=>({
-    xf:Math.random(), yf:Math.random(),
-    r:Math.random()*1.6+0.2,
-    a:Math.random()*0.7+0.15,
-    spd:Math.random()*0.25+0.05,
-    ph:Math.random()*TAU,
-    twinkle:Math.random()>0.65
-  }));
 
   /* ── Orbit items — 3 rings, evenly spaced ───────── */
   const RING_SLUGS=[
@@ -1898,38 +1889,24 @@ updateCart();
     return {a:W*af, b:W*af*0.30};
   }
 
-  /* ── Stars ──────────────────────────────────────── */
-  function drawStars(t){
-    STARS.forEach(s=>{
-      const base=s.twinkle ? s.a*(0.3+0.7*Math.sin(t*s.spd*2.2+s.ph)) : s.a;
-      ctx.beginPath();
-      ctx.arc(s.xf*W,s.yf*H,s.r,0,TAU);
-      ctx.fillStyle=`rgba(255,255,255,${Math.min(1,base).toFixed(2)})`;
-      ctx.fill();
-    });
-  }
-
   /* ── Nebula — blitted from cache, no per-frame gradient ── */
   function drawNebula(){ if(nebulaCache) ctx.drawImage(nebulaCache,0,0); }
 
-  /* ── Ring: single pass, no shadowBlur ─────────── */
-  function drawRingHalf(ri,a0,a1,segs){
+  /* ── Ring: single ellipse path per half ─────────── */
+  function drawRingHalf(ri,a0,a1){
     const {a,b}=rAB(ri);
     const [r,g,bl]=RING_RGB[ri];
-    for(let i=0;i<segs;i++){
-      const t1=a0+(i/segs)*(a1-a0);
-      const t2=a0+((i+1)/segs)*(a1-a0);
-      const mid=(t1+t2)/2;
-      const depth=(Math.sin(mid)+1)/2;
-      const shimmer=0.55+0.45*Math.sin(clock*1.4+ri*2.1+mid*3);
-      const al=Math.min(0.90,(depth*0.75+0.05)*shimmer);
-      ctx.beginPath();
-      ctx.moveTo(cx+a*Math.cos(t1),cy+b*Math.sin(t1));
-      ctx.lineTo(cx+a*Math.cos(t2),cy+b*Math.sin(t2));
-      ctx.strokeStyle=`rgba(${r},${g},${bl},${al.toFixed(2)})`;
-      ctx.lineWidth=Math.max(0.5,2.8*depth);
-      ctx.stroke();
-    }
+    const shimmer=0.55+0.45*Math.sin(clock*1.2+ri*2.1);
+    const isFront=a1<=Math.PI+0.01;
+    const al=(isFront?0.70:0.25)*shimmer;
+    ctx.save();
+    ctx.scale(1, b/a);
+    ctx.beginPath();
+    ctx.arc(cx, cy*a/b, a, a0, a1);
+    ctx.restore();
+    ctx.strokeStyle=`rgba(${r},${g},${bl},${al.toFixed(2)})`;
+    ctx.lineWidth=isFront?2:1;
+    ctx.stroke();
   }
 
   /* ── Planet = real MAG hero logo ────────────────── */
@@ -2018,7 +1995,6 @@ updateCart();
     lastT=ts; clock+=dt;
     ctx.clearRect(0,0,W,H);
 
-    drawStars(clock);
     drawNebula();
 
     items.forEach(it=>{ it.angle+=RING_SPD[it.ring]*dt; });
@@ -2028,10 +2004,10 @@ updateCart();
     back.sort( (a,b)=>Math.sin(a.angle)-Math.sin(b.angle));
     front.sort((a,b)=>Math.sin(a.angle)-Math.sin(b.angle));
 
-    for(let i=0;i<3;i++) drawRingHalf(i,Math.PI,TAU,60);
+    for(let i=0;i<3;i++) drawRingHalf(i,Math.PI,TAU);
     back.forEach(it=>drawItem(it));
     drawPlanet();
-    for(let i=0;i<3;i++) drawRingHalf(i,0,Math.PI,60);
+    for(let i=0;i<3;i++) drawRingHalf(i,0,Math.PI);
     front.forEach(it=>drawItem(it));
 
     requestAnimationFrame(frame);
