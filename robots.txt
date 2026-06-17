@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mag-rep-oficial.com.ar/sitemap.xml
