@@ -237,7 +237,8 @@ Sos un asesor experto en nutrición deportiva y salud. Tu trabajo es ayudar al c
 - Sé concreto y útil. Máximo 5-6 líneas por respuesta. Sin frases genéricas ni paja.
 - Al saludar usá siempre "¡Hola!" o "¡Hola, buen día!" — nunca "Ey", "Qué onda" ni expresiones demasiado informales.
 - NO decís "te comunico con un asesor" para preguntas de productos, precios, usos o ingredientes.
-- Solo escalás a asesor humano si el cliente quiere CERRAR UN PEDIDO (pagar, coordinar envío) o tiene una queja seria.
+- Solo escalás a asesor humano si el cliente quiere CERRAR UN PEDIDO (pagar, coordinar envío), pide hablar con una persona, o tiene una queja seria.
+- Cuando escalás, no des un número de teléfono vos mismo — el sistema lo deriva automáticamente.
 
 ## PRECIOS
 Todos los precios listados son precios WEB (precio al público). Si el cliente consulta por precios mayoristas o de revendedor, avisale que esos precios los maneja el equipo directamente.
@@ -332,6 +333,55 @@ function quiereComprar(texto) {
   );
 }
 
+// ─── DETECTAR SI EL CLIENTE PIDE HABLAR CON UNA PERSONA ──────────────────────
+function quiereAsesorHumano(texto) {
+  return /hablar con alguien|hablar con una persona|hablar con ustedes|asesor|me llaman|me contactan|me escriben|número de whatsapp|whatsapp de ustedes|teléfono|llamarme|llamame|contactarme|contactame|quiero que me llamen/.test(
+    texto.toLowerCase()
+  );
+}
+
+// ─── GENERAR LINK Y NOMBRE DEL ASESOR SEGÚN HORARIO ──────────────────────────
+function obtenerDatosAsesor() {
+  const resp = obtenerResponsable();
+  if (resp === 'german') {
+    return {
+      nombre: 'Germán',
+      numero: process.env.GERMAN_NUMBER,
+      link: `https://wa.me/${process.env.GERMAN_NUMBER}`,
+    };
+  }
+  if (resp === 'guillermo') {
+    return {
+      nombre: 'Guillermo',
+      numero: process.env.GUILLERMO_NUMBER,
+      link: `https://wa.me/${process.env.GUILLERMO_NUMBER}`,
+    };
+  }
+  return null; // fuera de horario
+}
+
+// ─── ENVIAR LINK DE CONTACTO DIRECTO AL CLIENTE ───────────────────────────────
+async function derivarClienteAAsesor(numeroCliente, contexto = '') {
+  const asesor = obtenerDatosAsesor();
+  if (!asesor || !asesor.numero) {
+    await enviarMensaje(numeroCliente,
+      `Por el momento estamos fuera de horario. Nuestro equipo atiende de *lunes a sábado de 6:00 a 22:00 hs*.\n\n` +
+      `Te responderemos a la brevedad. 🙏`
+    );
+    return;
+  }
+
+  let msg = `¡Perfecto! 👋 Te paso el contacto directo de *${asesor.nombre}*, nuestro asesor disponible ahora:\n\n` +
+    `📲 *${asesor.link}*\n\n` +
+    `Escribile por ahí y te atiende enseguida.`;
+
+  if (contexto) {
+    msg += `\n\n_Referencia: ${contexto}_`;
+  }
+
+  await enviarMensaje(numeroCliente, msg);
+}
+
 // ─── WEBHOOK VERIFICACIÓN ─────────────────────────────────────────────────────
 app.get('/webhook', (req, res) => {
   const { 'hub.mode': mode, 'hub.verify_token': token, 'hub.challenge': challenge } = req.query;
@@ -409,7 +459,6 @@ app.post('/webhook', async (req, res) => {
       await enviarMensaje(numero,
         `¡Perfecto, ${nombreCliente}! 🙌\n\n` +
         `Registré tu pedido:\n*${productos}*\n\n` +
-        `En breve te contacta un asesor de MAG para coordinar el *pago y la entrega*.\n\n` +
         `¡Gracias por elegir MAG Suplementos! 💪`
       );
 
@@ -418,6 +467,10 @@ app.post('/webhook', async (req, res) => {
         numero, textoOriginal, '🛒 Pedido registrado',
         `Cliente: ${nombreCliente}\nProductos: ${productos}\nPedido N°${pedido.id}`
       );
+
+      // Derivar al cliente directamente con el asesor
+      await new Promise(r => setTimeout(r, 800));
+      await derivarClienteAAsesor(numero, `Pedido N°${pedido.id} — ${productos}`);
       return;
     }
 
@@ -449,13 +502,21 @@ app.post('/webhook', async (req, res) => {
       );
     }
 
-    // 3) Cliente quiere comprar → pedir nombre y escalcar
+    // 3) Cliente quiere comprar → pedir nombre y escalar
     if (quiereComprar(texto)) {
       await enviarMensaje(numero,
         `¡Genial! 🎉 Para registrar tu pedido, ¿me decís tu *nombre y apellido*?`
       );
       esperandoDatosPedido[numero] = { productos: texto, textoOriginal: texto };
       await notificarAsesor(numero, texto, '🛒 Cliente quiere hacer un pedido');
+      return;
+    }
+
+    // 4) Cliente pide hablar con un asesor humano → derivar directo
+    if (quiereAsesorHumano(texto)) {
+      await notificarAsesor(numero, texto, '👤 Cliente pide contacto directo con asesor');
+      await new Promise(r => setTimeout(r, 600));
+      await derivarClienteAAsesor(numero);
     }
 
   } catch (error) {
